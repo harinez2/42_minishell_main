@@ -1,11 +1,6 @@
 #ifndef MAIN_H
 # define MAIN_H
 
-# include "constants.h"
-# include "structs.h"
-# include "prototypes.h"
-# include "main2.h"
-
 # include <unistd.h>
 # include <stdio.h>
 # include <stddef.h>
@@ -16,5 +11,10 @@
 # include <sys/stat.h>
 # include <sys/wait.h>
 # include <fcntl.h>
+
+# include "constants.h"
+# include "structs.h"
+# include "main2.h"
+# include "prototypes.h"
 
 #endif
