@@ -31,7 +31,7 @@ $(NAME): $(OBJS)
 	$(CC) $(OBJS) $(CFLAGS) $(INCLUDE) -o $(NAME)
 
 .c.o: $(SRCS)
-	$(CC) $(CFLAGS) $(INCLUDE) $< -o $(<:.c=.o)
+	$(CC) $(CFLAGS) $(INCLUDE) -c $< -o $(<:.c=.o)
 
 debug: $(SRCS)
 	$(CC) $(SRCS) $(CFLAGS) $(INCLUDE) $(DBGFLG) -o $(NAME)
