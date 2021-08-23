@@ -15,6 +15,7 @@ SRCS		= \
 				$(SRC_DIR)/lib_lst.c \
 				$(SRC_DIR)/lib_util.c \
 				$(SRC_DIR)/main.c \
+				$(SRC_DIR)/recogin_executer.c \
 				$(SRC_DIR)/recogin_lexer.c \
 				$(SRC_DIR)/recogin_lexer_util.c \
 				$(SRC_DIR)/recogin_parser.c \

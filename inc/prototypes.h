@@ -37,6 +37,8 @@ void	lst_destroy(t_arg *arg);
 void	copy_array(int *to, int *from, int len, int offset_to);
 void	secure_free(void *p);
 void	init_arg(int argc, char **argv, char **envp, t_arg *arg);
+// recogin_executer.c
+int		fork_and_runcmd(t_arg *arg);
 // recogin_lexer.c
 int		get_token(char *read, int *i);
 // recogin_lexer_util.c
