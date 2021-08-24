@@ -26,6 +26,7 @@ static int	recog_input(char *read, t_arg *arg)
 	}
 	if (arg->dbg == 1)
 		lst_print(arg->cmdlst);
+	expander(arg);
 	return (0);
 }
 
