@@ -22,13 +22,17 @@ SRCS		= \
 				$(SRC_DIR)/recogin_runbuiltincmd.c
 OBJS		= $(SRCS:.c=.o)
 CC			= gcc
-CFLAGS		= -Wall -Wextra -Werror -lreadline
+CFLAGS		= -Wall -Wextra -Werror
+CFLAGS_RL	= -lreadline
 DBGFLG		= -g3 -fsanitize=address
 
 all: $(NAME)
 
 $(NAME): $(OBJS)
-	$(CC) $(OBJS) $(CFLAGS) $(INCLUDE) -o $(NAME)
+	$(CC) $(OBJS) $(CFLAGS) $(CFLAGS_RL) $(INCLUDE) -o $(NAME)
+
+main.o: main.c
+	$(CC) $(CFLAGS) $(CFLAGS_RL) $(INCLUDE) -c $< -o $(<:.c=.o)
 
 .c.o: $(SRCS)
 	$(CC) $(CFLAGS) $(INCLUDE) -c $< -o $(<:.c=.o)
