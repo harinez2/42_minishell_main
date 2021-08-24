@@ -31,14 +31,11 @@ all: $(NAME)
 $(NAME): $(OBJS)
 	$(CC) $(OBJS) $(CFLAGS) $(CFLAGS_RL) $(INCLUDE) -o $(NAME)
 
-main.o: main.c
-	$(CC) $(CFLAGS) $(CFLAGS_RL) $(INCLUDE) -c $< -o $(<:.c=.o)
-
 .c.o: $(SRCS)
 	$(CC) $(CFLAGS) $(INCLUDE) -c $< -o $(<:.c=.o)
 
 debug: $(SRCS)
-	$(CC) $(SRCS) $(CFLAGS) $(INCLUDE) $(DBGFLG) -o $(NAME)
+	$(CC) $(SRCS) $(CFLAGS) $(CFLAGS_RL) $(INCLUDE) $(DBGFLG) -o $(NAME)
 
 clean:
 	rm -f $(OBJS)
