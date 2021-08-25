@@ -14,7 +14,15 @@ void	exec_command(t_cmd *cmd, t_arg *arg)
 		cmd->param[0] = ft_strjoin3(arg->path[i], "/", param_zero);
 		ret = access(cmd->param[0], X_OK);
 		if (ret == 0)
+		{
+			if (arg->dbg == 1)
+			{
+				write(2, "Executing:", 10);
+				write(2, cmd->param[0], ft_strlen(cmd->param[0]));
+				write(2, "\n", 1);
+			}
 			ret = execve(cmd->param[0], cmd->param, NULL);
+		}
 		secure_free(cmd->param[0]);
 		i++;
 	}

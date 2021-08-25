@@ -10,6 +10,7 @@
 typedef struct	s_cmd
 {
 	struct s_cmd	*next;
+	struct s_cmd	*prev;
 	char			*param[MAX_ARGNUM];
 	int				param_cnt;
 	int				nxtcmd_relation;
