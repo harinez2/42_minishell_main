@@ -13,9 +13,7 @@ void	builtincmd_export(t_arg *arg, char **envp);
 void	builtincmd_pwd(t_arg *arg);
 // cmd_exec.c
 void	free_param(char **cmd_with_param);
-void	exec_command(char *cmd, t_arg *arg);
-// cmd_pipe.c
-void	pipe_and_runcommand(t_arg *arg, int nestcnt);
+void	exec_command(t_cmd *cmd, t_arg *arg);
 // error.c
 void	print_error(int errcode, char *txt);
 void	error_exit(int errcode, t_arg *arg);
@@ -28,11 +26,10 @@ size_t	ft_strlcat(char *dst, const char *src, size_t dstsize);
 size_t	ft_strlcpy(char *dst, const char *src, size_t dstsize);
 char	*ft_strdup(const char *s1);
 char	*ft_strjoin(char const *s1, char const *s2);
+char	*ft_strjoin3(char const *s1, char const *s2, char const *s3);
 char	*ft_substr(char const *s, unsigned int start, size_t len);
 // lib_lst.c
-void	lst_print(t_cmd *c);
-int		lst_addlast(t_arg *arg, int addpoint, char *cmdtxt, int len);
-void	lst_destroy(t_arg *arg);
+t_cmd	*lst_get_last_cmdnode(t_cmd *cmd);
 // lib_util.c
 void	copy_array(int *to, int *from, int len, int offset_to);
 void	secure_free(void *p);
@@ -52,5 +49,11 @@ void	print_token_type(int type);
 void	add_tree(t_arg *arg, int type, char *cmdtxt, int len);
 // recogin_runbuiltincmd.c
 int		run_builtincmd(char *read, t_arg *arg);
+// struct_init_destroy.c
+void	struct_print(t_cmd *c);
+int		struct_addlast(t_arg *arg, int addpoint, char *cmdtxt, int len);
+void	struct_destroy(t_arg *arg);
+// struct_print.c
+void	struct_print(t_cmd *c);
 
 #endif
