@@ -2,7 +2,10 @@
 
 static void	add_pipeflg(t_arg *arg)
 {
-	(void)arg;
+	t_cmd	*c;
+
+	c = lst_get_last_cmdnode(arg->cmdlst);
+	c->nxtcmd_relation = CONN_PIPE;
 }
 
 void	add_tree(t_arg *arg, int type, char *cmdtxt, int len)

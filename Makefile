@@ -8,7 +8,6 @@ SRCS		= \
 				$(SRC_DIR)/builtin_export.c \
 				$(SRC_DIR)/builtin_pwd.c \
 				$(SRC_DIR)/cmd_exec.c \
-				$(SRC_DIR)/cmd_pipe.c \
 				$(SRC_DIR)/error.c \
 				$(SRC_DIR)/lib_ft.c \
 				$(SRC_DIR)/lib_ft2.c \

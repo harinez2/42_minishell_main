@@ -22,7 +22,7 @@ int	executer(t_arg *arg)
 			if (pid == -1)
 				error_exit(ERR_FAILED_TO_FORK, arg);
 			else if (pid == 0)
-				exec_command(c->param[0], arg);
+				exec_command(c, arg);
 			waitpid(pid, &status, 0);
 			// secure_free(arg->path[0]);
 			// if (WIFEXITED(status) && WEXITSTATUS(status) == 0)
