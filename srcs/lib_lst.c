@@ -31,14 +31,12 @@ void	lst_print(t_cmd *c)
 	while (c != NULL)
 	{
 		printf("[%d]\n", i);
-		printf("  cmd      : %s\n", c->cmd);
-		if (c->param_cnt == 0)
-			printf("    param  : <NULL>\n");
-		else
+		printf("  param[0] : %s\n", c->param[0]);
+		j = 1;
+		while (j <= c->param_cnt)
 		{
-			j = 0;
-			while (j < c->param_cnt)
-				printf("    param  : %s\n", c->param[j++]);
+			printf("  param[%d] : ", i);
+			lst_print_char("", c->param[j++]);
 		}
 		lst_print_int("  nxtrel   : ", c->nxtcmd_relation);
 		lst_print_int("  pipe[0]  : ", c->pipe[0]);
@@ -59,17 +57,17 @@ t_cmd	*create_cmdnode(t_arg *arg, char *cmdtxt, int len)
 	c = malloc(sizeof(t_cmd));
 	if (!c)
 		error_exit(ERR_FAILED_TO_MALLOC, arg);
-	c->cmd = malloc(sizeof(char) * (len + 1));
-	if (!c->cmd)
+	c->param[0] = malloc(sizeof(char) * (len + 1));
+	if (!c->param[0])
 		error_exit(ERR_FAILED_TO_MALLOC, arg);
 	i = 0;
 	while (i < len)
 	{
-		(c->cmd)[i] = cmdtxt[i];
+		c->param[0][i] = cmdtxt[i];
 		i++;
 	}
-	(c->cmd)[i] = '\0';
-	c->param[0] = NULL;
+	c->param[0][i] = '\0';
+	c->param[1] = NULL;
 	c->param_cnt = 0;
 	c->nxtcmd_relation = 0;
 	c->redir_in = NULL;
@@ -132,13 +130,12 @@ void	lst_destroy(t_arg *arg)
 		c = arg->cmdlst;
 		arg->cmdlst = arg->cmdlst->next;
 		i = 0;
-		while (i < c->param_cnt)
+		while (i < c->param_cnt + 1)
 			secure_free(c->param[i++]);
 		if (c->redir_in != NULL)
 			secure_free(c->redir_in);
 		if (c->redir_out != NULL)
 			secure_free(c->redir_out);
-		secure_free(c->cmd);
 		secure_free(c);
 	}
 }

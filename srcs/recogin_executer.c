@@ -9,12 +9,12 @@ int	executer(t_arg *arg)
 	c = arg->cmdlst;
 	while (c != NULL)
 	{
-		if (ft_strncmp("exit", c->cmd, 5) == 0)
+		if (ft_strncmp("exit", c->param[0], 5) == 0)
 		{
 			//require memory free
 			exit (0);
 		}
-		else if (run_builtincmd(c->cmd, arg))
+		else if (run_builtincmd(c->param[0], arg))
 			;
 		else
 		{
@@ -22,7 +22,7 @@ int	executer(t_arg *arg)
 			if (pid == -1)
 				error_exit(ERR_FAILED_TO_FORK, arg);
 			else if (pid == 0)
-				exec_command(c->cmd, arg);
+				exec_command(c->param[0], arg);
 			waitpid(pid, &status, 0);
 			// secure_free(arg->path[0]);
 			// if (WIFEXITED(status) && WEXITSTATUS(status) == 0)
