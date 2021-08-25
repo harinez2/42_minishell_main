@@ -1,6 +1,6 @@
 #include "main.h"
 
-int	fork_and_runcmd(t_arg *arg)
+int	executer(t_arg *arg)
 {
 	pid_t	pid;
 	t_cmd	*c;

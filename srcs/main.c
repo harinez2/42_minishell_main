@@ -45,7 +45,7 @@ int	main(int argc, char **argv, char **envp)
 		ret = recog_input(read, &arg);
 		if (ret == -1)
 			break ;
-		fork_and_runcmd(&arg);
+		executer(&arg);
 		lst_destroy(&arg);
 		secure_free(read);
 	}
