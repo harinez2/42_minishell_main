@@ -31,4 +31,7 @@
 # define	TKN_DBLANDOR			19
 # define	TKN_CHAR				20
 
+# define	CONN_PIPE				31
+# define	CONN_REDIR_OUT			32
+
 #endif

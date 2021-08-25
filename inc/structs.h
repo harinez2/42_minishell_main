@@ -14,8 +14,9 @@ typedef struct	s_cmd
 	char			*param[MAX_ARGNUM];
 	int				param_cnt;
 	int				nxtcmd_relation;
-	char			**redir_in;
-	char			**redir_out;
+	int				pipe[2];
+	char			*redir_in;
+	char			*redir_out;
 }	t_cmd;
 
 typedef struct s_arg
