@@ -25,7 +25,7 @@ static int	recog_input(char *read, t_arg *arg)
 		add_tree(arg, token_type, &read[starti], i - starti);
 	}
 	if (arg->dbg == 1)
-		lst_print(arg->cmdlst);
+		struct_print(arg->cmdlst);
 	expander(arg);
 	return (0);
 }
@@ -46,7 +46,7 @@ int	main(int argc, char **argv, char **envp)
 		if (ret == -1)
 			break ;
 		executer(&arg);
-		lst_destroy(&arg);
+		struct_destroy(&arg);
 		secure_free(read);
 	}
 	secure_free(read);

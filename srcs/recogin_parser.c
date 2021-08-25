@@ -1,9 +1,14 @@
 #include "main.h"
 
+static void	add_pipeflg(t_arg *arg)
+{
+	(void)arg;
+}
+
 void	add_tree(t_arg *arg, int type, char *cmdtxt, int len)
 {
 	if (type == TKN_DBLQUOTE)
-		lst_addlast(arg, PNT_PARAM, cmdtxt, len);
+		struct_addlast(arg, PNT_PARAM, cmdtxt, len);
 	else if (type == TKN_SGLQUOTE)
 		;
 	else if (type == TKN_COLON)
@@ -11,7 +16,7 @@ void	add_tree(t_arg *arg, int type, char *cmdtxt, int len)
 	else if (type == TKN_AMP)
 		;
 	else if (type == TKN_SINGLE_OR)
-		;
+		add_pipeflg(arg);
 	else if (type == TKN_REDIR_LEFT)
 		;
 	else if (type == TKN_REDIR_RIGHT)
@@ -22,6 +27,6 @@ void	add_tree(t_arg *arg, int type, char *cmdtxt, int len)
 		;
 	else if (type == TKN_CHAR)
 	{
-		lst_addlast(arg, PNT_CMD, cmdtxt, len);
+		struct_addlast(arg, PNT_CMD, cmdtxt, len);
 	}
 }
