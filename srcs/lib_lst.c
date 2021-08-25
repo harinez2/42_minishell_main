@@ -1,5 +1,25 @@
 #include "main.h"
 
+static void	lst_print_int(char *basetxt, int i)
+{
+	printf("%s", basetxt);
+	if (i == CONN_PIPE)
+		printf("CONN_PIPE\n");
+	else if (i == CONN_REDIR_OUT)
+		printf("CONN_REDIR_OUT\n");
+	else
+		printf("%d\n", i);
+}
+
+static void	lst_print_char(char *basetxt, char *param)
+{
+	printf("%s", basetxt);
+	if (param == NULL)
+		printf("<NULL>\n");
+	else
+		printf("%s\n", param);
+}
+
 void	lst_print(t_cmd *c)
 {
 	int			i;
@@ -20,15 +40,11 @@ void	lst_print(t_cmd *c)
 			while (j < c->param_cnt)
 				printf("    param  : %s\n", c->param[j++]);
 		}
-		printf("  nxtrel   : %d\n", c->nxtcmd_relation);
-		if (c->redir_in == NULL)
-			printf("  redir_in : <NULL>\n");
-		else
-			printf("  redir_in : %s\n", *(c->redir_in));
-		if (c->redir_out == NULL)
-			printf("  redir_out: <NULL>\n");
-		else
-			printf("  redir_out: %s\n", *(c->redir_out));
+		lst_print_int("  nxtrel   : ", c->nxtcmd_relation);
+		lst_print_int("  pipe[0]  : ", c->pipe[0]);
+		lst_print_int("  pipe[1]  : ", c->pipe[1]);
+		lst_print_char("  redir_in : ", c->redir_in);
+		lst_print_char("  redir_out: ", c->redir_out);
 		c = c->next;
 		i++;
 	}
