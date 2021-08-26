@@ -49,9 +49,12 @@ void	print_token_type(int type);
 void	add_tree(t_arg *arg, int type, char *cmdtxt, int len);
 // recogin_runbuiltincmd.c
 int		run_builtincmd(char *read, t_arg *arg);
+// struct_add.c
+int		struct_add_pipeflg(t_arg *arg);
+int		struct_add_param(t_arg *arg, char *cmdtxt, int len);
 // struct_init_destroy.c
 void	struct_print(t_cmd *c);
-int		struct_addlast(t_arg *arg, int addpoint, char *cmdtxt, int len);
+int		struct_add_node(t_arg *arg, char *cmdtxt, int len);
 void	struct_destroy(t_arg *arg);
 // struct_print.c
 void	struct_print(t_cmd *c);

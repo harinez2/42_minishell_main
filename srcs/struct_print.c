@@ -24,7 +24,6 @@ void	struct_print(t_cmd *c)
 {
 	int			i;
 	int			j;
-	// t_param		*ptmp;
 
 	printf("---lst_print_start---\n");
 	i = 0;

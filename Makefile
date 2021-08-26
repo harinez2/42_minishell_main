@@ -20,6 +20,7 @@ SRCS		= \
 				$(SRC_DIR)/recogin_lexer_util.c \
 				$(SRC_DIR)/recogin_parser.c \
 				$(SRC_DIR)/recogin_runbuiltincmd.c \
+				$(SRC_DIR)/struct_add.c \
 				$(SRC_DIR)/struct_init_destroy.c \
 				$(SRC_DIR)/struct_print.c
 OBJS		= $(SRCS:.c=.o)

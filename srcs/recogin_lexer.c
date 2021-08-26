@@ -1,6 +1,6 @@
 #include "main.h"
 
-int	get_token(char *read, int *i)
+static int	identify_quotes(char *read, int *i)
 {
 	int		ret;
 
@@ -16,6 +16,36 @@ int	get_token(char *read, int *i)
 			;
 		ret = TKN_SGLQUOTE;
 	}
+	return (ret);
+}
+
+static int	identify_doublectrls(char *read, int *i)
+{
+	int		ret;
+
+	if (ft_strncmp(&read[*i], ">>", 2) == 0)
+		ret = TKN_HEREDOC;
+	else
+		ret = TKN_DBLANDOR;
+	(*i)++;
+	return (ret);
+}
+
+static int	identify_chars(char *read, int *i)
+{
+	while (!is_whitespace(read[*i]) && read[*i] != '\0'
+		&& !is_delim_or_redir(read[*i]))
+		(*i)++;
+	(*i)--;
+	return (TKN_CHAR);
+}
+
+int	get_token(char *read, int *i)
+{
+	int		ret;
+
+	if (read[*i] == '"' || read[*i] == '\'')
+		ret = identify_quotes(read, i);
 	else if (read[*i] == ';')
 		ret = TKN_COLON;
 	else if (read[*i] == '&' && read[*i + 1] != '&')
@@ -26,23 +56,12 @@ int	get_token(char *read, int *i)
 		ret = TKN_REDIR_LEFT;
 	else if (read[*i] == '>' && read[*i + 1] != '>')
 		ret = TKN_REDIR_RIGHT;
-	else if (read[*i] == '>' && read[*i + 1] == '>')
-	{
-		(*i)++;
-		ret = TKN_HEREDOC;
-	}
-	else if (ft_strncmp(&read[*i], "||", 2) == 0
+	else if (ft_strncmp(&read[*i], ">>", 2) == 0
+		|| ft_strncmp(&read[*i], "||", 2) == 0
 		|| ft_strncmp(&read[*i], "&&", 2) == 0)
-	{
-		(*i)++;
-		ret = TKN_DBLANDOR;
-	}
+		ret = identify_doublectrls(read, i);
 	else
-	{
-		while (!is_whitespace(read[*i]) && read[*i] != '\0' && !is_delim_or_redir(read[*i]))
-			(*i)++;
-		return (TKN_CHAR);
-	}
+		ret = identify_chars(read, i);
 	(*i)++;
 	return (ret);
 }

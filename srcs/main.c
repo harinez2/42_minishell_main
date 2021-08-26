@@ -1,11 +1,21 @@
 #include "main.h"
 
+static void	dbgprint_tokeninfo(int token_type, char *read, int starti, int i)
+{
+	char	*s;
+
+	print_token_type(token_type);
+	s = ft_substr(read, starti, i - starti);
+	printf(" %2d-%2d : %s\n", starti, i, s);
+	secure_free(s);
+}
+
 static int	recog_input(char *read, t_arg *arg)
 {
 	int		i;
 	int		token_type;
 	int		starti;
-	
+
 	i = 0;
 	token_type = 1;
 	while (token_type)
@@ -16,12 +26,7 @@ static int	recog_input(char *read, t_arg *arg)
 		starti = i;
 		token_type = get_token(read, &i);
 		if (arg->dbg)
-		{
-			print_token_type(token_type);
-			char *s = ft_substr(read, starti, i - starti);
-			printf(" %2d-%2d : %s\n", starti, i, s);
-			secure_free(s);
-		}
+			dbgprint_tokeninfo(token_type, read, starti, i);
 		add_tree(arg, token_type, &read[starti], i - starti);
 	}
 	if (arg->dbg == 1)

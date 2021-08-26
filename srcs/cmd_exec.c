@@ -1,5 +1,12 @@
 #include "main.h"
 
+static void	dbgprint_cmdpath(char *s)
+{
+	write(2, "Executing:", 10);
+	write(2, s, ft_strlen(s));
+	write(2, "\n", 1);
+}
+
 void	exec_command(t_cmd *cmd, t_arg *arg)
 {
 	int		ret;
@@ -16,11 +23,7 @@ void	exec_command(t_cmd *cmd, t_arg *arg)
 		if (ret == 0)
 		{
 			if (arg->dbg == 1)
-			{
-				write(2, "Executing:", 10);
-				write(2, cmd->param[0], ft_strlen(cmd->param[0]));
-				write(2, "\n", 1);
-			}
+				dbgprint_cmdpath(cmd->param[0]);
 			ret = execve(cmd->param[0], cmd->param, NULL);
 		}
 		secure_free(cmd->param[0]);
