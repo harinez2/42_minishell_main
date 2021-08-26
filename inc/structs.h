@@ -1,13 +1,7 @@
 #ifndef STRUCTS_H
 # define STRUCTS_H
 
-// typedef struct	s_param
-// {
-// 	char			*p;
-// 	struct s_param	*next;
-// }	t_param;
-
-typedef struct	s_cmd
+typedef struct s_cmd
 {
 	struct s_cmd	*next;
 	struct s_cmd	*prev;

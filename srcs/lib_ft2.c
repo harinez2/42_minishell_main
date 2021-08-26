@@ -48,7 +48,8 @@ char	*ft_strjoin(char const *s1, char const *s2)
 
 	s1len = ft_strlen(s1);
 	s2len = ft_strlen(s2);
-	if (!(t = malloc(sizeof(char) * (s1len + s2len + 1))))
+	t = malloc(sizeof(char) * (s1len + s2len + 1));
+	if (!t)
 		return (NULL);
 	i = 0;
 	while (i < s1len)
@@ -76,25 +77,12 @@ char	*ft_strjoin3(char const *s1, char const *s2, char const *s3)
 	s1len = ft_strlen(s1);
 	s2len = ft_strlen(s2);
 	s3len = ft_strlen(s3);
-	if (!(t = malloc(sizeof(char) * (s1len + s2len + s3len + 1))))
+	t = malloc(sizeof(char) * (s1len + s2len + s3len + 1));
+	if (!t)
 		return (NULL);
-	i = 0;
-	while (i < s1len)
-	{
-		t[i] = s1[i];
-		i++;
-	}
-	while (i < (s1len + s2len))
-	{
-		t[i] = s2[i - s1len];
-		i++;
-	}
-	while (i < (s1len + s2len + s3len))
-	{
-		t[i] = s3[i - s1len - s2len];
-		i++;
-	}
-	t[i] = '\0';
+	i = ft_strlcpy(t, s1, s1len + 1);
+	i += ft_strlcpy(t + i, s2, s2len + 1);
+	i += ft_strlcpy(t + i, s3, s3len + 1);
 	return (t);
 }
 
@@ -114,7 +102,8 @@ char	*ft_substr(char const *s, unsigned int start, size_t len)
 	}
 	else
 		dstlen = 0;
-	if (!(t = malloc(sizeof(char) * (dstlen + 1))))
+	t = malloc(sizeof(char) * (dstlen + 1));
+	if (!t)
 		return (NULL);
 	i = 0;
 	while (i < dstlen)
