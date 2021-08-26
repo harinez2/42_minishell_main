@@ -4,8 +4,7 @@ static void	connect_pipe(int unused, int old, int new, t_arg *arg)
 {
 	int		ret;
 
-	if (unused != -1)
-		close(unused);
+	close(unused);
 	ret = dup2(old, new);
 	if (ret == -1)
 		error_exit(ERR_PIPE, arg);
@@ -66,15 +65,21 @@ int	executer(t_arg *arg)
 				if (c->nxtcmd_relation == CONN_PIPE)
 					connect_pipe(c->pipe[PP_READ], c->pipe[PP_WRITE], 1, arg);
 				if (c->prev != NULL && c->prev->nxtcmd_relation == CONN_PIPE)
-					connect_pipe(c->prev->pipe[PP_WRITE], c->prev->pipe[PP_READ], 0, arg);
+					connect_pipe(c->prev->pipe[PP_WRITE],
+						c->prev->pipe[PP_READ], 0, arg);
 				exec_command(c, arg);
 			}
 			waitpid(pid, &status, 0);
+			if (c->nxtcmd_relation == CONN_PIPE)
+				close(c->pipe[PP_WRITE]);
+			if (c->prev != NULL && c->prev->nxtcmd_relation == CONN_PIPE)
+				close(c->prev->pipe[PP_READ]);
 			if (arg->dbg == 1)
 			{
-				printf("  Is exited normally: %x\n", WIFEXITED(status));
+				printf("\\--Exited (Is exited: %x", WIFEXITED(status));
 				if (WIFEXITED(status))
-					printf("  Exit status: %d\n", WEXITSTATUS(status));
+					printf(", Exit status: %d", WEXITSTATUS(status));
+				printf(")\n");
 			}
 		}
 		c = c->next;

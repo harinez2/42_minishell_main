@@ -2,7 +2,7 @@
 
 static void	dbgprint_cmdpath(char *s)
 {
-	write(2, "Executing:", 10);
+	write(2, "/--Executing:", 13);
 	write(2, s, ft_strlen(s));
 	write(2, "\n", 1);
 }
