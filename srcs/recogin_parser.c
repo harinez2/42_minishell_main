@@ -22,6 +22,11 @@ void	add_tree(t_arg *arg, int type, char *cmdtxt, int len)
 		;
 	else if (type == TKN_CHAR)
 	{
-		struct_add_node(arg, cmdtxt, len);
+		if (lst_get_last_cmdnode(arg->cmdlst) != NULL &&
+			(lst_get_last_cmdnode(arg->cmdlst))->prev_type == TKN_CHAR)
+			struct_add_param(arg, cmdtxt, len);
+		else
+			struct_add_node(arg, cmdtxt, len);
 	}
+	(lst_get_last_cmdnode(arg->cmdlst))->prev_type = type;
 }

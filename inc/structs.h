@@ -11,6 +11,7 @@ typedef struct s_cmd
 	int				pipe[2];
 	char			*redir_in;
 	char			*redir_out;
+	int				prev_type;//will be deleted
 }	t_cmd;
 
 typedef struct s_arg
