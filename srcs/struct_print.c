@@ -34,7 +34,7 @@ void	struct_print(t_cmd *c)
 		j = 1;
 		while (j <= c->param_cnt)
 		{
-			printf("  param[%d] : ", i);
+			printf("  param[%d] : ", j);
 			struct_print_char("", c->param[j++]);
 		}
 		struct_print_int("  nxtrel   : ", c->nxtcmd_relation);

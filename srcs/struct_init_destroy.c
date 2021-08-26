@@ -19,7 +19,7 @@ static t_cmd	*create_cmdnode(t_arg *arg, char *cmdtxt, int len)
 	}
 	c->param[0][i] = '\0';
 	c->param[1] = NULL;
-	c->param_cnt = 0;
+	c->param_cnt = 1;
 	c->nxtcmd_relation = 0;
 	c->redir_in = NULL;
 	c->redir_out = NULL;
@@ -55,7 +55,7 @@ void	struct_destroy(t_arg *arg)
 		c = arg->cmdlst;
 		arg->cmdlst = arg->cmdlst->next;
 		i = 0;
-		while (i < c->param_cnt + 1)
+		while (i < c->param_cnt)
 			secure_free(c->param[i++]);
 		secure_free(c->redir_in);
 		secure_free(c->redir_out);
