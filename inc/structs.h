@@ -1,6 +1,13 @@
 #ifndef STRUCTS_H
 # define STRUCTS_H
 
+typedef struct s_env
+{
+	struct s_env	*next;
+	char			*env;
+	char			*value;
+}	t_env;
+
 typedef struct s_cmd
 {
 	struct s_cmd	*next;
@@ -22,6 +29,7 @@ typedef struct s_arg
 	char	*path[MAX_PATH];
 	int		path_cnt;
 	t_cmd	*cmdlst;
+	t_env	*envlst;
 	int		dbg;
 }	t_arg;
 
