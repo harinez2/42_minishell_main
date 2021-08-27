@@ -20,18 +20,8 @@
 # define	ERR_FAILED_TO_MALLOC	-7
 # define	ERR_CD_INVALIDPATH		-8
 
-# define	TKN_DBLQUOTE			11
-# define	TKN_SGLQUOTE			12
-# define	TKN_COLON				13
-# define	TKN_AMP					14
-# define	TKN_SINGLE_OR			15
-# define	TKN_REDIR_LEFT			16
-# define	TKN_REDIR_RIGHT			17
-# define	TKN_HEREDOC				18
-# define	TKN_DBLANDOR			19
-# define	TKN_CHAR				20
-
 # define	CONN_PIPE				31
 # define	CONN_REDIR_OUT			32
+# define	CONN_AMP				33
 
 #endif

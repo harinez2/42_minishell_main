@@ -4,7 +4,6 @@ static int	identify_quotes(char *read, int *i)
 {
 	int		ret;
 
-	ret = 0;
 	if (read[*i] == '"')
 	{
 		while (read[++(*i)] != '"')
@@ -41,14 +40,14 @@ static int	identify_chars(char *read, int *i)
 	return (TKN_CHAR);
 }
 
-int	get_token(char *read, int *i)
+t_token_type	get_token(char *read, int *i)
 {
-	int		ret;
+	t_token_type	ret;
 
 	if (read[*i] == '"' || read[*i] == '\'')
 		ret = identify_quotes(read, i);
 	else if (read[*i] == ';')
-		ret = TKN_COLON;
+		ret = TKN_SEMICOLON;
 	else if (read[*i] == '&' && read[*i + 1] != '&')
 		ret = TKN_AMP;
 	else if (read[*i] == '|' && read[*i + 1] != '|')

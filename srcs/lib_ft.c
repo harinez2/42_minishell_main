@@ -12,9 +12,15 @@ size_t	ft_strlen(const char *str)
 	return (i);
 }
 
-void	ft_putchars(char *s)
+void	ft_putstr(char *s, int len)
 {
-	write(1, s, ft_strlen(s));
+	int		i;
+
+	if (!*s || len == 0)
+		return ;
+	i = 0;
+	while (i < len)
+		printf("%c", s[i++]);
 }
 
 int	ft_strncmp(char *s1, char *s2, unsigned int n)

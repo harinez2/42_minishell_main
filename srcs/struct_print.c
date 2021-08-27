@@ -25,7 +25,7 @@ void	struct_print(t_cmd *c)
 	int			i;
 	int			j;
 
-	printf("---lst_print_start---\n");
+	printf("<<< command chain >>>\n");
 	i = 0;
 	while (c != NULL)
 	{
@@ -45,5 +45,5 @@ void	struct_print(t_cmd *c)
 		c = c->next;
 		i++;
 	}
-	printf("---lst_print_end---\n");
+	printf("\n");
 }
