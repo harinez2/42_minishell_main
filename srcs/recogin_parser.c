@@ -109,7 +109,7 @@ int	bnf_command_elements(t_arg *arg, int token_info[][2], int *i, char *read)
 int	bnf_simple_command(t_arg *arg, int token_info[][2], int *i, char *read)
 {
 	if (arg->dbg)
-		printf("%2d <bnf_simple_command>\n", *i);
+		printf("%2d <simple_command>\n", *i);
 	if (token_info[*i][0] == TKN_CHAR)
 	{
 		if (arg->dbg)

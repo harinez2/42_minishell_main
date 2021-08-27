@@ -45,7 +45,7 @@ void			skip_whitespace(char *read, int *i);
 void			print_token_type(t_token_type type);
 void			print_token_info(int token_info[][2], char *read);
 // recogin_lexer.c
-t_token_type	get_token(char *read, int *i);
+int				lexer(t_arg *arg, char *read, int token_info[][2]);
 // recogin_parser.c
 int				parser(int token_info[][2], char *read, t_arg *arg);
 void			add_tree(t_arg *arg, int type, char *cmdtxt, int len);
