@@ -40,9 +40,9 @@ static int	identify_chars(char *read, int *i)
 	return (TKN_CHAR);
 }
 
-int	get_token(char *read, int *i)
+t_token_type	get_token(char *read, int *i)
 {
-	int		ret;
+	t_token_type	ret;
 
 	if (read[*i] == '"' || read[*i] == '\'')
 		ret = identify_quotes(read, i);

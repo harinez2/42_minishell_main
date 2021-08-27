@@ -25,7 +25,6 @@ static t_cmd	*create_cmdnode(t_arg *arg, char *cmdtxt, int len)
 	c->redir_out = NULL;
 	c->next = NULL;
 	c->prev = NULL;
-	c->prev_type = 0;//will be deleted
 	return (c);
 }
 
