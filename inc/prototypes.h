@@ -19,7 +19,7 @@ void	print_error(int errcode, char *txt);
 void	error_exit(int errcode, t_arg *arg);
 // lib_ft.c
 size_t	ft_strlen(const char *str);
-void	ft_putchars(char *s);
+void	ft_putstr(char *s, int len);
 int		ft_strncmp(char *s1, char *s2, unsigned int n);
 size_t	ft_strlcat(char *dst, const char *src, size_t dstsize);
 // lib_ft2.c
@@ -46,11 +46,13 @@ int		is_delim_or_redir(char c);
 void	skip_whitespace(char *read, int *i);
 void	print_token_type(int type);
 // recogin_parser.c
+int		parser(int token_info[][2], char *read, t_arg *arg);
 void	add_tree(t_arg *arg, int type, char *cmdtxt, int len);
 // recogin_runbuiltincmd.c
 int		run_builtincmd(char *read, t_arg *arg);
 // struct_add.c
-int		struct_add_pipeflg(t_arg *arg);
+int		struct_add_redir_filename(t_arg *arg, int inout, char *read, int len);
+int		struct_add_setflg(t_arg *arg, int flg);
 int		struct_add_param(t_arg *arg, char *cmdtxt, int len);
 // struct_init_destroy.c
 void	struct_print(t_cmd *c);

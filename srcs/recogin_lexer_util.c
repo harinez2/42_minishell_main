@@ -29,7 +29,7 @@ void	print_token_type(int type)
 		printf("<dbl quote>");
 	else if (type == TKN_SGLQUOTE)
 		printf("<sgl quote>");
-	else if (type == TKN_COLON)
+	else if (type == TKN_SEMICOLON)
 		printf("<colon    >");
 	else if (type == TKN_AMP)
 		printf("<amp      >");
@@ -45,4 +45,6 @@ void	print_token_type(int type)
 		printf("<dbl andor>");
 	else if (type == TKN_CHAR)
 		printf("<char     >");
+	else if (type == TKN_EOF)
+		printf("<EOF      >");
 }

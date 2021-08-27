@@ -1,32 +1,232 @@
 #include "main.h"
 
-void	add_tree(t_arg *arg, int type, char *cmdtxt, int len)
+// <redirection> ::=
+// 	"<" string
+// 	|	">" string
+// 	|	"<<" string
+// 	|	">>" string
+int	bnf_redirection(t_arg *arg, int token_info[][2], int *i, char *read)
 {
-	if (type == TKN_DBLQUOTE)
-		struct_add_param(arg, cmdtxt, len);
-	else if (type == TKN_SGLQUOTE)
-		;
-	else if (type == TKN_COLON)
-		;
-	else if (type == TKN_AMP)
-		;
-	else if (type == TKN_SINGLE_OR)
-		struct_add_pipeflg(arg);
-	else if (type == TKN_REDIR_LEFT)
-		;
-	else if (type == TKN_REDIR_RIGHT)
-		;
-	else if (type == TKN_HEREDOC)
-		;
-	else if (type == TKN_DBLANDOR)
-		;
-	else if (type == TKN_CHAR)
+	printf("%2d <redirection>\n", *i);
+	if (token_info[*i][0] == TKN_REDIR_LEFT
+		|| token_info[*i][0] == TKN_REDIR_RIGHT
+		|| token_info[*i][0] == TKN_HEREDOC)
 	{
-		if (lst_get_last_cmdnode(arg->cmdlst) != NULL &&
-			(lst_get_last_cmdnode(arg->cmdlst))->prev_type == TKN_CHAR)
-			struct_add_param(arg, cmdtxt, len);
+		printf("   =< > << >>=\n");
+		(*i)++;
+		if (token_info[*i][0] == TKN_CHAR)
+		{
+			printf("   =char: redir filename=\n");
+			if (token_info[*i - 1][0] == TKN_REDIR_LEFT)
+				struct_add_redir_filename(arg, 0, read + token_info[*i][1],
+					token_info[*i + 1][1] - token_info[*i][1]);
+			else if (token_info[*i - 1][0] == TKN_REDIR_RIGHT)
+				struct_add_redir_filename(arg, 1, read + token_info[*i][1],
+					token_info[*i + 1][1] - token_info[*i][1]);
+			else
+			{
+				// TODO: heredoc impl
+			}
+			(*i)++;
+		}
 		else
-			struct_add_node(arg, cmdtxt, len);
+			return (-1);
 	}
-	(lst_get_last_cmdnode(arg->cmdlst))->prev_type = type;
+	else
+		return (-1);
+	return (0);
 }
+
+// <separation_op> ::=
+// 	'&'
+// 	|	';'
+int	bnf_separation_op(t_arg *arg, int token_info[][2], int *i, char *read)
+{
+	(void)arg;
+	(void)read;
+	printf("%2d <separation_op>\n", *i);
+	if (token_info[*i][0] == TKN_AMP)
+	{
+		printf("   =&=\n");
+		struct_add_setflg(arg, CONN_AMP);
+		(*i)++;
+	}
+	else if (token_info[*i][0] == TKN_SEMICOLON)
+	{
+		printf("   =;=\n");
+		(*i)++;
+	}
+	else
+		return (-1);
+	return (0);
+}
+
+// <param_redir> ::=
+// 	string
+// 	|	<redirection>
+int	bnf_param_redir(t_arg *arg, int token_info[][2], int *i, char *read)
+{
+	printf("%2d <param_redir>\n", *i);
+	if (token_info[*i][0] == TKN_CHAR)
+	{
+		printf("   =char: param=\n");
+		struct_add_param(arg, read + token_info[*i][1],
+			token_info[*i + 1][1] - token_info[*i][1]);
+		(*i)++;
+	}
+	else if (bnf_redirection(arg, token_info, i, read) == 0)
+		;
+	else
+		return (-1);
+	return (0);
+}
+
+// <command_elements> ::=
+// 	<param_redir> 
+// 	|	<param_redir>  <command_elements>
+int	bnf_command_elements(t_arg *arg, int token_info[][2], int *i, char *read)
+{
+	printf("%2d <command_elements>\n", *i);
+	if (bnf_param_redir(arg, token_info, i, read) == 0)
+	{
+		bnf_command_elements(arg, token_info, i, read);
+	}
+	else
+		return (-1);
+	return (0);
+}
+
+// <simple_command> ::=
+// 	string
+int	bnf_simple_command(t_arg *arg, int token_info[][2], int *i, char *read)
+{
+	printf("%2d <bnf_simple_command>\n", *i);
+	if (token_info[*i][0] == TKN_CHAR)
+	{
+		printf("   =char: cmd=\n");
+		struct_add_node(arg, read + token_info[*i][1],
+			token_info[*i + 1][1] - token_info[*i][1]);
+		(*i)++;
+	}
+	else
+		return (-1);
+	return (0);
+}
+
+// <compoud_command> ::=
+// 	<redirection> <simple_command>
+// 	|	<redirection> <simple_command> <command_elements>
+// 	|	<simple_command>
+// 	|	<simple_command> <command_elements>
+int	bnf_compoud_command(t_arg *arg, int token_info[][2], int *i, char *read)
+{
+	printf("%2d <compoud_command>\n", *i);
+	if (bnf_redirection(arg, token_info, i, read) == 0)
+	{
+		if (bnf_simple_command(arg, token_info, i, read) == 0)
+		{
+			bnf_command_elements(arg, token_info, i, read);
+		}
+		else
+			return (-1);
+	}
+	else if (bnf_simple_command(arg, token_info, i, read) == 0)
+	{
+		bnf_command_elements(arg, token_info, i, read);
+	}
+	else
+		return (-1);
+	return (0);
+}
+
+// <piped_commands> ::=
+// 	<compoud_command>
+// 	|	<compoud_command> '|' <piped_commands>
+int	bnf_piped_commands(t_arg *arg, int token_info[][2], int *i, char *read)
+{
+	printf("%2d <piped_commands>\n", *i);
+	if (bnf_compoud_command(arg, token_info, i, read) == 0)
+	{
+		if (token_info[*i][0] == TKN_SINGLE_OR)
+		{
+			printf("   =|=\n");
+			struct_add_setflg(arg, CONN_PIPE);
+			(*i)++;
+			if (bnf_piped_commands(arg, token_info, i, read) == 0)
+				;
+			else
+				return (-1);
+		}
+	}
+	else
+		return (-1);
+	return (0);
+}
+
+// <command_line> ::
+// 	<piped_commands>
+// 	|	<piped_commands> <separation_op>
+// 	| 	<piped_commands> <separation_op> <command_line>
+int	bnf_command_line(t_arg *arg, int token_info[][2], int *i, char *read)
+{
+	printf("%2d <command_line>\n", *i);
+	if (bnf_piped_commands(arg, token_info, i, read) == 0)
+	{
+		if (bnf_separation_op(arg, token_info, i, read) == 0)
+		{
+			bnf_command_line(arg, token_info, i, read);
+		}
+	}
+	else
+		return (-1);
+	return (0);
+}
+
+int	parser(int token_info[][2], char *read, t_arg *arg)
+{
+	int		i;
+
+	if (arg->dbg)
+		printf("<<<parser results>>>\n");
+	i = 0;
+	if (bnf_command_line(arg, token_info, &i, read) == 0
+		&& token_info[i][0] == TKN_EOF)
+		printf("parse ok!\n\n");
+	else
+	{
+		printf("parse failed!\n\n");
+		// error_exit(-1, arg);
+	}
+	return (0);
+}
+
+// void	add_tree(t_arg *arg, int type, char *cmdtxt, int len)
+// {
+// 	if (type == TKN_DBLQUOTE)
+// 		struct_add_param(arg, cmdtxt, len);
+// 	else if (type == TKN_SGLQUOTE)
+// 		;
+// 	else if (type == TKN_SEMICOLON)
+// 		;
+// 	else if (type == TKN_AMP)
+// 		;
+// 	else if (type == TKN_SINGLE_OR)
+// 		struct_add_setflg(arg, CONN_PIPE);
+// 	else if (type == TKN_REDIR_LEFT)
+// 		;
+// 	else if (type == TKN_REDIR_RIGHT)
+// 		;
+// 	else if (type == TKN_HEREDOC)
+// 		;
+// 	else if (type == TKN_DBLANDOR)
+// 		;
+// 	else if (type == TKN_CHAR)
+// 	{
+// 		if (lst_get_last_cmdnode(arg->cmdlst) != NULL
+// 			&& (lst_get_last_cmdnode(arg->cmdlst))->prev_type == TKN_CHAR)
+// 			struct_add_param(arg, cmdtxt, len);
+// 		else
+// 			struct_add_node(arg, cmdtxt, len);
+// 	}
+// 	(lst_get_last_cmdnode(arg->cmdlst))->prev_type = type;
+// }
