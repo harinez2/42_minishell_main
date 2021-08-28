@@ -60,7 +60,7 @@ int				cmd_add_param(t_arg *arg, char *cmdtxt, int len);
 t_cmd			*cmd_create_node_with_param(
 					t_arg *arg, char *cmdtxt, int len);
 t_cmd			*cmd_create_node_with_redir(
-					t_arg *arg, char *cmdtxt, int len, int inout);
+					t_arg *arg, int inout, char *cmdtxt, int len);
 void			cmd_destroy(t_arg *arg);
 // struct_lst.c
 t_cmd			*cmd_get_last_node(t_cmd *cmd);

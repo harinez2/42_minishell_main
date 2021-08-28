@@ -21,10 +21,10 @@ int	bnf_redirection(t_arg *arg, int token_info[][3], int *i, char *read)
 			if (arg->dbg)
 				printf("   =char: redir filename=\n");
 			if (token_info[*i - 1][0] == TKN_REDIR_LEFT)
-				cmd_add_redir_filename(arg, 0, read + token_info[*i][1],
+				cmd_create_node_with_redir(arg, 0, read + token_info[*i][1],
 					token_info[*i][2] - token_info[*i][1]);
 			else if (token_info[*i - 1][0] == TKN_REDIR_RIGHT)
-				cmd_add_redir_filename(arg, 1, read + token_info[*i][1],
+				cmd_create_node_with_redir(arg, 1, read + token_info[*i][1],
 					token_info[*i][2] - token_info[*i][1]);
 			else
 			{
