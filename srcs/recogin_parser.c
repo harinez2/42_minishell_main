@@ -21,10 +21,10 @@ int	bnf_redirection(t_arg *arg, int token_info[][3], int *i, char *read)
 			if (arg->dbg)
 				printf("   =char: redir filename=\n");
 			if (token_info[*i - 1][0] == TKN_REDIR_LEFT)
-				struct_add_redir_filename(arg, 0, read + token_info[*i][1],
+				cmd_add_redir_filename(arg, 0, read + token_info[*i][1],
 					token_info[*i][2] - token_info[*i][1]);
 			else if (token_info[*i - 1][0] == TKN_REDIR_RIGHT)
-				struct_add_redir_filename(arg, 1, read + token_info[*i][1],
+				cmd_add_redir_filename(arg, 1, read + token_info[*i][1],
 					token_info[*i][2] - token_info[*i][1]);
 			else
 			{
@@ -52,7 +52,7 @@ int	bnf_separation_op(t_arg *arg, int token_info[][3], int *i, char *read)
 	{
 		if (arg->dbg)
 			printf("   =&=\n");
-		struct_add_setflg(arg, CONN_AMP);
+		cmd_add_setflg(arg, CONN_AMP);
 		(*i)++;
 	}
 	else if (token_info[*i][0] == TKN_SEMICOLON)
@@ -77,7 +77,7 @@ int	bnf_param_redir(t_arg *arg, int token_info[][3], int *i, char *read)
 	{
 		if (arg->dbg)
 			printf("   =char: param=\n");
-		struct_add_param(arg, read + token_info[*i][1],
+		cmd_add_param(arg, read + token_info[*i][1],
 			token_info[*i][2] - token_info[*i][1]);
 		(*i)++;
 	}
@@ -114,7 +114,7 @@ int	bnf_simple_command(t_arg *arg, int token_info[][3], int *i, char *read)
 	{
 		if (arg->dbg)
 			printf("   =char: cmd=\n");
-		struct_add_node(arg, read + token_info[*i][1],
+		cmd_create_node_with_param(arg, read + token_info[*i][1],
 			token_info[*i][2] - token_info[*i][1]);
 		(*i)++;
 	}
@@ -163,7 +163,7 @@ int	bnf_piped_commands(t_arg *arg, int token_info[][3], int *i, char *read)
 		{
 			if (arg->dbg)
 				printf("   =|=\n");
-			struct_add_setflg(arg, CONN_PIPE);
+			cmd_add_setflg(arg, CONN_PIPE);
 			(*i)++;
 			if (bnf_piped_commands(arg, token_info, i, read) == 0)
 				;

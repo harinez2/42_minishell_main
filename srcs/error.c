@@ -30,6 +30,6 @@ void	error_exit(int errcode, t_arg *arg)
 		perror("Error");
 	if (arg != NULL)
 		free(arg->path[0]);
-	struct_destroy(arg);
+	cmd_destroy(arg);
 	exit(-1);
 }

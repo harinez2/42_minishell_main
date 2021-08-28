@@ -13,7 +13,6 @@ SRCS		= \
 				$(SRC_DIR)/executer_util.c \
 				$(SRC_DIR)/lib_ft.c \
 				$(SRC_DIR)/lib_ft2.c \
-				$(SRC_DIR)/lib_lst.c \
 				$(SRC_DIR)/lib_util.c \
 				$(SRC_DIR)/main.c \
 				$(SRC_DIR)/recogin_expander.c \
@@ -22,6 +21,7 @@ SRCS		= \
 				$(SRC_DIR)/recogin_parser.c \
 				$(SRC_DIR)/struct_add.c \
 				$(SRC_DIR)/struct_init_destroy.c \
+				$(SRC_DIR)/struct_lst.c \
 				$(SRC_DIR)/struct_print.c
 OBJS		= $(SRCS:.c=.o)
 CC			= gcc

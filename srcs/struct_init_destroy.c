@@ -1,25 +1,14 @@
 #include "main.h"
 
-static t_cmd	*create_cmdnode(t_arg *arg, char *cmdtxt, int len)
+static t_cmd	*cmd_create_empty_node(t_arg *arg)
 {
 	t_cmd	*c;
-	int		i;
 
 	c = malloc(sizeof(t_cmd));
 	if (!c)
 		error_exit(ERR_FAILED_TO_MALLOC, arg);
-	c->param[0] = malloc(sizeof(char) * (len + 1));
-	if (!c->param[0])
-		error_exit(ERR_FAILED_TO_MALLOC, arg);
-	i = 0;
-	while (i < len)
-	{
-		c->param[0][i] = cmdtxt[i];
-		i++;
-	}
-	c->param[0][i] = '\0';
-	c->param[1] = NULL;
-	c->param_cnt = 1;
+	c->param[0] = NULL;
+	c->param_cnt = 0;
 	c->nxtcmd_relation = 0;
 	c->redir_in = NULL;
 	c->redir_out = NULL;
@@ -28,24 +17,44 @@ static t_cmd	*create_cmdnode(t_arg *arg, char *cmdtxt, int len)
 	return (c);
 }
 
-int	struct_add_node(t_arg *arg, char *cmdtxt, int len)
+static int	cmd_add_last(t_arg *arg, t_cmd *c_add)
 {
-	t_cmd	*newnode;
-	t_cmd	*ctmp;
+	t_cmd	*c;
 
-	newnode = create_cmdnode(arg, cmdtxt, len);
 	if (arg->cmdlst == NULL)
-		arg->cmdlst = newnode;
+		arg->cmdlst = c_add;
 	else
 	{
-		ctmp = lst_get_last_cmdnode(arg->cmdlst);
-		ctmp->next = newnode;
-		newnode->prev = ctmp;
+		c = cmd_get_last_node(arg->cmdlst);
+		c->next = c_add;
+		c_add->prev = c;
 	}
 	return (0);
 }
 
-void	struct_destroy(t_arg *arg)
+t_cmd	*cmd_create_node_with_param(t_arg *arg, char *cmdtxt, int len)
+{
+	t_cmd	*c;
+
+	c = cmd_create_empty_node(arg);
+	cmd_add_last(arg, c);
+	cmd_add_param(arg, cmdtxt, len);
+	return (c);
+}
+
+// in:0, out:1
+t_cmd	*cmd_create_node_with_redir(
+	t_arg *arg, char *cmdtxt, int len, int inout)
+{
+	t_cmd	*c;
+
+	c = cmd_create_empty_node(arg);
+	cmd_add_last(arg, c);
+	cmd_add_redir_filename(arg, inout, cmdtxt, len);
+	return (c);
+}
+
+void	cmd_destroy(t_arg *arg)
 {
 	t_cmd	*c;
 	int		i;

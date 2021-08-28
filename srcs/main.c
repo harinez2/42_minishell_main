@@ -9,10 +9,10 @@ static void	command_execution(t_arg *arg, char *read)
 		print_token_info(token_info, read);
 	parser(token_info, read, arg);
 	if (arg->dbg)
-		struct_print(arg->cmdlst);
+		cmd_print(arg->cmdlst);
 	expander(arg);
 	executer(arg);
-	struct_destroy(arg);
+	cmd_destroy(arg);
 }
 
 int	main(int argc, char **argv, char **envp)

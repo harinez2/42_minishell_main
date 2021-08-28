@@ -1,6 +1,6 @@
 #include "main.h"
 
-t_cmd	*lst_get_last_cmdnode(t_cmd *cmd)
+t_cmd	*cmd_get_last_node(t_cmd *cmd)
 {
 	if (cmd == NULL)
 		return (NULL);

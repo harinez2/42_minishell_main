@@ -34,8 +34,6 @@ char			*ft_strdup(const char *s1);
 char			*ft_strjoin(char const *s1, char const *s2);
 char			*ft_strjoin3(char const *s1, char const *s2, char const *s3);
 char			*ft_substr(char const *s, unsigned int start, size_t len);
-// lib_lst.c
-t_cmd			*lst_get_last_cmdnode(t_cmd *cmd);
 // lib_util.c
 void			copy_array(int *to, int *from, int len, int offset_to);
 void			secure_free(void *p);
@@ -54,15 +52,19 @@ int				lexer(t_arg *arg, char *read, int token_info[][3]);
 int				parser(int token_info[][3], char *read, t_arg *arg);
 void			add_tree(t_arg *arg, int type, char *cmdtxt, int len);
 // struct_add.c
-int				struct_add_redir_filename(t_arg *arg, int inout,
+int				cmd_add_redir_filename(t_arg *arg, int inout,
 					char *read, int len);
-int				struct_add_setflg(t_arg *arg, int flg);
-int				struct_add_param(t_arg *arg, char *cmdtxt, int len);
+int				cmd_add_setflg(t_arg *arg, int flg);
+int				cmd_add_param(t_arg *arg, char *cmdtxt, int len);
 // struct_init_destroy.c
-void			struct_print(t_cmd *c);
-int				struct_add_node(t_arg *arg, char *cmdtxt, int len);
-void			struct_destroy(t_arg *arg);
+t_cmd			*cmd_create_node_with_param(
+					t_arg *arg, char *cmdtxt, int len);
+t_cmd			*cmd_create_node_with_redir(
+					t_arg *arg, char *cmdtxt, int len, int inout);
+void			cmd_destroy(t_arg *arg);
+// struct_lst.c
+t_cmd			*cmd_get_last_node(t_cmd *cmd);
 // struct_print.c
-void			struct_print(t_cmd *c);
+void			cmd_print(t_cmd *c);
 
 #endif
