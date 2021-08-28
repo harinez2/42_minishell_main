@@ -17,6 +17,10 @@ void			exec_command(t_cmd *cmd, t_arg *arg);
 // error.c
 void			print_error(int errcode, char *txt);
 void			error_exit(int errcode, t_arg *arg);
+// executer_util.c
+void			print_cmdstart(char *s);
+void			print_cmdend(int status);
+void 			check_and_exit_program(t_arg *arg, t_cmd *c);
 // lib_ft.c
 size_t			ft_strlen(const char *str);
 void			ft_putstr(char *s, int len);

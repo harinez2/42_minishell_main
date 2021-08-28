@@ -17,13 +17,6 @@ static int	exec_builtincmd(t_cmd *cmd, t_arg *arg)
 	return (1);
 }
 
-static void	dbgprint_cmdpath(char *s)
-{
-	write(2, "/--Executing:", 13);
-	write(2, s, ft_strlen(s));
-	write(2, "\n", 1);
-}
-
 static int	exec_shellcmd(t_cmd *cmd, t_arg *arg)
 {
 	int		ret;
@@ -39,7 +32,7 @@ static int	exec_shellcmd(t_cmd *cmd, t_arg *arg)
 		if (access(cmd->param[0], X_OK) == 0)
 		{
 			if (arg->dbg == 1)
-				dbgprint_cmdpath(cmd->param[0]);
+				print_cmdstart(cmd->param[0]);
 			ret = execve(cmd->param[0], cmd->param, NULL);
 		}
 		secure_free(cmd->param[0]);

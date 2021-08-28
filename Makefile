@@ -9,6 +9,7 @@ SRCS		= \
 				$(SRC_DIR)/builtin_pwd.c \
 				$(SRC_DIR)/cmd_exec.c \
 				$(SRC_DIR)/error.c \
+				$(SRC_DIR)/executer_util.c \
 				$(SRC_DIR)/lib_ft.c \
 				$(SRC_DIR)/lib_ft2.c \
 				$(SRC_DIR)/lib_lst.c \

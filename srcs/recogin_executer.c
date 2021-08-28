@@ -38,6 +38,20 @@ static int	open_outfile(char *filename, t_arg *arg)
 	return (fd);
 }
 
+static void	executer_childprocess(t_arg *arg, t_cmd	*c)
+{
+	if (c->redir_out != NULL)
+		connect_pipe(-1, open_outfile(c->redir_out, arg), 1, arg);
+	else if (c->nxtcmd_relation == CONN_PIPE)
+		connect_pipe(c->pipe[PP_READ], c->pipe[PP_WRITE], 1, arg);
+	if (c->redir_in != NULL)
+		connect_pipe(-1, open_infile(c->redir_in, arg), 0, arg);
+	else if (c->prev != NULL && c->prev->nxtcmd_relation == CONN_PIPE)
+		connect_pipe(c->prev->pipe[PP_WRITE],
+			c->prev->pipe[PP_READ], 0, arg);
+	exec_command(c, arg);
+}
+
 int	executer(t_arg *arg)
 {
 	pid_t	pid;
@@ -47,44 +61,21 @@ int	executer(t_arg *arg)
 	c = arg->cmdlst;
 	while (c != NULL)
 	{
-		if (ft_strncmp("exit", c->param[0], 5) == 0)
-		{
-			//require memory free
-			exit (0);
-		}
-		else
-		{
-			if (c->nxtcmd_relation == CONN_PIPE)
-				pipe(c->pipe);
-			pid = fork();
-			if (pid == -1)
-				error_exit(ERR_FAILED_TO_FORK, arg);
-			else if (pid == 0)
-			{
-				if (c->redir_out != NULL)
-					connect_pipe(-1, open_outfile(c->redir_out, arg), 1, arg);
-				else if (c->nxtcmd_relation == CONN_PIPE)
-					connect_pipe(c->pipe[PP_READ], c->pipe[PP_WRITE], 1, arg);
-				if (c->redir_in != NULL)
-					connect_pipe(-1, open_infile(c->redir_in, arg), 0, arg);
-				else if (c->prev != NULL && c->prev->nxtcmd_relation == CONN_PIPE)
-					connect_pipe(c->prev->pipe[PP_WRITE],
-						c->prev->pipe[PP_READ], 0, arg);
-				exec_command(c, arg);
-			}
-			waitpid(pid, &status, 0);
-			if (c->nxtcmd_relation == CONN_PIPE)
-				close(c->pipe[PP_WRITE]);
-			if (c->prev != NULL && c->prev->nxtcmd_relation == CONN_PIPE)
-				close(c->prev->pipe[PP_READ]);
-			if (arg->dbg == 1)
-			{
-				printf("\\--Exited (Is exited: %x", WIFEXITED(status));
-				if (WIFEXITED(status))
-					printf(", Exit status: %d", WEXITSTATUS(status));
-				printf(")\n");
-			}
-		}
+		check_and_exit_program(arg, c);
+		if (c->nxtcmd_relation == CONN_PIPE)
+			pipe(c->pipe);
+		pid = fork();
+		if (pid == -1)
+			error_exit(ERR_FAILED_TO_FORK, arg);
+		else if (pid == 0)
+			executer_childprocess(arg, c);
+		waitpid(pid, &status, 0);
+		if (c->nxtcmd_relation == CONN_PIPE)
+			close(c->pipe[PP_WRITE]);
+		if (c->prev != NULL && c->prev->nxtcmd_relation == CONN_PIPE)
+			close(c->prev->pipe[PP_READ]);
+		if (arg->dbg == 1)
+			print_cmdend(status);
 		c = c->next;
 	}
 	return (0);
