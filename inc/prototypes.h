@@ -2,21 +2,27 @@
 # define PROTOTYPES_H
 
 // builtin_cd.c
-void			builtincmd_cd(t_arg *arg, char *read);
+void			builtincmd_cd(t_arg *arg, t_cmd *cmd);
 // builtin_echo.c
-void			builtincmd_echo(t_arg *arg, char *read);
+void			builtincmd_echo(t_arg *arg, t_cmd *cmd);
 // builtin_env.c
 void			builtincmd_env(t_arg *arg);
 // builtin_export.c
 void			builtincmd_export(t_arg *arg, char **envp);
 // builtin_pwd.c
 void			builtincmd_pwd(t_arg *arg);
-// cmd_exec.c
-void			free_param(char **cmd_with_param);
-void			exec_command(t_cmd *cmd, t_arg *arg);
 // error.c
 void			print_error(int errcode, char *txt);
 void			error_exit(int errcode, t_arg *arg);
+// executer.c
+int				executer(t_arg *arg);
+// executer_cmdexec.c
+void			free_param(char **cmd_with_param);
+void			exec_command(t_cmd *cmd, t_arg *arg);
+// executer_util.c
+void			print_cmdstart(char *s);
+void			print_cmdend(int status);
+void			check_and_exit_program(t_arg *arg, t_cmd *c);
 // lib_ft.c
 size_t			ft_strlen(const char *str);
 void			ft_putstr(char *s, int len);
@@ -34,8 +40,6 @@ t_cmd			*lst_get_last_cmdnode(t_cmd *cmd);
 void			copy_array(int *to, int *from, int len, int offset_to);
 void			secure_free(void *p);
 void			init_arg(int argc, char **argv, char **envp, t_arg *arg);
-// recogin_executer.c
-int				executer(t_arg *arg);
 // recogin_expander.c
 void			expander(t_arg *arg);
 // recogin_lexer_util.c
@@ -43,14 +47,12 @@ int				is_whitespace(char c);
 int				is_delim_or_redir(char c);
 void			skip_whitespace(char *read, int *i);
 void			print_token_type(t_token_type type);
-void			print_token_info(int token_info[][2], char *read);
+void			print_token_info(int token_info[][3], char *read);
 // recogin_lexer.c
-t_token_type	get_token(char *read, int *i);
+int				lexer(t_arg *arg, char *read, int token_info[][3]);
 // recogin_parser.c
-int				parser(int token_info[][2], char *read, t_arg *arg);
+int				parser(int token_info[][3], char *read, t_arg *arg);
 void			add_tree(t_arg *arg, int type, char *cmdtxt, int len);
-// recogin_runbuiltincmd.c
-int				run_builtincmd(char *read, t_arg *arg);
 // struct_add.c
 int				struct_add_redir_filename(t_arg *arg, int inout,
 					char *read, int len);
