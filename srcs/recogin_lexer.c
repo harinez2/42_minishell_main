@@ -66,7 +66,7 @@ static t_token_type	get_token(char *read, int *i)
 	return (ret);
 }
 
-int	lexer(t_arg *arg, char *read, int token_info[][2])
+int	lexer(t_arg *arg, char *read, int token_info[][3])
 {
 	int		i;
 	int		starti;
@@ -82,9 +82,11 @@ int	lexer(t_arg *arg, char *read, int token_info[][2])
 			break ;
 		starti = i;
 		token_info[tki_i][0] = get_token(read, &i);
-		token_info[tki_i++][1] = starti;
+		token_info[tki_i][1] = starti;
+		token_info[tki_i++][2] = i;
 	}
 	token_info[tki_i][0] = TKN_EOF;
-	token_info[tki_i++][1] = i;
+	token_info[tki_i][1] = i;
+	token_info[tki_i++][2] = i;
 	return (0);
 }

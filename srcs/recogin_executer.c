@@ -52,8 +52,6 @@ int	executer(t_arg *arg)
 			//require memory free
 			exit (0);
 		}
-		else if (run_builtincmd(c->param[0], arg))
-			;
 		else
 		{
 			if (c->nxtcmd_relation == CONN_PIPE)

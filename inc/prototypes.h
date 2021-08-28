@@ -2,9 +2,9 @@
 # define PROTOTYPES_H
 
 // builtin_cd.c
-void			builtincmd_cd(t_arg *arg, char *read);
+void			builtincmd_cd(t_arg *arg, t_cmd *cmd);
 // builtin_echo.c
-void			builtincmd_echo(t_arg *arg, char *read);
+void			builtincmd_echo(t_arg *arg, t_cmd *cmd);
 // builtin_env.c
 void			builtincmd_env(t_arg *arg);
 // builtin_export.c
@@ -43,14 +43,12 @@ int				is_whitespace(char c);
 int				is_delim_or_redir(char c);
 void			skip_whitespace(char *read, int *i);
 void			print_token_type(t_token_type type);
-void			print_token_info(int token_info[][2], char *read);
+void			print_token_info(int token_info[][3], char *read);
 // recogin_lexer.c
-int				lexer(t_arg *arg, char *read, int token_info[][2]);
+int				lexer(t_arg *arg, char *read, int token_info[][3]);
 // recogin_parser.c
-int				parser(int token_info[][2], char *read, t_arg *arg);
+int				parser(int token_info[][3], char *read, t_arg *arg);
 void			add_tree(t_arg *arg, int type, char *cmdtxt, int len);
-// recogin_runbuiltincmd.c
-int				run_builtincmd(char *read, t_arg *arg);
 // struct_add.c
 int				struct_add_redir_filename(t_arg *arg, int inout,
 					char *read, int len);

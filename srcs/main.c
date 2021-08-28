@@ -2,7 +2,7 @@
 
 static void	command_execution(t_arg *arg, char *read)
 {
-	int		token_info[1000][2];
+	int		token_info[1000][3];
 
 	lexer(arg, read, token_info);
 	if (arg->dbg)

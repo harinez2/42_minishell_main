@@ -5,7 +5,7 @@
 // 	|	">" string
 // 	|	"<<" string
 // 	|	">>" string
-int	bnf_redirection(t_arg *arg, int token_info[][2], int *i, char *read)
+int	bnf_redirection(t_arg *arg, int token_info[][3], int *i, char *read)
 {
 	if (arg->dbg)
 		printf("%2d <redirection>\n", *i);
@@ -22,10 +22,10 @@ int	bnf_redirection(t_arg *arg, int token_info[][2], int *i, char *read)
 				printf("   =char: redir filename=\n");
 			if (token_info[*i - 1][0] == TKN_REDIR_LEFT)
 				struct_add_redir_filename(arg, 0, read + token_info[*i][1],
-					token_info[*i + 1][1] - token_info[*i][1]);
+					token_info[*i][2] - token_info[*i][1]);
 			else if (token_info[*i - 1][0] == TKN_REDIR_RIGHT)
 				struct_add_redir_filename(arg, 1, read + token_info[*i][1],
-					token_info[*i + 1][1] - token_info[*i][1]);
+					token_info[*i][2] - token_info[*i][1]);
 			else
 			{
 				// TODO: heredoc impl
@@ -43,7 +43,7 @@ int	bnf_redirection(t_arg *arg, int token_info[][2], int *i, char *read)
 // <separation_op> ::=
 // 	'&'
 // 	|	';'
-int	bnf_separation_op(t_arg *arg, int token_info[][2], int *i, char *read)
+int	bnf_separation_op(t_arg *arg, int token_info[][3], int *i, char *read)
 {
 	(void)read;
 	if (arg->dbg)
@@ -69,7 +69,7 @@ int	bnf_separation_op(t_arg *arg, int token_info[][2], int *i, char *read)
 // <param_redir> ::=
 // 	string
 // 	|	<redirection>
-int	bnf_param_redir(t_arg *arg, int token_info[][2], int *i, char *read)
+int	bnf_param_redir(t_arg *arg, int token_info[][3], int *i, char *read)
 {
 	if (arg->dbg)
 		printf("%2d <param_redir>\n", *i);
@@ -78,7 +78,7 @@ int	bnf_param_redir(t_arg *arg, int token_info[][2], int *i, char *read)
 		if (arg->dbg)
 			printf("   =char: param=\n");
 		struct_add_param(arg, read + token_info[*i][1],
-			token_info[*i + 1][1] - token_info[*i][1]);
+			token_info[*i][2] - token_info[*i][1]);
 		(*i)++;
 	}
 	else if (bnf_redirection(arg, token_info, i, read) == 0)
@@ -91,7 +91,7 @@ int	bnf_param_redir(t_arg *arg, int token_info[][2], int *i, char *read)
 // <command_elements> ::=
 // 	<param_redir> 
 // 	|	<param_redir>  <command_elements>
-int	bnf_command_elements(t_arg *arg, int token_info[][2], int *i, char *read)
+int	bnf_command_elements(t_arg *arg, int token_info[][3], int *i, char *read)
 {
 	if (arg->dbg)
 		printf("%2d <command_elements>\n", *i);
@@ -106,7 +106,7 @@ int	bnf_command_elements(t_arg *arg, int token_info[][2], int *i, char *read)
 
 // <simple_command> ::=
 // 	string
-int	bnf_simple_command(t_arg *arg, int token_info[][2], int *i, char *read)
+int	bnf_simple_command(t_arg *arg, int token_info[][3], int *i, char *read)
 {
 	if (arg->dbg)
 		printf("%2d <simple_command>\n", *i);
@@ -115,7 +115,7 @@ int	bnf_simple_command(t_arg *arg, int token_info[][2], int *i, char *read)
 		if (arg->dbg)
 			printf("   =char: cmd=\n");
 		struct_add_node(arg, read + token_info[*i][1],
-			token_info[*i + 1][1] - token_info[*i][1]);
+			token_info[*i][2] - token_info[*i][1]);
 		(*i)++;
 	}
 	else
@@ -128,7 +128,7 @@ int	bnf_simple_command(t_arg *arg, int token_info[][2], int *i, char *read)
 // 	|	<redirection> <simple_command> <command_elements>
 // 	|	<simple_command>
 // 	|	<simple_command> <command_elements>
-int	bnf_compoud_command(t_arg *arg, int token_info[][2], int *i, char *read)
+int	bnf_compoud_command(t_arg *arg, int token_info[][3], int *i, char *read)
 {
 	if (arg->dbg)
 		printf("%2d <compoud_command>\n", *i);
@@ -153,7 +153,7 @@ int	bnf_compoud_command(t_arg *arg, int token_info[][2], int *i, char *read)
 // <piped_commands> ::=
 // 	<compoud_command>
 // 	|	<compoud_command> '|' <piped_commands>
-int	bnf_piped_commands(t_arg *arg, int token_info[][2], int *i, char *read)
+int	bnf_piped_commands(t_arg *arg, int token_info[][3], int *i, char *read)
 {
 	if (arg->dbg)
 		printf("%2d <piped_commands>\n", *i);
@@ -180,7 +180,7 @@ int	bnf_piped_commands(t_arg *arg, int token_info[][2], int *i, char *read)
 // 	<piped_commands>
 // 	|	<piped_commands> <separation_op>
 // 	| 	<piped_commands> <separation_op> <command_line>
-int	bnf_command_line(t_arg *arg, int token_info[][2], int *i, char *read)
+int	bnf_command_line(t_arg *arg, int token_info[][3], int *i, char *read)
 {
 	if (arg->dbg)
 		printf("%2d <command_line>\n", *i);
@@ -196,7 +196,7 @@ int	bnf_command_line(t_arg *arg, int token_info[][2], int *i, char *read)
 	return (0);
 }
 
-int	parser(int token_info[][2], char *read, t_arg *arg)
+int	parser(int token_info[][3], char *read, t_arg *arg)
 {
 	int		i;
 

@@ -1,18 +1,14 @@
 #include "main.h"
 
-void	builtincmd_cd(t_arg *arg, char *read)
+void	builtincmd_cd(t_arg *arg, t_cmd *cmd)
 {
-	int		i;
 	int		ret;
 
 	if (arg->dbg == 1)
 		printf("<<< builtin cmd cd >>>\n");
-	i = 2;
-	while (read[i] == ' ')
-		i++;
-	ret = chdir(&read[i]);
+	ret = chdir(cmd->param[1]);
 	if (ret)
-		print_error(ERR_CD_INVALIDPATH, &read[i]);
+		print_error(ERR_CD_INVALIDPATH, cmd->param[1]);
 	if (arg->dbg == 1)
 		builtincmd_pwd(arg);
 }
