@@ -36,6 +36,12 @@ t_cmd	*cmd_create_node_with_param(t_arg *arg, char *cmdtxt, int len)
 {
 	t_cmd	*c;
 
+	c = cmd_get_last_node(arg->cmdlst);
+	if (c != NULL && c->param[0] == NULL)
+	{
+		cmd_add_param(arg, cmdtxt, len);
+		return (c);
+	}
 	c = cmd_create_empty_node(arg);
 	cmd_add_last(arg, c);
 	cmd_add_param(arg, cmdtxt, len);
