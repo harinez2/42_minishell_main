@@ -1,14 +1,14 @@
 #include "main.h"
 
 // in:0, out:1
-int	struct_add_redir_filename(t_arg *arg, int inout, char *read, int len)
+int	cmd_add_redir_filename(t_arg *arg, int inout, char *read, int len)
 {
 	t_cmd	*c;
 	char	*filename;
 
-	c = lst_get_last_cmdnode(arg->cmdlst);
+	c = cmd_get_last_node(arg->cmdlst);
 	if (c == NULL)
-		return (-1);//parsing error
+		return (-1);
 	filename = malloc(sizeof(char) * (len + 1));
 	if (!filename)
 		error_exit(-1, arg);
@@ -28,32 +28,25 @@ int	struct_add_redir_filename(t_arg *arg, int inout, char *read, int len)
 	return (0);
 }
 
-int	struct_add_setflg(t_arg *arg, int flg)
+int	cmd_add_setflg(t_arg *arg, int flg)
 {
 	t_cmd	*c;
 
-	c = lst_get_last_cmdnode(arg->cmdlst);
+	c = cmd_get_last_node(arg->cmdlst);
 	if (c == NULL)
-		return (-1);//parsing error
+		return (-1);
 	c->nxtcmd_relation = flg;
 	return (0);
 }
 
-int	struct_add_param(t_arg *arg, char *cmdtxt, int len)
+int	cmd_add_param(t_arg *arg, char *cmdtxt, int len)
 {
-	t_cmd	*newnode;
-	t_cmd	*ctmp;
+	t_cmd	*c;
 
-	newnode = malloc(sizeof(char) * (len + 1));
-	if (!newnode)
-		error_exit(ERR_FAILED_TO_MALLOC, arg);
-	ctmp = lst_get_last_cmdnode(arg->cmdlst);
-	if (ctmp == NULL)
-		return (-1);//parsing error
-	else
-	{
-		ctmp->param[ctmp->param_cnt++] = ft_substr(cmdtxt, 0, len);
-		ctmp->param[ctmp->param_cnt] = NULL;
-	}
+	c = cmd_get_last_node(arg->cmdlst);
+	if (c == NULL)
+		return (-1);
+	c->param[c->param_cnt++] = ft_substr(cmdtxt, 0, len);
+	c->param[c->param_cnt] = NULL;
 	return (0);
 }

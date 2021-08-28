@@ -20,7 +20,7 @@ void	check_and_exit_program(t_arg *arg, t_cmd *c)
 	if (ft_strncmp("exit", c->param[0], 5) == 0)
 	{
 		//secure_free(read);
-		struct_destroy(arg);
+		cmd_destroy(arg);
 		exit (0);
 	}
 }

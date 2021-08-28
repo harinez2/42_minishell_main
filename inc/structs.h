@@ -25,6 +25,7 @@ typedef struct s_arg
 	int		argc;
 	char	**argv;
 	char	**envp;
+	char	*read;
 	char	*path[MAX_PATH];
 	int		path_cnt;
 	t_cmd	*cmdlst;

@@ -67,22 +67,21 @@ static t_token_type	get_token(char *read, int *i)
 	return (ret);
 }
 
-int	lexer(t_arg *arg, char *read, int token_info[][3])
+int	lexer(t_arg *arg, int token_info[][3])
 {
 	int		i;
 	int		starti;
 	int		tki_i;
 
-	(void)arg;
 	i = 0;
 	tki_i = 0;
 	while (1)
 	{
-		skip_whitespace(read, &i);
-		if (read[i] == '\0')
+		skip_whitespace(arg->read, &i);
+		if (arg->read[i] == '\0')
 			break ;
 		starti = i;
-		token_info[tki_i][0] = get_token(read, &i);
+		token_info[tki_i][0] = get_token(arg->read, &i);
 		token_info[tki_i][1] = starti;
 		token_info[tki_i++][2] = i;
 	}
