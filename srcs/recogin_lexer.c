@@ -4,6 +4,7 @@ static int	identify_quotes(char *read, int *i)
 {
 	int		ret;
 
+	ret = 0;
 	if (read[*i] == '"')
 	{
 		while (read[++(*i)] != '"')

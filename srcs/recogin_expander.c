@@ -12,7 +12,6 @@ void	expander_char(char **text)
 
 		cnt ++;
 	}
-	(void)option;
 }
 
 void	expander_multiple_char(t_arg *arg)
