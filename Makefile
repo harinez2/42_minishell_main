@@ -7,15 +7,15 @@ SRCS		= \
 				$(SRC_DIR)/builtin_env.c \
 				$(SRC_DIR)/builtin_export.c \
 				$(SRC_DIR)/builtin_pwd.c \
-				$(SRC_DIR)/cmd_exec.c \
 				$(SRC_DIR)/error.c \
+				$(SRC_DIR)/executer.c \
+				$(SRC_DIR)/executer_cmdexec.c \
 				$(SRC_DIR)/executer_util.c \
 				$(SRC_DIR)/lib_ft.c \
 				$(SRC_DIR)/lib_ft2.c \
 				$(SRC_DIR)/lib_lst.c \
 				$(SRC_DIR)/lib_util.c \
 				$(SRC_DIR)/main.c \
-				$(SRC_DIR)/recogin_executer.c \
 				$(SRC_DIR)/recogin_expander.c \
 				$(SRC_DIR)/recogin_lexer.c \
 				$(SRC_DIR)/recogin_lexer_util.c \

@@ -11,16 +11,18 @@ void			builtincmd_env(t_arg *arg);
 void			builtincmd_export(t_arg *arg, char **envp);
 // builtin_pwd.c
 void			builtincmd_pwd(t_arg *arg);
-// cmd_exec.c
-void			free_param(char **cmd_with_param);
-void			exec_command(t_cmd *cmd, t_arg *arg);
 // error.c
 void			print_error(int errcode, char *txt);
 void			error_exit(int errcode, t_arg *arg);
+// executer.c
+int				executer(t_arg *arg);
+// executer_cmdexec.c
+void			free_param(char **cmd_with_param);
+void			exec_command(t_cmd *cmd, t_arg *arg);
 // executer_util.c
 void			print_cmdstart(char *s);
 void			print_cmdend(int status);
-void 			check_and_exit_program(t_arg *arg, t_cmd *c);
+void			check_and_exit_program(t_arg *arg, t_cmd *c);
 // lib_ft.c
 size_t			ft_strlen(const char *str);
 void			ft_putstr(char *s, int len);
@@ -38,8 +40,6 @@ t_cmd			*lst_get_last_cmdnode(t_cmd *cmd);
 void			copy_array(int *to, int *from, int len, int offset_to);
 void			secure_free(void *p);
 void			init_arg(int argc, char **argv, char **envp, t_arg *arg);
-// recogin_executer.c
-int				executer(t_arg *arg);
 // recogin_expander.c
 void			expander(t_arg *arg);
 // recogin_lexer_util.c
