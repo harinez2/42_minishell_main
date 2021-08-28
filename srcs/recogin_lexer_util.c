@@ -19,6 +19,8 @@ int	is_delim_or_redir(char c)
 
 void	skip_whitespace(char *read, int *i)
 {
+	if (!read)
+		return ;
 	while (is_whitespace(read[*i]))
 		(*i)++;
 }
