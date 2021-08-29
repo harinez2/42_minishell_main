@@ -14,7 +14,7 @@ static int	exec_builtincmd(t_cmd *cmd, t_arg *arg)
 		builtincmd_cd(arg, cmd);
 	else
 		return (0);
-	return (1);
+	exit (0);
 }
 
 static int	exec_shellcmd(t_cmd *cmd, t_arg *arg)
