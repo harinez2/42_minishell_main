@@ -2,6 +2,7 @@ NAME		= minishell
 INCLUDE		= -I./inc
 SRC_DIR		= srcs
 SRCS		= \
+				$(SRC_DIR)/arg_init_destroy.c \
 				$(SRC_DIR)/builtin_cd.c \
 				$(SRC_DIR)/builtin_echo.c \
 				$(SRC_DIR)/builtin_env.c \

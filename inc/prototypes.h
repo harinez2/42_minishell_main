@@ -1,6 +1,10 @@
 #ifndef PROTOTYPES_H
 # define PROTOTYPES_H
 
+// arg_init_destroy.c
+void			init_arg(int argc, char **argv, char **envp, t_arg *arg);
+void			update_envpath(t_arg *arg);
+void			destroy_arg(t_arg *arg);
 // builtin_cd.c
 void			builtincmd_cd(t_arg *arg, t_cmd *cmd);
 // builtin_echo.c
@@ -22,6 +26,7 @@ void			exec_command(t_cmd *cmd, t_arg *arg);
 // executer_util.c
 void			dbg_print_cmdstart(t_arg *arg, char *s);
 void			dbg_print_cmdend(t_arg *arg, int status);
+void			close_pipe(t_arg *arg, char *who, int fd);
 void			check_and_exit_program(t_arg *arg, t_cmd *c);
 // lib_ft.c
 size_t			ft_strlen(const char *str);
@@ -40,7 +45,6 @@ void			dbg_print_int(t_arg *arg, int i);
 void			dbg_print_strint(t_arg *arg, char *s, int i);
 void			copy_array(int *to, int *from, int len, int offset_to);
 void			secure_free(void *p);
-void			init_arg(int argc, char **argv, char **envp, t_arg *arg);
 // recogin_expander.c
 void			expander(t_arg *arg);
 // recogin_lexer_util.c

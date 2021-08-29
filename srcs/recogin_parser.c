@@ -239,7 +239,8 @@ int	parser(t_arg *arg, int token_info[][3])
 	else
 	{
 		printf("##### parse failed! #####\n\n");
-		// error_exit(-1, arg);
+		write(2, "minishell: syntax error\n", 24);
+		return (-1);
 	}
 	return (0);
 }

@@ -14,10 +14,7 @@ static void	connect_pipe(int unused, int old, int new, t_arg *arg)
 		error_exit(ERR_PIPE, arg);
 	dbg_print_strint(arg, "[fd] [child] dup2: old", old);
 	dbg_print_strint(arg, "[fd] [child] dup2: new", new);
-	ret = close(old);
-	if (ret == -1)
-		error_exit(ERR_PIPE, arg);
-	dbg_print_strint(arg, "[fd] [child] closed: ", old);
+	close_pipe(arg, "child", old);
 }
 
 static int	open_infile(char *filename, t_arg *arg)
@@ -87,15 +84,9 @@ int	executer(t_arg *arg)
 			executer_childprocess(arg, c);
 		waitpid(pid, &status, 0);
 		if (c->nxtcmd_relation == CONN_PIPE)
-		{
-			close(c->pipe[PP_WRITE]);
-			dbg_print_strint(arg, "[fd] [parent] closed: ", c->pipe[PP_WRITE]);
-		}
+			close_pipe(arg, "parent", c->pipe[PP_WRITE]);
 		if (c->prev != NULL && c->prev->nxtcmd_relation == CONN_PIPE)
-		{
-			close(c->prev->pipe[PP_READ]);
-			dbg_print_strint(arg, "[fd] [parent] closed: ", c->pipe[PP_READ]);
-		}
+			close_pipe(arg, "parent", c->prev->pipe[PP_READ]);
 		dbg_print_cmdend(arg, status);
 		c = c->next;
 	}

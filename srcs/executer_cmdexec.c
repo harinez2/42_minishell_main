@@ -43,6 +43,7 @@ static int	exec_shellcmd(t_cmd *cmd, t_arg *arg)
 
 void	exec_command(t_cmd *cmd, t_arg *arg)
 {
+	update_envpath(arg);
 	if (exec_builtincmd(cmd, arg) == 1)
 		return ;
 	else if (exec_shellcmd(cmd, arg) == 0)

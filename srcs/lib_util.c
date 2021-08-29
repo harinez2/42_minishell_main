@@ -51,32 +51,3 @@ void	secure_free(void *p)
 		p = NULL;
 	}
 }
-
-void	init_arg(int argc, char **argv, char **envp, t_arg *arg)
-{
-	int		i;
-
-	arg->argc = argc;
-	arg->argv = argv;
-	arg->envp = envp;
-	arg->cmdlst = NULL;
-	i = -1;
-	arg->path_cnt = 0;
-	while (envp[++i] != NULL)
-		if (ft_strncmp(envp[i], "PATH=", 5) == 0)
-			arg->path[arg->path_cnt++] = ft_strdup(&envp[i][5]);
-	if (arg->path_cnt != 1)
-		error_exit(ERR_ENV_INVALID, NULL);
-	i = 0;
-	while (arg->path[0][i] != '\0')
-	{
-		if (arg->path[0][i] == ':')
-		{
-			arg->path[0][i++] = '\0';
-			arg->path[arg->path_cnt++] = &arg->path[0][i];
-		}
-		i++;
-	}
-	arg->path[arg->path_cnt] = NULL;
-	arg->dbg = 0;
-}
