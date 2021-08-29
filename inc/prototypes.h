@@ -35,6 +35,8 @@ char			*ft_strjoin(char const *s1, char const *s2);
 char			*ft_strjoin3(char const *s1, char const *s2, char const *s3);
 char			*ft_substr(char const *s, unsigned int start, size_t len);
 // lib_util.c
+void			print_stderr_int(int i);
+void			print_stderr_strint(char *s, int i);
 void			copy_array(int *to, int *from, int len, int offset_to);
 void			secure_free(void *p);
 void			init_arg(int argc, char **argv, char **envp, t_arg *arg);

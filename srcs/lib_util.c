@@ -1,5 +1,23 @@
 #include "main.h"
 
+void	print_stderr_int(int i)
+{
+	char		c;
+
+	if (i >= 10)
+		print_stderr_int(i / 10);
+	c = i % 10 + '0';
+	write(2, &c, 1);
+}
+
+void	print_stderr_strint(char *s, int i)
+{
+	write(2, s, ft_strlen(s));
+	write(2, " ", 1);
+	print_stderr_int(i);
+	write(2, "\n", 1);
+}
+
 void	copy_array(int *to, int *from, int len, int offset_to)
 {
 	int		i;

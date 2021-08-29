@@ -9,10 +9,14 @@ void	print_cmdstart(char *s)
 
 void	print_cmdend(int status)
 {
-	printf("\\---Exited (Is exited: %x", WIFEXITED(status));
+	write(2, "\\---Exited (Is exited: ", 24);
+	print_stderr_int(WIFEXITED(status));
 	if (WIFEXITED(status))
-		printf(", Exit status: %d", WEXITSTATUS(status));
-	printf(")\n");
+	{
+		write(2, ", Exit status: ", 15);
+		print_stderr_int(WEXITSTATUS(status));
+	}
+	write(2, ")\n", 2);
 }
 
 void	check_and_exit_program(t_arg *arg, t_cmd *c)
