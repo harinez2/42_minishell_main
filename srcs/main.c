@@ -7,10 +7,14 @@ static void	command_execution(t_arg *arg)
 	lexer(arg, token_info);
 	if (arg->dbg)
 		print_token_info(token_info, arg->read);
-	parser(arg, token_info);
+	if (parser(arg, token_info) == -1)
+	{
+		cmd_destroy(arg);
+		return ;
+	}
+	expander(arg);
 	if (arg->dbg)
 		cmd_print(arg->cmdlst);
-	expander(arg);
 	executer(arg);
 	cmd_destroy(arg);
 }
