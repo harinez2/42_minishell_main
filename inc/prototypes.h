@@ -6,11 +6,11 @@ void			builtincmd_cd(t_arg *arg, t_cmd *cmd);
 // builtin_echo.c
 void			builtincmd_echo(t_arg *arg, t_cmd *cmd);
 // builtin_env.c
-void			builtincmd_env(t_arg *arg);
+void			builtincmd_env(t_arg *arg, t_cmd *cmd);
 // builtin_export.c
-void			builtincmd_export(t_arg *arg, char **envp);
+void			builtincmd_export(t_arg *arg, t_cmd *cmd, char **envp);
 // builtin_pwd.c
-void			builtincmd_pwd(t_arg *arg);
+void			builtincmd_pwd(t_arg *arg, t_cmd *cmd);
 // error.c
 void			print_error(int errcode, char *txt);
 void			error_exit(int errcode, t_arg *arg);
@@ -20,8 +20,8 @@ int				executer(t_arg *arg);
 void			free_param(char **cmd_with_param);
 void			exec_command(t_cmd *cmd, t_arg *arg);
 // executer_util.c
-void			print_cmdstart(t_arg *arg, char *s);
-void			print_cmdend(t_arg *arg, int status);
+void			dbg_print_cmdstart(t_arg *arg, char *s);
+void			dbg_print_cmdend(t_arg *arg, int status);
 void			check_and_exit_program(t_arg *arg, t_cmd *c);
 // lib_ft.c
 size_t			ft_strlen(const char *str);

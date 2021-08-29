@@ -96,8 +96,7 @@ int	executer(t_arg *arg)
 			close(c->prev->pipe[PP_READ]);
 			dbg_print_strint(arg, "[fd] [parent] closed: ", c->pipe[PP_READ]);
 		}
-		if (arg->dbg)
-			print_cmdend(arg, status);
+		dbg_print_cmdend(arg, status);
 		c = c->next;
 	}
 	return (0);

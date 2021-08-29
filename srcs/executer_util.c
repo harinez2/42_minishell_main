@@ -1,13 +1,13 @@
 #include "main.h"
 
-void	print_cmdstart(t_arg *arg, char *s)
+void	dbg_print_cmdstart(t_arg *arg, char *s)
 {
 	dbg_print_str(arg, "/---Executing:");
 	dbg_print_str(arg, s);
 	dbg_print_str(arg, "\n");
 }
 
-void	print_cmdend(t_arg *arg, int status)
+void	dbg_print_cmdend(t_arg *arg, int status)
 {
 	dbg_print_str(arg, "\\---Exited (Is exited: ");
 	dbg_print_int(arg, WIFEXITED(status));

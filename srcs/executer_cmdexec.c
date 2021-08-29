@@ -5,11 +5,11 @@ static int	exec_builtincmd(t_cmd *cmd, t_arg *arg)
 	if (ft_strncmp("echo", cmd->param[0], 5) == 0)
 		builtincmd_echo(arg, cmd);
 	else if (ft_strncmp("export", cmd->param[0], 7) == 0)
-		builtincmd_export(arg, arg->envp);
+		builtincmd_export(arg, cmd, arg->envp);
 	else if (ft_strncmp("env", cmd->param[0], 4) == 0)
-		builtincmd_env(arg);
+		builtincmd_env(arg, cmd);
 	else if (ft_strncmp("pwd", cmd->param[0], 4) == 0)
-		builtincmd_pwd(arg);
+		builtincmd_pwd(arg, cmd);
 	else if (ft_strncmp("cd", cmd->param[0], 3) == 0)
 		builtincmd_cd(arg, cmd);
 	else
@@ -31,8 +31,7 @@ static int	exec_shellcmd(t_cmd *cmd, t_arg *arg)
 		cmd->param[0] = ft_strjoin3(arg->path[i], "/", param_zero);
 		if (access(cmd->param[0], X_OK) == 0)
 		{
-			if (arg->dbg == 1)
-				print_cmdstart(arg, cmd->param[0]);
+			dbg_print_cmdstart(arg, cmd->param[0]);
 			ret = execve(cmd->param[0], cmd->param, NULL);
 		}
 		secure_free(cmd->param[0]);
