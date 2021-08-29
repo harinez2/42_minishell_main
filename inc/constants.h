@@ -24,4 +24,10 @@
 # define	CONN_REDIR_OUT			32
 # define	CONN_AMP				33
 
+# define COL_BK_CYAN	"\x1b[46m"
+# define COL_BK_RESET	"\x1b[49m"
+
+# define COL_TX_CYAN	"\x1b[36m"
+# define COL_TX_RESET	"\x1b[39m"
+
 #endif

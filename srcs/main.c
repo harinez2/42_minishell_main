@@ -24,7 +24,7 @@ int	main(int argc, char **argv, char **envp)
 		arg.dbg = 1;
 	while (1)
 	{
-		arg.read = readline("minishell> ");
+		arg.read = readline(COL_BK_CYAN"minishell>"COL_BK_RESET" ");
 		if (arg.read[0] != '\0')
 			command_execution(&arg);
 		secure_free(arg.read);

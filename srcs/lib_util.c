@@ -1,5 +1,10 @@
 #include "main.h"
 
+void	print_stderr_str(char *s)
+{
+	write(2, s, ft_strlen(s));
+}
+
 void	print_stderr_int(int i)
 {
 	char		c;
@@ -12,10 +17,10 @@ void	print_stderr_int(int i)
 
 void	print_stderr_strint(char *s, int i)
 {
-	write(2, s, ft_strlen(s));
-	write(2, " ", 1);
+	print_stderr_str(s);
+	print_stderr_str(" ");
 	print_stderr_int(i);
-	write(2, "\n", 1);
+	print_stderr_str("\n");
 }
 
 void	copy_array(int *to, int *from, int len, int offset_to)

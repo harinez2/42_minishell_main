@@ -228,7 +228,7 @@ int	parser(t_arg *arg, int token_info[][3])
 	int		i;
 
 	if (arg->dbg)
-		printf("<<< parser results >>>\n");
+		printf(COL_TX_CYAN"<<< parser results >>>\n"COL_TX_RESET);
 	i = 0;
 	if (bnf_command_line(arg, token_info, &i) == 0
 		&& token_info[i][0] == TKN_EOF)

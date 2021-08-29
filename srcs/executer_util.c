@@ -2,21 +2,21 @@
 
 void	print_cmdstart(char *s)
 {
-	write(2, "/---Executing:", 14);
-	write(2, s, ft_strlen(s));
-	write(2, "\n", 1);
+	print_stderr_str(COL_TX_CYAN"/---Executing:");
+	print_stderr_str(s);
+	print_stderr_str("\n"COL_TX_RESET);
 }
 
 void	print_cmdend(int status)
 {
-	write(2, "\\---Exited (Is exited: ", 24);
+	print_stderr_str(COL_TX_CYAN"\\---Exited (Is exited: ");
 	print_stderr_int(WIFEXITED(status));
 	if (WIFEXITED(status))
 	{
-		write(2, ", Exit status: ", 15);
+		print_stderr_str(", Exit status: ");
 		print_stderr_int(WEXITSTATUS(status));
 	}
-	write(2, ")\n", 2);
+	print_stderr_str(")\n"COL_TX_RESET);
 }
 
 void	check_and_exit_program(t_arg *arg, t_cmd *c)

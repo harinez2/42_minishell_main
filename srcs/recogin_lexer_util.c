@@ -49,7 +49,7 @@ void	print_token_info(int token_info[][3], char *read)
 {
 	int		i;
 
-	printf("<< lexer results >>\n");
+	printf(COL_TX_CYAN"<< lexer results >>\n"COL_TX_RESET);
 	printf(" i  token-type          starti  endi  content\n");
 	i = 0;
 	while (token_info[i][0] != TKN_EOF)
