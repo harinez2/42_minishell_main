@@ -39,7 +39,7 @@ void	ft_push_back_list(t_env	**envlst, char *env, char *value)
 
 	new_env = malloc(sizeof(t_env));
 	if (!new_env)
-		exit (1); /// please change this
+		 ; /// please change this
 	new_env->env = env;
 	new_env->value = value;
 	new_env->next = NULL;
@@ -121,7 +121,7 @@ void	expander_char_env_replace(char **text, int *cnt, t_arg *arg)
 		if (tmp[i] == '"')
 		{
 			if (!(expander_char_env_cut(text, *cnt, i, arg)))
-				exit (1); /// please fix
+				 ; /// please fix
 			(*cnt) = i + 1;
 			break ;
 		}
@@ -132,7 +132,7 @@ void	expander_char_env_replace(char **text, int *cnt, t_arg *arg)
 	if (i == (int)ft_strlen(*text))
 	{
 		if (!(expander_char_env_cut(text, *cnt, ft_strlen(*text), arg)))
-			exit (1); /// please fix
+			 ; /// please fix
 		(*cnt) = i + 1;
 	}
 }
