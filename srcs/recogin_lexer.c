@@ -18,8 +18,10 @@ static int	identify_doublectrls(char *read, int *i)
 {
 	int		ret;
 
-	if (ft_strncmp(&read[*i], ">>", 2) == 0)
+	if (ft_strncmp(&read[*i], "<<", 2) == 0)
 		ret = TKN_HEREDOC;
+	else if (ft_strncmp(&read[*i], ">>", 2) == 0)
+		ret = TKN_REDIR_APPEND;
 	else
 		ret = TKN_DBLANDOR;
 	(*i)++;
@@ -50,11 +52,12 @@ static t_token_type	get_token(char *read, int *i)
 		ret = TKN_AMP;
 	else if (read[*i] == '|' && read[*i + 1] != '|')
 		ret = TKN_SINGLE_OR;
-	else if (read[*i] == '<')
+	else if (read[*i] == '<' && read[*i + 1] != '<')
 		ret = TKN_REDIR_LEFT;
 	else if (read[*i] == '>' && read[*i + 1] != '>')
 		ret = TKN_REDIR_RIGHT;
-	else if (ft_strncmp(&read[*i], ">>", 2) == 0
+	else if (ft_strncmp(&read[*i], "<<", 2) == 0
+		|| ft_strncmp(&read[*i], ">>", 2) == 0
 		|| ft_strncmp(&read[*i], "||", 2) == 0
 		|| ft_strncmp(&read[*i], "&&", 2) == 0)
 		ret = identify_doublectrls(read, i);

@@ -26,16 +26,17 @@ void	skip_whitespace(char *read, int *i)
 
 void	print_token_type(t_token_type type)
 {
-	static char	token_type_text[TKN_TYPE_LENGTH][16] = {
-		"TKN_EOF        ",
-		"TKN_SEMICOLON  ",
-		"TKN_AMP        ",
-		"TKN_SINGLE_OR  ",
-		"TKN_REDIR_LEFT ",
-		"TKN_REDIR_RIGHT",
-		"TKN_HEREDOC    ",
-		"TKN_DBLANDOR   ",
-		"TKN_STRING     "
+	static char	token_type_text[TKN_TYPE_LENGTH][17] = {
+		"TKN_EOF         ",
+		"TKN_SEMICOLON   ",
+		"TKN_AMP         ",
+		"TKN_SINGLE_OR   ",
+		"TKN_REDIR_LEFT  ",
+		"TKN_REDIR_RIGHT ",
+		"TKN_HEREDOC     ",
+		"TKN_REDIR_APPEND",
+		"TKN_DBLANDOR    ",
+		"TKN_STRING      "
 	};
 
 	if (0 <= type && type < TKN_TYPE_LENGTH)
@@ -48,8 +49,8 @@ void	print_token_info(int token_info[][3], char *read)
 {
 	int		i;
 
-	printf("<< lexer results >>\n");
-	printf(" i  token-type         starti  endi  content\n");
+	printf(COL_TX_CYAN"<< lexer results >>\n"COL_TX_RESET);
+	printf(" i  token-type          starti  endi  content\n");
 	i = 0;
 	while (token_info[i][0] != TKN_EOF)
 	{

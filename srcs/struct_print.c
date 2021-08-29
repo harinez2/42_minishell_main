@@ -25,7 +25,7 @@ void	cmd_print(t_cmd *c)
 	int			i;
 	int			j;
 
-	printf("<<< command chain >>>\n");
+	printf(COL_TX_CYAN"<<< command chain >>>\n"COL_TX_RESET);
 	i = 0;
 	while (c != NULL)
 	{

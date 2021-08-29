@@ -1,18 +1,22 @@
 #include "main.h"
 
-void	print_cmdstart(char *s)
+void	dbg_print_cmdstart(t_arg *arg, char *s)
 {
-	write(2, "/---Executing:", 14);
-	write(2, s, ft_strlen(s));
-	write(2, "\n", 1);
+	dbg_print_str(arg, "/---Executing:");
+	dbg_print_str(arg, s);
+	dbg_print_str(arg, "\n");
 }
 
-void	print_cmdend(int status)
+void	dbg_print_cmdend(t_arg *arg, int status)
 {
-	printf("\\---Exited (Is exited: %x", WIFEXITED(status));
+	dbg_print_str(arg, "\\---Exited (Is exited: ");
+	dbg_print_int(arg, WIFEXITED(status));
 	if (WIFEXITED(status))
-		printf(", Exit status: %d", WEXITSTATUS(status));
-	printf(")\n");
+	{
+		dbg_print_str(arg, ", Exit status: ");
+		dbg_print_int(arg, WEXITSTATUS(status));
+	}
+	dbg_print_str(arg, ")\n");
 }
 
 void	check_and_exit_program(t_arg *arg, t_cmd *c)

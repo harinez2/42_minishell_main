@@ -11,10 +11,9 @@ int	bnf_redirection(t_arg *arg, int token_info[][3], int *i, int leftflg)
 		printf("%2d <redirection>\n", *i);
 	if (token_info[*i][0] == TKN_REDIR_LEFT
 		|| token_info[*i][0] == TKN_REDIR_RIGHT
-		|| token_info[*i][0] == TKN_HEREDOC)
+		|| token_info[*i][0] == TKN_HEREDOC
+		|| token_info[*i][0] == TKN_REDIR_APPEND)
 	{
-		if (arg->dbg)
-			printf("   =< > << >>=\n");
 		(*i)++;
 		if (token_info[*i][0] == TKN_STRING)
 		{
@@ -22,6 +21,8 @@ int	bnf_redirection(t_arg *arg, int token_info[][3], int *i, int leftflg)
 				printf("   =string: redir filename=\n");
 			if (token_info[*i - 1][0] == TKN_REDIR_LEFT)
 			{
+				if (arg->dbg)
+					printf("   =<=\n");
 				if (leftflg)
 					cmd_create_node_with_redir(arg, 0,
 						arg->read + token_info[*i][1],
@@ -33,6 +34,8 @@ int	bnf_redirection(t_arg *arg, int token_info[][3], int *i, int leftflg)
 			}
 			else if (token_info[*i - 1][0] == TKN_REDIR_RIGHT)
 			{
+				if (arg->dbg)
+					printf("   =>=\n");
 				if (leftflg)
 					cmd_create_node_with_redir(arg, 1,
 						arg->read + token_info[*i][1],
@@ -42,10 +45,18 @@ int	bnf_redirection(t_arg *arg, int token_info[][3], int *i, int leftflg)
 						arg->read + token_info[*i][1],
 						token_info[*i][2] - token_info[*i][1]);
 			}
-			else
+			else if (token_info[*i - 1][0] == TKN_HEREDOC)
 			{
-				// TODO: heredoc impl
+				if (arg->dbg)
+					printf("   =<<=\n");
 			}
+			else if (token_info[*i - 1][0] == TKN_REDIR_APPEND)
+			{
+				if (arg->dbg)
+					printf("   =>>=\n");
+			}
+			else
+				return (-1);
 			(*i)++;
 		}
 		else
@@ -217,7 +228,7 @@ int	parser(t_arg *arg, int token_info[][3])
 	int		i;
 
 	if (arg->dbg)
-		printf("<<< parser results >>>\n");
+		printf(COL_TX_CYAN"<<< parser results >>>\n"COL_TX_RESET);
 	i = 0;
 	if (bnf_command_line(arg, token_info, &i) == 0
 		&& token_info[i][0] == TKN_EOF)
