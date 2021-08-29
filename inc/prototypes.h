@@ -26,6 +26,7 @@ void			exec_command(t_cmd *cmd, t_arg *arg);
 // executer_util.c
 void			dbg_print_cmdstart(t_arg *arg, char *s);
 void			dbg_print_cmdend(t_arg *arg, int status);
+void			close_pipe(t_arg *arg, char *who, int fd);
 void			check_and_exit_program(t_arg *arg, t_cmd *c);
 // lib_ft.c
 size_t			ft_strlen(const char *str);

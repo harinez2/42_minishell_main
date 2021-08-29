@@ -19,6 +19,18 @@ void	dbg_print_cmdend(t_arg *arg, int status)
 	dbg_print_str(arg, ")\n");
 }
 
+void	close_pipe(t_arg *arg, char *who, int fd)
+{
+	int		ret;
+
+	ret = close(fd);
+	if (ret == -1)
+		error_exit(ERR_PIPE, arg);
+	dbg_print_str(arg, "[fd] [");
+	dbg_print_str(arg, who);
+	dbg_print_strint(arg, "] closed: ", fd);
+}
+
 void	check_and_exit_program(t_arg *arg, t_cmd *c)
 {
 	if (ft_strncmp("exit", c->param[0], 5) == 0)
