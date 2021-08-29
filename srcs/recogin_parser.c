@@ -16,10 +16,10 @@ int	bnf_redirection(t_arg *arg, int token_info[][3], int *i, int leftflg)
 		if (arg->dbg)
 			printf("   =< > << >>=\n");
 		(*i)++;
-		if (token_info[*i][0] == TKN_CHAR)
+		if (token_info[*i][0] == TKN_STRING)
 		{
 			if (arg->dbg)
-				printf("   =char: redir filename=\n");
+				printf("   =string: redir filename=\n");
 			if (token_info[*i - 1][0] == TKN_REDIR_LEFT)
 			{
 				if (leftflg)
@@ -89,10 +89,10 @@ int	bnf_param_redir(t_arg *arg, int token_info[][3], int *i)
 {
 	if (arg->dbg)
 		printf("%2d <param_redir>\n", *i);
-	if (token_info[*i][0] == TKN_CHAR)
+	if (token_info[*i][0] == TKN_STRING)
 	{
 		if (arg->dbg)
-			printf("   =char: param=\n");
+			printf("   =string: param=\n");
 		cmd_add_param(arg, arg->read + token_info[*i][1],
 			token_info[*i][2] - token_info[*i][1]);
 		(*i)++;
@@ -126,10 +126,10 @@ int	bnf_simple_command(t_arg *arg, int token_info[][3], int *i)
 {
 	if (arg->dbg)
 		printf("%2d <simple_command>\n", *i);
-	if (token_info[*i][0] == TKN_CHAR)
+	if (token_info[*i][0] == TKN_STRING)
 	{
 		if (arg->dbg)
-			printf("   =char: cmd=\n");
+			printf("   =string: cmd=\n");
 		cmd_create_node_with_param(arg, arg->read + token_info[*i][1],
 			token_info[*i][2] - token_info[*i][1]);
 		(*i)++;
