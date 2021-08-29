@@ -83,8 +83,8 @@ int	expander_char_env_cut(char **text, int start, int end, t_arg *arg)
 	char	*tmp;
 
 	env = ft_strdup2(&(*text)[start + 1], end - start - 1);
-	write(1,"hello\n",6);
-	printf("-------\n%s\n--------\n", env);
+///	write(1,"hello\n",6);
+///	printf("-------\n%s\n--------\n", env);
 	value = expander_char_env_judge(env, arg);
 	if (!value)
 	{
@@ -115,7 +115,7 @@ void	expander_char_env_replace(char **text, int *cnt, t_arg *arg)
 		(*cnt) += 2;
 		return ;
 	}
-	write(1,"hello\n",6);
+///	write(1,"hello\n",6);
 	while (tmp[i])
 	{
 		if (tmp[i] == '"')
@@ -125,16 +125,16 @@ void	expander_char_env_replace(char **text, int *cnt, t_arg *arg)
 			(*cnt) = i + 1;
 			break ;
 		}
-	write(1,"hello\n",6);
-		printf("%c\n",tmp[i]);
+///	write(1,"hello\n",6);
+///		printf("%c\n",tmp[i]);
 		i++;
 	}
-/*	if (i == (int)ft_strlen(*text))
+	if (i == (int)ft_strlen(*text))
 	{
 		if (!(expander_char_env_cut(text, *cnt, ft_strlen(*text), arg)))
 			exit (1); /// please fix
 		(*cnt) = i + 1;
-	}*/
+	}
 }
 
 void	expander_char_env(char **text, t_arg *arg)
@@ -146,20 +146,63 @@ void	expander_char_env(char **text, t_arg *arg)
 	cnt = 0;
 	tmp = *text;
 	escape = 0;
-		printf("-----\n%s\n-------\n",tmp);
+///		printf("-----\n%s\n-------\n",tmp);
 	while (tmp[cnt])
 	{
+		if (tmp[cnt] == '\'' && escape == 0)
+			escape = 1;
+		if (tmp[cnt] == '\'' && escape == 1)
+			escape = 0;		
 		if (tmp[cnt] == '$' && escape != 1)
 			expander_char_env_replace(text, &cnt, arg);
-		printf("%c\n",tmp[cnt]);
+		if (tmp[cnt] == '\\')
+			cnt ++;
+	///	printf("%c\n",tmp[cnt]);
 		cnt ++;
 	}
 }
 
-void	expander_char_quote(char **text, t_arg *arg)
+void	expander_char_quote(char **text)
 {
-	(void)text;
-	(void)arg;
+	char	*new;
+	int		cnt;
+	int		i;
+	int		escape;
+	int		single_quote;
+
+	new = (char *)malloc(ft_strlen(*text));
+	cnt = 0;
+	i = 0;
+	escape = 0;
+	single_quote = 0;
+///	write(1,"hello\n",6);
+	while ((*text)[cnt])
+	{
+		if ((*text)[cnt] == '\'')
+		{
+			single_quote ^= 1;
+			cnt ++;
+			continue ;
+		}
+		if ((*text)[cnt] == '\\' && single_quote == 0 && escape == 0)
+		{
+			escape = 1;
+			cnt ++;
+			continue ;
+		}
+		if ((*text)[cnt] == '\"' && escape == 0)
+		{
+			cnt ++;
+			continue ;			
+		}
+		new[i] = (*text)[cnt];
+		i ++;
+		cnt ++;
+		if (escape == 1)
+			escape = 0;
+	}
+	new[i] = '\0';
+	(*text) = new;
 }
 
 void	expander_char(char **text, t_arg *arg)
@@ -170,7 +213,9 @@ void	expander_char(char **text, t_arg *arg)
 	cnt = 0;
 	tmp = *text;
 	expander_char_env(text, arg);
-	expander_char_quote(text, arg);
+///	printf("%s\n%s\n", arg->cmdlst->param[0], arg->cmdlst->param[1]);
+	expander_char_quote(text);
+	printf("%s\n%s\n", arg->cmdlst->param[0], arg->cmdlst->param[1]);
 }
 
 void	expander_multiple_char(t_arg *arg)
@@ -213,7 +258,7 @@ void	expander(t_arg *arg)
 {
 	init_env(arg);
 	expander_multiple_char(arg);
-	printf("%s\n%s\n", arg->cmdlst->param[0], arg->cmdlst->param[1]);
+///	printf("%s\n%s\n", arg->cmdlst->param[0], arg->cmdlst->param[1]);
 ///	expander_multiple_char(arg);
 ///	expander_char(&(arg->cmdlst->redir_in));
 ///	expander_char(&(arg->cmdlst->redir_out));
