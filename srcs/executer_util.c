@@ -1,22 +1,22 @@
 #include "main.h"
 
-void	print_cmdstart(char *s)
+void	print_cmdstart(t_arg *arg, char *s)
 {
-	print_stderr_str(COL_TX_CYAN"/---Executing:");
-	print_stderr_str(s);
-	print_stderr_str("\n"COL_TX_RESET);
+	dbg_print_str(arg, "/---Executing:");
+	dbg_print_str(arg, s);
+	dbg_print_str(arg, "\n");
 }
 
-void	print_cmdend(int status)
+void	print_cmdend(t_arg *arg, int status)
 {
-	print_stderr_str(COL_TX_CYAN"\\---Exited (Is exited: ");
-	print_stderr_int(WIFEXITED(status));
+	dbg_print_str(arg, "\\---Exited (Is exited: ");
+	dbg_print_int(arg, WIFEXITED(status));
 	if (WIFEXITED(status))
 	{
-		print_stderr_str(", Exit status: ");
-		print_stderr_int(WEXITSTATUS(status));
+		dbg_print_str(arg, ", Exit status: ");
+		dbg_print_int(arg, WEXITSTATUS(status));
 	}
-	print_stderr_str(")\n"COL_TX_RESET);
+	dbg_print_str(arg, ")\n");
 }
 
 void	check_and_exit_program(t_arg *arg, t_cmd *c)

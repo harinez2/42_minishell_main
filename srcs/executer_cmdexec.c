@@ -32,7 +32,7 @@ static int	exec_shellcmd(t_cmd *cmd, t_arg *arg)
 		if (access(cmd->param[0], X_OK) == 0)
 		{
 			if (arg->dbg == 1)
-				print_cmdstart(cmd->param[0]);
+				print_cmdstart(arg, cmd->param[0]);
 			ret = execve(cmd->param[0], cmd->param, NULL);
 		}
 		secure_free(cmd->param[0]);

@@ -20,8 +20,8 @@ int				executer(t_arg *arg);
 void			free_param(char **cmd_with_param);
 void			exec_command(t_cmd *cmd, t_arg *arg);
 // executer_util.c
-void			print_cmdstart(char *s);
-void			print_cmdend(int status);
+void			print_cmdstart(t_arg *arg, char *s);
+void			print_cmdend(t_arg *arg, int status);
 void			check_and_exit_program(t_arg *arg, t_cmd *c);
 // lib_ft.c
 size_t			ft_strlen(const char *str);
@@ -35,9 +35,9 @@ char			*ft_strjoin(char const *s1, char const *s2);
 char			*ft_strjoin3(char const *s1, char const *s2, char const *s3);
 char			*ft_substr(char const *s, unsigned int start, size_t len);
 // lib_util.c
-void			print_stderr_str(char *s);
-void			print_stderr_int(int i);
-void			print_stderr_strint(char *s, int i);
+void			dbg_print_str(t_arg *arg, char *s);
+void			dbg_print_int(t_arg *arg, int i);
+void			dbg_print_strint(t_arg *arg, char *s, int i);
 void			copy_array(int *to, int *from, int len, int offset_to);
 void			secure_free(void *p);
 void			init_arg(int argc, char **argv, char **envp, t_arg *arg);

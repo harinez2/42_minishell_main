@@ -7,22 +7,17 @@ static void	connect_pipe(int unused, int old, int new, t_arg *arg)
 	if (unused != -1)
 	{
 		close(unused);
-		if (arg->dbg)
-			print_stderr_strint("[fd] [child] closed: ", unused);
+		dbg_print_strint(arg, "[fd] [child] closed: ", unused);
 	}
 	ret = dup2(old, new);
 	if (ret == -1)
 		error_exit(ERR_PIPE, arg);
-	if (arg->dbg)
-	{
-		print_stderr_strint("[fd] [child] dup2: old", old);
-		print_stderr_strint("[fd] [child] dup2: new", new);
-	}
+	dbg_print_strint(arg, "[fd] [child] dup2: old", old);
+	dbg_print_strint(arg, "[fd] [child] dup2: new", new);
 	ret = close(old);
 	if (ret == -1)
 		error_exit(ERR_PIPE, arg);
-	if (arg->dbg)
-		print_stderr_strint("[fd] [child] closed: ", old);
+	dbg_print_strint(arg, "[fd] [child] closed: ", old);
 }
 
 static int	open_infile(char *filename, t_arg *arg)
@@ -32,8 +27,7 @@ static int	open_infile(char *filename, t_arg *arg)
 	fd = open(filename, O_RDONLY);
 	if (fd == -1)
 		error_exit(ERR_FAILED_TO_OPEN_FILE, arg);
-	if (arg->dbg)
-		print_stderr_strint("[fd] [child] open infile: ", fd);
+	dbg_print_strint(arg, "[fd] [child] open infile: ", fd);
 	return (fd);
 }
 
@@ -48,8 +42,7 @@ static int	open_outfile(char *filename, t_arg *arg)
 			S_IRUSR | S_IWUSR | S_IRGRP | S_IWGRP | S_IROTH | S_IWOTH);
 	if (fd == -1)
 		error_exit(ERR_FAILED_TO_OPEN_FILE, arg);
-	if (arg->dbg)
-		print_stderr_strint("[fd] [child] open outfile: ", fd);
+	dbg_print_strint(arg, "[fd] [child] open outfile: ", fd);
 	return (fd);
 }
 
@@ -96,19 +89,15 @@ int	executer(t_arg *arg)
 		if (c->nxtcmd_relation == CONN_PIPE)
 		{
 			close(c->pipe[PP_WRITE]);
-			if (arg->dbg)
-				print_stderr_strint("[fd] [parent] closed: ",
-					c->pipe[PP_WRITE]);
+			dbg_print_strint(arg, "[fd] [parent] closed: ", c->pipe[PP_WRITE]);
 		}
 		if (c->prev != NULL && c->prev->nxtcmd_relation == CONN_PIPE)
 		{
 			close(c->prev->pipe[PP_READ]);
-			if (arg->dbg)
-				print_stderr_strint("[fd] [parent] closed: ",
-					c->pipe[PP_READ]);
+			dbg_print_strint(arg, "[fd] [parent] closed: ", c->pipe[PP_READ]);
 		}
-		if (arg->dbg == 1)
-			print_cmdend(status);
+		if (arg->dbg)
+			print_cmdend(arg, status);
 		c = c->next;
 	}
 	return (0);
