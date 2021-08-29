@@ -25,7 +25,8 @@ int	main(int argc, char **argv, char **envp)
 	while (1)
 	{
 		arg.read = readline("minishell> ");
-		command_execution(&arg);
+		if (arg.read[0] != '\0')
+			command_execution(&arg);
 		secure_free(arg.read);
 	}
 	return (0);

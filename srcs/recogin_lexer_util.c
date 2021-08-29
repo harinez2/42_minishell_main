@@ -10,8 +10,7 @@ int	is_whitespace(char c)
 
 int	is_delim_or_redir(char c)
 {
-	if (c == ';' || c == '|' || c == '&' || c == '>'
-		|| c == '<' || c == '"' || c == '\'')
+	if (c == ';' || c == '|' || c == '&' || c == '>' || c == '<')
 		return (1);
 	else
 		return (0);
@@ -19,6 +18,8 @@ int	is_delim_or_redir(char c)
 
 void	skip_whitespace(char *read, int *i)
 {
+	if (!read)
+		return ;
 	while (is_whitespace(read[*i]))
 		(*i)++;
 }
@@ -27,8 +28,6 @@ void	print_token_type(t_token_type type)
 {
 	static char	token_type_text[TKN_TYPE_LENGTH][16] = {
 		"TKN_EOF        ",
-		"TKN_DBLQUOTE   ",
-		"TKN_SGLQUOTE   ",
 		"TKN_SEMICOLON  ",
 		"TKN_AMP        ",
 		"TKN_SINGLE_OR  ",
@@ -36,7 +35,7 @@ void	print_token_type(t_token_type type)
 		"TKN_REDIR_RIGHT",
 		"TKN_HEREDOC    ",
 		"TKN_DBLANDOR   ",
-		"TKN_CHAR       "
+		"TKN_STRING     "
 	};
 
 	if (0 <= type && type < TKN_TYPE_LENGTH)

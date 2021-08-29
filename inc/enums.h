@@ -3,8 +3,6 @@
 
 typedef enum e_token_type {
 	TKN_EOF,
-	TKN_DBLQUOTE,
-	TKN_SGLQUOTE,
 	TKN_SEMICOLON,
 	TKN_AMP,
 	TKN_SINGLE_OR,
@@ -12,7 +10,7 @@ typedef enum e_token_type {
 	TKN_REDIR_RIGHT,
 	TKN_HEREDOC,
 	TKN_DBLANDOR,
-	TKN_CHAR,
+	TKN_STRING,
 	TKN_TYPE_LENGTH
 }	t_token_type;
 

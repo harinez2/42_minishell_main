@@ -10,6 +10,8 @@ static t_cmd	*cmd_create_empty_node(t_arg *arg)
 	c->param[0] = NULL;
 	c->param_cnt = 0;
 	c->nxtcmd_relation = 0;
+	c->pipe[0] = -1;
+	c->pipe[1] = -1;
 	c->redir_in = NULL;
 	c->redir_out = NULL;
 	c->next = NULL;
