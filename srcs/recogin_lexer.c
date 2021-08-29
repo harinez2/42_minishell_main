@@ -32,7 +32,7 @@ static int	identify_string(char *read, int *i)
 	{
 		if (read[*i] == '"' || read[*i] == '\'')
 			identify_quotes(read, i);
-		else if (is_delim_or_redir(read[*i]))
+		else if (is_delim_or_redir(read[*i]) || is_whitespace(read[*i]))
 			break ;
 		(*i)++;
 	}
