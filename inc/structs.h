@@ -16,6 +16,7 @@ typedef struct s_cmd
 	int				param_cnt;
 	int				nxtcmd_relation;
 	int				pipe[2];
+	int				heredoc_flg;
 	char			*redir_in;
 	char			*redir_out;
 }	t_cmd;

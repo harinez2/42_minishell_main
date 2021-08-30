@@ -12,6 +12,7 @@ static t_cmd	*cmd_create_empty_node(t_arg *arg)
 	c->nxtcmd_relation = 0;
 	c->pipe[0] = -1;
 	c->pipe[1] = -1;
+	c->heredoc_flg = 0;
 	c->redir_in = NULL;
 	c->redir_out = NULL;
 	c->next = NULL;
@@ -74,6 +75,8 @@ void	cmd_destroy(t_arg *arg)
 		i = 0;
 		while (i < c->param_cnt)
 			secure_free(c->param[i++]);
+		if (c->heredoc_flg)
+			unlink(c->redir_in);
 		secure_free(c->redir_in);
 		secure_free(c->redir_out);
 		secure_free(c);

@@ -26,6 +26,8 @@ void	error_exit(int errcode, t_arg *arg)
 		perror("Error");
 	else if (errcode == ERR_FAILED_TO_MALLOC)
 		perror("Error");
+	else if (errcode == ERR_HEREDOC)
+		write(2, "Error: heredoc error\n", 21);
 	else
 		perror("Error");
 	if (arg != NULL)

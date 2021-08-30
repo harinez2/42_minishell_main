@@ -4,6 +4,7 @@
 # define	MAX_ENVP				100
 # define	MAX_PATH				1024
 # define	MAX_ARGNUM				100
+# define	MAX_RETRY_HEREDOC		10
 
 # define	PP_READ					0
 # define	PP_WRITE				1
@@ -19,10 +20,13 @@
 # define	ERR_FAILED_TO_EXEC		-6
 # define	ERR_FAILED_TO_MALLOC	-7
 # define	ERR_CD_INVALIDPATH		-8
+# define	ERR_HEREDOC				-9
 
 # define	CONN_PIPE				31
 # define	CONN_REDIR_OUT			32
 # define	CONN_AMP				33
+
+# define	HEREDOC_FILENAME_LEN	14
 
 # define COL_BK_CYAN	"\x1b[46m"
 # define COL_BK_RESET	"\x1b[49m"
