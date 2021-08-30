@@ -28,25 +28,19 @@ int	cmd_add_redir_filename(t_arg *arg, int inout, char *read, int len)
 	return (0);
 }
 
-int	cmd_add_flg_heredoc(t_arg *arg, int flg)
+int	cmd_add_flg(t_arg *arg, t_token_type t, int flg)
 {
 	t_cmd	*c;
 
 	c = cmd_get_last_node(arg->cmdlst);
 	if (c == NULL)
 		return (-1);
-	c->heredoc_flg = flg;
-	return (0);
-}
-
-int	cmd_add_flg_nxtcmdrel(t_arg *arg, int flg)
-{
-	t_cmd	*c;
-
-	c = cmd_get_last_node(arg->cmdlst);
-	if (c == NULL)
-		return (-1);
-	c->nxtcmd_relation = flg;
+	if (t == TKN_SINGLE_OR || t == TKN_AMP)
+		c->nxtcmd_relation = flg;
+	else if (t == TKN_HEREDOC)
+		c->heredoc_flg = 1;
+	else if (t == TKN_REDIR_APPEND)
+		c->append_flg = 1;
 	return (0);
 }
 

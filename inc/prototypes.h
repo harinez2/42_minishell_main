@@ -73,8 +73,7 @@ void			expander(t_arg *arg);
 // struct_add.c
 int				cmd_add_redir_filename(t_arg *arg, int inout,
 					char *read, int len);
-int				cmd_add_flg_heredoc(t_arg *arg, int flg);
-int				cmd_add_flg_nxtcmdrel(t_arg *arg, int flg);
+int				cmd_add_flg(t_arg *arg, t_token_type t, int flg);
 int				cmd_add_param(t_arg *arg, char *cmdtxt, int len);
 // struct_init_destroy.c
 t_cmd			*cmd_create_node_with_param(

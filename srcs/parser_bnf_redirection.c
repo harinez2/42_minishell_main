@@ -44,7 +44,7 @@ static void	bnf_redirection_heredoc(
 	else
 		cmd_add_redir_filename(arg, 0, filename,
 			HEREDOC_FILENAME_LEN);
-	cmd_add_flg_heredoc(arg, 1);
+	cmd_add_flg(arg, TKN_HEREDOC, 1);
 	secure_free(filename);
 }
 
@@ -53,9 +53,8 @@ static void	bnf_redirection_append(
 {
 	if (arg->dbg)
 		printf("   =>>=\n");
-	(void)token_info;
-	(void)i;
-	(void)leftflg;
+	bnf_redirection_right(arg, token_info, i, leftflg);
+	cmd_add_flg(arg, TKN_REDIR_APPEND, 1);
 }
 
 void	bnf_redirection_op(t_arg *arg, int token_info[][3], int *i, int leftflg)

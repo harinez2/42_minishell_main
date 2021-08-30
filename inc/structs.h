@@ -18,6 +18,7 @@ typedef struct s_cmd
 	int				pipe[2];
 	int				heredoc_flg;
 	char			*redir_in;
+	int				append_flg;
 	char			*redir_out;
 }	t_cmd;
 
