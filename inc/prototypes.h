@@ -20,8 +20,6 @@ void			print_error(int errcode, char *txt);
 void			error_exit(int errcode, t_arg *arg);
 // executer.c
 int				executer(t_arg *arg);
-// lexer_heredoc.c
-char			*heredoc_read(t_arg *arg, char *eof_name);
 // executer_cmdexec.c
 void			free_param(char **cmd_with_param);
 void			exec_command(t_cmd *cmd, t_arg *arg);
@@ -47,6 +45,8 @@ void			dbg_print_int(t_arg *arg, int i);
 void			dbg_print_strint(t_arg *arg, char *s, int i);
 void			copy_array(int *to, int *from, int len, int offset_to);
 void			secure_free(void *p);
+// parser_heredoc.c
+char			*heredoc_read(t_arg *arg, char *eof_name);
 // recogin_expander.c
 void			expander(t_arg *arg);
 // recogin_lexer_util.c
