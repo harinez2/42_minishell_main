@@ -28,6 +28,14 @@ void			dbg_print_cmdstart(t_arg *arg, char *s);
 void			dbg_print_cmdend(t_arg *arg, int status);
 void			close_pipe(t_arg *arg, char *who, int fd);
 void			check_and_exit_program(t_arg *arg, t_cmd *c);
+// lexer.c
+int				lexer(t_arg *arg, int token_info[][3]);
+// lexer_util.c
+int				is_whitespace(char c);
+int				is_delim_or_redir(char c);
+void			skip_whitespace(char *read, int *i);
+void			print_token_type(t_token_type type);
+void			print_token_info(int token_info[][3], char *read);
 // lib_ft.c
 size_t			ft_strlen(const char *str);
 void			ft_putstr(char *s, int len);
@@ -45,20 +53,12 @@ void			dbg_print_int(t_arg *arg, int i);
 void			dbg_print_strint(t_arg *arg, char *s, int i);
 void			copy_array(int *to, int *from, int len, int offset_to);
 void			secure_free(void *p);
+// parser.c
+int				parser(t_arg *arg, int token_info[][3]);
 // parser_heredoc.c
 char			*heredoc_read(t_arg *arg, char *eof_name);
 // recogin_expander.c
 void			expander(t_arg *arg);
-// recogin_lexer_util.c
-int				is_whitespace(char c);
-int				is_delim_or_redir(char c);
-void			skip_whitespace(char *read, int *i);
-void			print_token_type(t_token_type type);
-void			print_token_info(int token_info[][3], char *read);
-// recogin_lexer.c
-int				lexer(t_arg *arg, int token_info[][3]);
-// recogin_parser.c
-int				parser(t_arg *arg, int token_info[][3]);
 // struct_add.c
 int				cmd_add_redir_filename(t_arg *arg, int inout,
 					char *read, int len);
