@@ -54,7 +54,18 @@ void			dbg_print_strint(t_arg *arg, char *s, int i);
 void			copy_array(int *to, int *from, int len, int offset_to);
 void			secure_free(void *p);
 // parser.c
+int				bnf_piped_commands(t_arg *arg, int token_info[][3], int *i);
+int				bnf_separation_op(t_arg *arg, int token_info[][3], int *i);
+int				bnf_command_line(t_arg *arg, int token_info[][3], int *i);
 int				parser(t_arg *arg, int token_info[][3]);
+// parser_bnf_compoundcmd.c
+int				bnf_redirection(t_arg *arg, int token_info[][3], int *i, int leftflg);
+int				bnf_param_redir(t_arg *arg, int token_info[][3], int *i);
+int				bnf_command_elements(t_arg *arg, int token_info[][3], int *i);
+int				bnf_simple_command(t_arg *arg, int token_info[][3], int *i);
+int				bnf_compoud_command(t_arg *arg, int token_info[][3], int *i);
+// parser_bnf_redirection.c
+void			bnf_redirection_op(t_arg *arg, int token_info[][3], int *i, int leftflg);
 // parser_heredoc.c
 char			*heredoc_read(t_arg *arg, char *eof_name);
 // recogin_expander.c
