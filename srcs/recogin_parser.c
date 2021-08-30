@@ -7,6 +7,8 @@
 // 	|	">>" string
 int	bnf_redirection(t_arg *arg, int token_info[][3], int *i, int leftflg)
 {
+	char	*filename;
+
 	if (arg->dbg)
 		printf("%2d <redirection>\n", *i);
 	if (token_info[*i][0] == TKN_REDIR_LEFT
@@ -49,6 +51,15 @@ int	bnf_redirection(t_arg *arg, int token_info[][3], int *i, int leftflg)
 			{
 				if (arg->dbg)
 					printf("   =<<=\n");
+				filename = heredoc_read(arg, arg->read + token_info[*i][1]);
+				if (leftflg)
+					cmd_create_node_with_redir(arg, 0, filename,
+						HEREDOC_FILENAME_LEN);
+				else
+					cmd_add_redir_filename(arg, 0, filename,
+						HEREDOC_FILENAME_LEN);
+				cmd_add_flg_heredoc(arg, 1);
+				secure_free(filename);
 			}
 			else if (token_info[*i - 1][0] == TKN_REDIR_APPEND)
 			{
@@ -79,7 +90,7 @@ int	bnf_separation_op(t_arg *arg, int token_info[][3], int *i)
 	{
 		if (arg->dbg)
 			printf("   =&=\n");
-		cmd_add_setflg(arg, CONN_AMP);
+		cmd_add_flg_nxtcmdrel(arg, CONN_AMP);
 		(*i)++;
 	}
 	else if (token_info[*i][0] == TKN_SEMICOLON)
@@ -190,7 +201,7 @@ int	bnf_piped_commands(t_arg *arg, int token_info[][3], int *i)
 		{
 			if (arg->dbg)
 				printf("   =|=\n");
-			cmd_add_setflg(arg, CONN_PIPE);
+			cmd_add_flg_nxtcmdrel(arg, CONN_PIPE);
 			(*i)++;
 			if (bnf_piped_commands(arg, token_info, i) == 0)
 				;

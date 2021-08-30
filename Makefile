@@ -12,6 +12,7 @@ SRCS		= \
 				$(SRC_DIR)/executer.c \
 				$(SRC_DIR)/executer_cmdexec.c \
 				$(SRC_DIR)/executer_util.c \
+				$(SRC_DIR)/lexer_heredoc.c \
 				$(SRC_DIR)/lib_ft.c \
 				$(SRC_DIR)/lib_ft2.c \
 				$(SRC_DIR)/lib_util.c \

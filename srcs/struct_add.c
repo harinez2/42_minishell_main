@@ -28,7 +28,18 @@ int	cmd_add_redir_filename(t_arg *arg, int inout, char *read, int len)
 	return (0);
 }
 
-int	cmd_add_setflg(t_arg *arg, int flg)
+int	cmd_add_flg_heredoc(t_arg *arg, int flg)
+{
+	t_cmd	*c;
+
+	c = cmd_get_last_node(arg->cmdlst);
+	if (c == NULL)
+		return (-1);
+	c->heredoc_flg = flg;
+	return (0);
+}
+
+int	cmd_add_flg_nxtcmdrel(t_arg *arg, int flg)
 {
 	t_cmd	*c;
 
