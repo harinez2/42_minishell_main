@@ -18,8 +18,10 @@ SRCS		= \
 				$(SRC_DIR)/lib_ft2.c \
 				$(SRC_DIR)/lib_util.c \
 				$(SRC_DIR)/main.c \
-				$(SRC_DIR)/parser.c \
+				$(SRC_DIR)/parser_bnf_compoundcmd.c \
+				$(SRC_DIR)/parser_bnf_redirection.c \
 				$(SRC_DIR)/parser_heredoc.c \
+				$(SRC_DIR)/parser.c \
 				$(SRC_DIR)/recogin_expander.c \
 				$(SRC_DIR)/struct_add.c \
 				$(SRC_DIR)/struct_init_destroy.c \
