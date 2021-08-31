@@ -5,8 +5,11 @@ void	init_arg(int argc, char **argv, char **envp, t_arg *arg)
 	arg->argc = argc;
 	arg->argv = argv;
 	arg->envp = envp;
-	arg->cmdlst = NULL;
+	arg->read = NULL;
+	arg->path_cnt = 0;
 	update_envpath(arg);
+	arg->cmdlst = NULL;
+	arg->envlst = NULL;
 	arg->dbg = 0;
 }
 
