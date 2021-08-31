@@ -8,6 +8,7 @@ SRCS		= \
 				$(SRC_DIR)/builtin_env.c \
 				$(SRC_DIR)/builtin_export.c \
 				$(SRC_DIR)/builtin_pwd.c \
+				$(SRC_DIR)/builtin_unset.c \
 				$(SRC_DIR)/error.c \
 				$(SRC_DIR)/executer.c \
 				$(SRC_DIR)/executer_cmdexec.c \
@@ -33,12 +34,15 @@ SRCS		= \
 				$(SRC_DIR)/struct_lst.c \
 				$(SRC_DIR)/struct_print.c
 OBJS		= $(SRCS:.c=.o)
+DEPS		= $(SRCS:%.c=%.d)
 CC			= gcc
-CFLAGS		= -Wall -Wextra -Werror
+CFLAGS		= -Wall -Wextra -Werror -MMD -MP
 CFLAGS_RL	= -lreadline
 DBGFLG		= -g3 -fsanitize=address
 
 all: $(NAME)
+
+-include $(DEPS)
 
 $(NAME): $(OBJS)
 	$(CC) $(OBJS) $(CFLAGS) $(CFLAGS_RL) $(INCLUDE) -o $(NAME)
@@ -50,7 +54,7 @@ debug: $(SRCS)
 	clang $(SRCS) $(CFLAGS) $(CFLAGS_RL) $(INCLUDE) $(DBGFLG) -o $(NAME)
 
 clean:
-	rm -f $(OBJS)
+	rm -f $(OBJS) $(DEPS)
 
 fclean: clean
 	rm -f $(NAME)

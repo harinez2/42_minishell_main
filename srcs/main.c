@@ -30,7 +30,10 @@ int	main(int argc, char **argv, char **envp)
 	{
 		arg.read = readline(COL_BK_CYAN"minishell>"COL_BK_RESET" ");
 		if (arg.read[0] != '\0')
+		{
+			add_history(arg.read);
 			command_execution(&arg);
+		}
 		secure_free(arg.read);
 	}
 	return (0);
