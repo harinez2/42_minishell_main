@@ -8,6 +8,7 @@ SRCS		= \
 				$(SRC_DIR)/builtin_env.c \
 				$(SRC_DIR)/builtin_export.c \
 				$(SRC_DIR)/builtin_pwd.c \
+				$(SRC_DIR)/builtin_unset.c \
 				$(SRC_DIR)/error.c \
 				$(SRC_DIR)/executer.c \
 				$(SRC_DIR)/executer_cmdexec.c \
@@ -35,7 +36,7 @@ SRCS		= \
 OBJS		= $(SRCS:.c=.o)
 DEPS		= $(SRCS:%.c=%.d)
 CC			= gcc
-CFLAGS		= -Wall -Wextra -Werror -MMD
+CFLAGS		= -Wall -Wextra -Werror -MMD -MP
 CFLAGS_RL	= -lreadline
 DBGFLG		= -g3 -fsanitize=address
 

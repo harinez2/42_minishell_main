@@ -15,6 +15,8 @@ void			builtincmd_env(t_arg *arg, t_cmd *cmd);
 void			builtincmd_export(t_arg *arg, t_cmd *cmd, char **envp);
 // builtin_pwd.c
 void			builtincmd_pwd(t_arg *arg, t_cmd *cmd);
+// buildin_unset.c
+void			builtincmd_unset(t_arg *arg, t_cmd *cmd);
 // error.c
 void			print_error(int errcode, char *txt);
 void			error_exit(int errcode, char *errtxt, t_arg *arg);
