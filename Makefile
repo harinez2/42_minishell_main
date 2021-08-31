@@ -47,7 +47,7 @@ $(NAME): $(OBJS)
 	$(CC) $(CFLAGS) $(INCLUDE) -c $< -o $(<:.c=.o)
 
 debug: $(SRCS)
-	$(CC) $(SRCS) $(CFLAGS) $(CFLAGS_RL) $(INCLUDE) $(DBGFLG) -o $(NAME)
+	clang $(SRCS) $(CFLAGS) $(CFLAGS_RL) $(INCLUDE) $(DBGFLG) -o $(NAME)
 
 clean:
 	rm -f $(OBJS)
