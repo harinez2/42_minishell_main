@@ -11,7 +11,7 @@ static void	connect_pipe(int unused, int old, int new, t_arg *arg)
 	}
 	ret = dup2(old, new);
 	if (ret == -1)
-		error_exit(ERR_PIPE, "", arg);
+		error_exit(ERR_PIPE, NULL, arg);
 	dbg_print_strint(arg, "[fd] [child] dup2: old", old);
 	dbg_print_strint(arg, "[fd] [child] dup2: new", new);
 	close_pipe(arg, "child", old);
@@ -23,7 +23,7 @@ static int	open_infile(char *filename, t_arg *arg)
 
 	fd = open(filename, O_RDONLY);
 	if (fd == -1)
-		error_exit(ERR_FAILED_TO_OPEN_FILE, "", arg);
+		error_exit(ERR_FAILED_TO_OPEN_FILE, NULL, arg);
 	dbg_print_strint(arg, "[fd] [child] open infile: ", fd);
 	return (fd);
 }
@@ -40,7 +40,7 @@ static int	open_outfile(char *filename, t_cmd *c, t_arg *arg)
 	else
 		fd = open(outfilepath, O_WRONLY | O_CREAT | O_TRUNC, 0600);
 	if (fd == -1)
-		error_exit(ERR_FAILED_TO_OPEN_FILE, "", arg);
+		error_exit(ERR_FAILED_TO_OPEN_FILE, NULL, arg);
 	dbg_print_strint(arg, "[fd] [child] open outfile: ", fd);
 	return (fd);
 }
@@ -81,7 +81,7 @@ int	executer(t_arg *arg)
 			pipe(c->pipe);
 		pid = fork();
 		if (pid == -1)
-			error_exit(ERR_FAILED_TO_FORK, "", arg);
+			error_exit(ERR_FAILED_TO_FORK, NULL, arg);
 		else if (pid == 0)
 			executer_childprocess(arg, c);
 		waitpid(pid, &status, 0);
