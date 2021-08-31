@@ -16,21 +16,14 @@ void	expander_char_quote(char **text)
 	while ((*text)[cnt])
 	{
 		if ((*text)[cnt] == '\'')
-		{
 			single_quote ^= 1;
-			cnt ++;
-			continue ;
-		}
 		if ((*text)[cnt] == '\\' && single_quote == 0 && escape == 0)
-		{
 			escape = 1;
+		if (((*text)[cnt] == '\"' && escape == 0) || (*text)[cnt] == '\''
+			|| ((*text)[cnt] == '\\' && single_quote == 0 && escape == 0))
+		{
 			cnt ++;
 			continue ;
-		}
-		if ((*text)[cnt] == '\"' && escape == 0)
-		{
-			cnt ++;
-			continue ;			
 		}
 		new[i] = (*text)[cnt];
 		i ++;
@@ -39,7 +32,6 @@ void	expander_char_quote(char **text)
 			escape = 0;
 	}
 	free(*text);
-	printf("%s\n%d\n%s\n%d\n%d\n", (*text), (int)ft_strlen(*text), new, i, (int)ft_strlen(new));
 	(*text) = ft_strdup2(new, i);
 	free(new);
 }

@@ -47,22 +47,20 @@ static int	expander_char_env_cut(char **text, int start, int end, t_arg *arg)
 
 static void	expander_char_env_replace(char **text, int *cnt, t_arg *arg)
 {
-	char	*tmp;
 	int		i;
 
-	tmp = *text;
 	i = *cnt;
-	if (tmp[(*cnt) + 1] == '"')
+	if ((*text)[(*cnt) + 1] == '"')
 	{
 		(*cnt) += 2;
 		return ;
 	}
-	while (tmp[i])
+	while ((*text)[i])
 	{
-		if (tmp[i] == '"')
+		if ((*text)[i] == '"')
 		{
 			if (!(expander_char_env_cut(text, *cnt, i, arg)))
-				 ; /// please fix
+				; /// please fix
 			(*cnt) = i + 1;
 			break ;
 		}
@@ -71,7 +69,7 @@ static void	expander_char_env_replace(char **text, int *cnt, t_arg *arg)
 	if (i == (int)ft_strlen(*text))
 	{
 		if (!(expander_char_env_cut(text, *cnt, ft_strlen(*text), arg)))
-			 ; /// please fix
+			; /// please fix
 		(*cnt) = i + 1;
 	}
 }
@@ -88,7 +86,7 @@ void	expander_char_env(char **text, t_arg *arg)
 		if ((*text)[cnt] == '\'' && escape == 0)
 			escape = 1;
 		if ((*text)[cnt] == '\'' && escape == 1)
-			escape = 0;		
+			escape = 0;
 		if ((*text)[cnt] == '$' && escape != 1)
 			expander_char_env_replace(text, &cnt, arg);
 		if ((*text)[cnt] == '\\')
