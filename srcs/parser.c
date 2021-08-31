@@ -13,7 +13,7 @@ int	bnf_piped_commands(t_arg *arg, int token_info[][3], int *i)
 		{
 			if (arg->dbg)
 				printf("   =|=\n");
-			cmd_add_flg_nxtcmdrel(arg, CONN_PIPE);
+			cmd_add_flg(arg, TKN_SINGLE_OR, CONN_PIPE);
 			(*i)++;
 			if (bnf_piped_commands(arg, token_info, i) == 0)
 				;
@@ -38,7 +38,7 @@ int	bnf_separation_op(t_arg *arg, int token_info[][3], int *i)
 	{
 		if (arg->dbg)
 			printf("   =&=\n");
-		cmd_add_flg_nxtcmdrel(arg, CONN_AMP);
+		cmd_add_flg(arg, TKN_AMP, CONN_AMP);
 		(*i)++;
 	}
 	else if (token_info[*i][0] == TKN_SEMICOLON)
@@ -87,9 +87,9 @@ int	parser(t_arg *arg, int token_info[][3])
 	}
 	else
 	{
-		printf("##### parse failed! #####\n\n");
-		write(2, "minishell: syntax error\n", 24);
-		return (-1);
+		if (arg->dbg)
+			printf("##### parse failed! #####\n\n");
+		error_exit(ERR_SYNTAX_ERROR, NULL, arg);
 	}
 	return (0);
 }

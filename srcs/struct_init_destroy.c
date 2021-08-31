@@ -6,7 +6,7 @@ static t_cmd	*cmd_create_empty_node(t_arg *arg)
 
 	c = malloc(sizeof(t_cmd));
 	if (!c)
-		error_exit(ERR_FAILED_TO_MALLOC, arg);
+		error_exit(ERR_FAILED_TO_MALLOC, NULL, arg);
 	c->param[0] = NULL;
 	c->param_cnt = 0;
 	c->nxtcmd_relation = 0;
@@ -14,6 +14,7 @@ static t_cmd	*cmd_create_empty_node(t_arg *arg)
 	c->pipe[1] = -1;
 	c->heredoc_flg = 0;
 	c->redir_in = NULL;
+	c->append_flg = 0;
 	c->redir_out = NULL;
 	c->next = NULL;
 	c->prev = NULL;

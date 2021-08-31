@@ -16,6 +16,7 @@ SRCS		= \
 				$(SRC_DIR)/lexer_util.c \
 				$(SRC_DIR)/lib_ft.c \
 				$(SRC_DIR)/lib_ft2.c \
+				$(SRC_DIR)/lib_util_dbg.c \
 				$(SRC_DIR)/lib_util.c \
 				$(SRC_DIR)/main.c \
 				$(SRC_DIR)/parser_bnf_compoundcmd.c \

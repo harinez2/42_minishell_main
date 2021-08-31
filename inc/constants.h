@@ -21,6 +21,7 @@
 # define	ERR_FAILED_TO_MALLOC	-7
 # define	ERR_CD_INVALIDPATH		-8
 # define	ERR_HEREDOC				-9
+# define	ERR_SYNTAX_ERROR		-10
 
 # define	CONN_PIPE				31
 # define	CONN_REDIR_OUT			32

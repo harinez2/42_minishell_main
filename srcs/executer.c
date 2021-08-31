@@ -11,7 +11,7 @@ static void	connect_pipe(int unused, int old, int new, t_arg *arg)
 	}
 	ret = dup2(old, new);
 	if (ret == -1)
-		error_exit(ERR_PIPE, arg);
+		error_exit(ERR_PIPE, NULL, arg);
 	dbg_print_strint(arg, "[fd] [child] dup2: old", old);
 	dbg_print_strint(arg, "[fd] [child] dup2: new", new);
 	close_pipe(arg, "child", old);
@@ -23,22 +23,24 @@ static int	open_infile(char *filename, t_arg *arg)
 
 	fd = open(filename, O_RDONLY);
 	if (fd == -1)
-		error_exit(ERR_FAILED_TO_OPEN_FILE, arg);
+		error_exit(ERR_FAILED_TO_OPEN_FILE, NULL, arg);
 	dbg_print_strint(arg, "[fd] [child] open infile: ", fd);
 	return (fd);
 }
 
-static int	open_outfile(char *filename, t_arg *arg)
+static int	open_outfile(char *filename, t_cmd *c, t_arg *arg)
 {
 	int		fd;
 	char	outfilepath[300];
 
 	ft_strlcpy(outfilepath, "./", 3);
 	ft_strlcat(outfilepath, filename, ft_strlen(filename) + 3);
-	fd = open(outfilepath, O_WRONLY | O_CREAT | O_TRUNC,
-			S_IRUSR | S_IWUSR | S_IRGRP | S_IWGRP | S_IROTH | S_IWOTH);
+	if (c->append_flg)
+		fd = open(outfilepath, O_WRONLY | O_APPEND, 0);
+	else
+		fd = open(outfilepath, O_WRONLY | O_CREAT | O_TRUNC, 0600);
 	if (fd == -1)
-		error_exit(ERR_FAILED_TO_OPEN_FILE, arg);
+		error_exit(ERR_FAILED_TO_OPEN_FILE, NULL, arg);
 	dbg_print_strint(arg, "[fd] [child] open outfile: ", fd);
 	return (fd);
 }
@@ -49,7 +51,7 @@ static void	executer_childprocess(t_arg *arg, t_cmd	*c)
 
 	if (c->redir_out != NULL)
 	{
-		fd = open_outfile(c->redir_out, arg);
+		fd = open_outfile(c->redir_out, c, arg);
 		connect_pipe(-1, fd, 1, arg);
 	}
 	else if (c->nxtcmd_relation == CONN_PIPE)
@@ -79,7 +81,7 @@ int	executer(t_arg *arg)
 			pipe(c->pipe);
 		pid = fork();
 		if (pid == -1)
-			error_exit(ERR_FAILED_TO_FORK, arg);
+			error_exit(ERR_FAILED_TO_FORK, NULL, arg);
 		else if (pid == 0)
 			executer_childprocess(arg, c);
 		waitpid(pid, &status, 0);

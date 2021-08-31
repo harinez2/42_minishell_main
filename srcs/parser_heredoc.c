@@ -48,12 +48,12 @@ char	*heredoc_read(t_arg *arg, char *eof_name)
 
 	outfilepath = malloc(sizeof(char) * HEREDOC_FILENAME_LEN);
 	if (!outfilepath)
-		error_exit(ERR_HEREDOC, arg);
+		error_exit(ERR_FAILED_TO_MALLOC, NULL, arg);
 	fd = open_available_tempfile(arg, outfilepath);
 	if (fd == -1)
 	{
 		secure_free(outfilepath);
-		error_exit(ERR_HEREDOC, arg);
+		error_exit(ERR_HEREDOC, NULL, arg);
 	}
 	heredoc_readline(fd, eof_name);
 	close(fd);

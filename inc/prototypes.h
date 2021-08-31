@@ -17,7 +17,7 @@ void			builtincmd_export(t_arg *arg, t_cmd *cmd, char **envp);
 void			builtincmd_pwd(t_arg *arg, t_cmd *cmd);
 // error.c
 void			print_error(int errcode, char *txt);
-void			error_exit(int errcode, t_arg *arg);
+void			error_exit(int errcode, char *errtxt, t_arg *arg);
 // executer.c
 int				executer(t_arg *arg);
 // executer_cmdexec.c
@@ -47,10 +47,12 @@ char			*ft_strdup(const char *s1);
 char			*ft_strjoin(char const *s1, char const *s2);
 char			*ft_strjoin3(char const *s1, char const *s2, char const *s3);
 char			*ft_substr(char const *s, unsigned int start, size_t len);
-// lib_util.c
+// lib_util_dbg.c
 void			dbg_print_str(t_arg *arg, char *s);
 void			dbg_print_int(t_arg *arg, int i);
 void			dbg_print_strint(t_arg *arg, char *s, int i);
+// lib_util.c
+void			putstr_stderr(char *s);
 void			copy_array(int *to, int *from, int len, int offset_to);
 void			secure_free(void *p);
 // parser.c
@@ -59,13 +61,15 @@ int				bnf_separation_op(t_arg *arg, int token_info[][3], int *i);
 int				bnf_command_line(t_arg *arg, int token_info[][3], int *i);
 int				parser(t_arg *arg, int token_info[][3]);
 // parser_bnf_compoundcmd.c
-int				bnf_redirection(t_arg *arg, int token_info[][3], int *i, int leftflg);
+int				bnf_redirection(
+					t_arg *arg, int token_info[][3], int *i, int leftflg);
 int				bnf_param_redir(t_arg *arg, int token_info[][3], int *i);
 int				bnf_command_elements(t_arg *arg, int token_info[][3], int *i);
 int				bnf_simple_command(t_arg *arg, int token_info[][3], int *i);
 int				bnf_compoud_command(t_arg *arg, int token_info[][3], int *i);
 // parser_bnf_redirection.c
-void			bnf_redirection_op(t_arg *arg, int token_info[][3], int *i, int leftflg);
+void			bnf_redirection_op(
+					t_arg *arg, int token_info[][3], int *i, int leftflg);
 // parser_heredoc.c
 char			*heredoc_read(t_arg *arg, char *eof_name);
 // recogin_expander.c
@@ -73,8 +77,7 @@ void			expander(t_arg *arg);
 // struct_add.c
 int				cmd_add_redir_filename(t_arg *arg, int inout,
 					char *read, int len);
-int				cmd_add_flg_heredoc(t_arg *arg, int flg);
-int				cmd_add_flg_nxtcmdrel(t_arg *arg, int flg);
+int				cmd_add_flg(t_arg *arg, t_token_type t, int flg);
 int				cmd_add_param(t_arg *arg, char *cmdtxt, int len);
 // struct_init_destroy.c
 t_cmd			*cmd_create_node_with_param(

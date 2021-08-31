@@ -10,26 +10,34 @@ void	print_error(int errcode, char *txt)
 	}
 }
 
-void	error_exit(int errcode, t_arg *arg)
+void	error_exit(int errcode, char *errtxt, t_arg *arg)
 {
+	putstr_stderr("minishell: ");
+	if (errtxt)
+	{
+		putstr_stderr(errtxt);
+		putstr_stderr(": ");
+	}
 	if (errcode == ERR_ENV_INVALID)
-		perror("Error");
+		perror("error");
 	else if (errcode == ERR_NOT_ENOUGH_PARAM)
-		perror("Error");
+		perror("error");
 	else if (errcode == ERR_FAILED_TO_OPEN_FILE)
-		perror("Error");
+		perror("error");
 	else if (errcode == ERR_PIPE)
-		perror("Error");
+		perror("error");
 	else if (errcode == ERR_FAILED_TO_FORK)
-		perror("Error");
+		perror("error");
 	else if (errcode == ERR_FAILED_TO_EXEC)
-		perror("Error");
+		putstr_stderr("command not found\n");
 	else if (errcode == ERR_FAILED_TO_MALLOC)
-		perror("Error");
+		perror("error");
 	else if (errcode == ERR_HEREDOC)
-		write(2, "Error: heredoc error\n", 21);
+		putstr_stderr("heredoc error\n");
+	else if (errcode == ERR_SYNTAX_ERROR)
+		putstr_stderr("syntax error\n");
 	else
-		perror("Error");
+		putstr_stderr("unexpected error\n");
 	if (arg != NULL)
 		free(arg->path[0]);
 	cmd_destroy(arg);

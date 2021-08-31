@@ -48,5 +48,5 @@ void	exec_command(t_cmd *cmd, t_arg *arg)
 		return ;
 	else if (exec_shellcmd(cmd, arg) == 0)
 		return ;
-	error_exit(ERR_FAILED_TO_EXEC, arg);
+	error_exit(ERR_FAILED_TO_EXEC, cmd->param[0], arg);
 }

@@ -25,7 +25,7 @@ void	close_pipe(t_arg *arg, char *who, int fd)
 
 	ret = close(fd);
 	if (ret == -1)
-		error_exit(ERR_PIPE, arg);
+		error_exit(ERR_PIPE, NULL, arg);
 	dbg_print_str(arg, "[fd] [");
 	dbg_print_str(arg, who);
 	dbg_print_strint(arg, "] closed:", fd);
