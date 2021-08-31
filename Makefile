@@ -33,12 +33,15 @@ SRCS		= \
 				$(SRC_DIR)/struct_lst.c \
 				$(SRC_DIR)/struct_print.c
 OBJS		= $(SRCS:.c=.o)
+DEPS		= $(SRCS:%.c=%.d)
 CC			= gcc
-CFLAGS		= -Wall -Wextra -Werror
+CFLAGS		= -Wall -Wextra -Werror -MMD
 CFLAGS_RL	= -lreadline
 DBGFLG		= -g3 -fsanitize=address
 
 all: $(NAME)
+
+-include $(DEPS)
 
 $(NAME): $(OBJS)
 	$(CC) $(OBJS) $(CFLAGS) $(CFLAGS_RL) $(INCLUDE) -o $(NAME)
