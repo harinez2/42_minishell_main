@@ -7,7 +7,7 @@ static void	ft_push_back_env(t_env	**envlst, char *env, char *value)
 
 	new_env = malloc(sizeof(t_env));
 	if (!new_env)
-		 ; /// please change this
+		; /// please change this
 	new_env->env = env;
 	new_env->value = value;
 	new_env->next = NULL;
@@ -20,7 +20,7 @@ static void	ft_push_back_env(t_env	**envlst, char *env, char *value)
 	{
 		while (head->next != NULL)
 			head = head->next;
-		head->next = new_env;	
+		head->next = new_env;
 	}
 }
 
@@ -37,7 +37,8 @@ void	init_env(t_arg *arg)
 	{
 		dest = ft_strchr(arg->envp[cnt], '=');
 		env = ft_strdup2(arg->envp[cnt], dest);
-		value = ft_strdup2(&(arg->envp[cnt][dest + 1]), ft_strlen(arg->envp[cnt]) - dest);
+		value = ft_strdup2(&(arg->envp[cnt][dest + 1]),
+				ft_strlen(arg->envp[cnt]) - dest);
 		ft_push_back_env(&(arg->envlst), env, value);
 		cnt ++;
 	}
