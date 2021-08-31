@@ -17,7 +17,7 @@ void			builtincmd_export(t_arg *arg, t_cmd *cmd, char **envp);
 void			builtincmd_pwd(t_arg *arg, t_cmd *cmd);
 // error.c
 void			print_error(int errcode, char *txt);
-void			error_exit(int errcode, t_arg *arg);
+void			error_exit(int errcode, char *errtxt, t_arg *arg);
 // executer.c
 int				executer(t_arg *arg);
 // executer_cmdexec.c
@@ -47,10 +47,12 @@ char			*ft_strdup(const char *s1);
 char			*ft_strjoin(char const *s1, char const *s2);
 char			*ft_strjoin3(char const *s1, char const *s2, char const *s3);
 char			*ft_substr(char const *s, unsigned int start, size_t len);
-// lib_util.c
+// lib_util_dbg.c
 void			dbg_print_str(t_arg *arg, char *s);
 void			dbg_print_int(t_arg *arg, int i);
 void			dbg_print_strint(t_arg *arg, char *s, int i);
+// lib_util.c
+void			putstr_stderr(char *s);
 void			copy_array(int *to, int *from, int len, int offset_to);
 void			secure_free(void *p);
 // parser.c

@@ -11,7 +11,7 @@ int	cmd_add_redir_filename(t_arg *arg, int inout, char *read, int len)
 		return (-1);
 	filename = malloc(sizeof(char) * (len + 1));
 	if (!filename)
-		error_exit(-1, arg);
+		error_exit(ERR_FAILED_TO_MALLOC, "", arg);
 	ft_strlcpy(filename, read, len + 1);
 	if (inout == 0)
 	{

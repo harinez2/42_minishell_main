@@ -10,8 +10,14 @@ void	print_error(int errcode, char *txt)
 	}
 }
 
-void	error_exit(int errcode, t_arg *arg)
+void	error_exit(int errcode, char *errtxt, t_arg *arg)
 {
+	putstr_stderr("minishell: ");
+	if (errtxt)
+	{
+		putstr_stderr(errtxt);
+		putstr_stderr(": ");
+	}
 	if (errcode == ERR_ENV_INVALID)
 		perror("Error");
 	else if (errcode == ERR_NOT_ENOUGH_PARAM)
@@ -23,7 +29,7 @@ void	error_exit(int errcode, t_arg *arg)
 	else if (errcode == ERR_FAILED_TO_FORK)
 		perror("Error");
 	else if (errcode == ERR_FAILED_TO_EXEC)
-		perror("Error");
+		putstr_stderr(": command not found\n");
 	else if (errcode == ERR_FAILED_TO_MALLOC)
 		perror("Error");
 	else if (errcode == ERR_HEREDOC)
