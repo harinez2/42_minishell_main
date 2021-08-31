@@ -52,6 +52,8 @@ char			*ft_substr(char const *s, unsigned int start, size_t len);
 // lib_ft3.c
 ssize_t			ft_strchr(const char *s, int c);
 char			*ft_strdup2(const char *s1, ssize_t n);
+// lib_ft4.c
+char			*ft_searchinstr(const char *s, int c);
 // lib_util_dbg.c
 void			dbg_print_str(t_arg *arg, char *s);
 void			dbg_print_int(t_arg *arg, int i);
@@ -85,7 +87,7 @@ void			init_env(t_arg *arg);
 // expander_char_env.c
 void			expander_char_env(char **text, t_arg *arg);
 // expander_char_quote.c
-void	expander_char_quote(char **text);
+void			expander_char_quote(char **text);
 // struct_add.c
 int				cmd_add_redir_filename(t_arg *arg, int inout,
 					char *read, int len);

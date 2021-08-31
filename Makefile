@@ -18,6 +18,7 @@ SRCS		= \
 				$(SRC_DIR)/lib_ft.c \
 				$(SRC_DIR)/lib_ft2.c \
 				$(SRC_DIR)/lib_ft3.c \
+				$(SRC_DIR)/lib_ft4.c \
 				$(SRC_DIR)/lib_util_dbg.c \
 				$(SRC_DIR)/lib_util.c \
 				$(SRC_DIR)/main.c \
