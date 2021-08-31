@@ -1,6 +1,6 @@
 #include "main.h"
 
-void	ft_push_back_list(t_env	**envlst, char *env, char *value)
+static void	ft_push_back_env(t_env	**envlst, char *env, char *value)
 {
 	t_env	*new_env;
 	t_env	*head;
@@ -38,7 +38,7 @@ void	init_env(t_arg *arg)
 		dest = ft_strchr(arg->envp[cnt], '=');
 		env = ft_strdup2(arg->envp[cnt], dest);
 		value = ft_strdup2(&(arg->envp[cnt][dest + 1]), ft_strlen(arg->envp[cnt]) - dest);
-		ft_push_back_list(&(arg->envlst), env, value);
+		ft_push_back_env(&(arg->envlst), env, value);
 		cnt ++;
 	}
 }

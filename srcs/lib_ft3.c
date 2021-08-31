@@ -14,7 +14,7 @@ ssize_t	ft_strchr(const char *s, int c)
 	return (i);
 }
 
-static char	*ft_strdup2(const char *s1, ssize_t n)
+char	*ft_strdup2(const char *s1, ssize_t n)
 {
 	ssize_t	i;
 	char	*p;
