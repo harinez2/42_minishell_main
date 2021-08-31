@@ -1,6 +1,6 @@
 #include "main.h"
 
-char	*expander_char_env_judge(char *env, t_arg *arg)
+static char	*expander_char_env_judge(char *env, t_arg *arg)
 {
 	t_env	*tmp;
 	char	*value;
@@ -18,7 +18,7 @@ char	*expander_char_env_judge(char *env, t_arg *arg)
 	return (NULL);
 }
 
-int	expander_char_env_cut(char **text, int start, int end, t_arg *arg)
+static int	expander_char_env_cut(char **text, int start, int end, t_arg *arg)
 {
 	char	*env;
 	char	*before;
@@ -45,7 +45,7 @@ int	expander_char_env_cut(char **text, int start, int end, t_arg *arg)
 	return (1);
 }
 
-void	expander_char_env_replace(char **text, int *cnt, t_arg *arg)
+static void	expander_char_env_replace(char **text, int *cnt, t_arg *arg)
 {
 	char	*tmp;
 	int		i;
@@ -91,7 +91,7 @@ void	expander_char_env(char **text, t_arg *arg)
 			escape = 0;		
 		if ((*text)[cnt] == '$' && escape != 1)
 			expander_char_env_replace(text, &cnt, arg);
-		if (tmp[cnt] == '\\')
+		if ((*text)[cnt] == '\\')
 			cnt ++;
 		cnt ++;
 	}

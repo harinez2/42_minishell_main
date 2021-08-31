@@ -47,6 +47,9 @@ char			*ft_strdup(const char *s1);
 char			*ft_strjoin(char const *s1, char const *s2);
 char			*ft_strjoin3(char const *s1, char const *s2, char const *s3);
 char			*ft_substr(char const *s, unsigned int start, size_t len);
+// lib_ft3.c
+ssize_t			ft_strchr(const char *s, int c);
+char			*ft_strdup2(const char *s1, ssize_t n);
 // lib_util_dbg.c
 void			dbg_print_str(t_arg *arg, char *s);
 void			dbg_print_int(t_arg *arg, int i);
@@ -72,8 +75,15 @@ void			bnf_redirection_op(
 					t_arg *arg, int token_info[][3], int *i, int leftflg);
 // parser_heredoc.c
 char			*heredoc_read(t_arg *arg, char *eof_name);
-// recogin_expander.c
+// expander.c
 void			expander(t_arg *arg);
+void			expander_char(char **text, t_arg *arg);
+// expander_init.c
+void			init_env(t_arg *arg);
+// expander_char_env.c
+void			expander_char_env(char **text, t_arg *arg);
+// expander_char_quote.c
+void	expander_char_quote(char **text);
 // struct_add.c
 int				cmd_add_redir_filename(t_arg *arg, int inout,
 					char *read, int len);
