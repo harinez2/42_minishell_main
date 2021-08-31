@@ -16,6 +16,7 @@ SRCS		= \
 				$(SRC_DIR)/lexer_util.c \
 				$(SRC_DIR)/lib_ft.c \
 				$(SRC_DIR)/lib_ft2.c \
+				$(SRC_DIR)/lib_ft3.c \
 				$(SRC_DIR)/lib_util_dbg.c \
 				$(SRC_DIR)/lib_util.c \
 				$(SRC_DIR)/main.c \
@@ -23,7 +24,10 @@ SRCS		= \
 				$(SRC_DIR)/parser_bnf_redirection.c \
 				$(SRC_DIR)/parser_heredoc.c \
 				$(SRC_DIR)/parser.c \
-				$(SRC_DIR)/recogin_expander.c \
+				$(SRC_DIR)/expander.c \
+				$(SRC_DIR)/expander_init.c \
+				$(SRC_DIR)/expander_char_env.c \
+				$(SRC_DIR)/expander_char_quote.c \
 				$(SRC_DIR)/struct_add.c \
 				$(SRC_DIR)/struct_init_destroy.c \
 				$(SRC_DIR)/struct_lst.c \
