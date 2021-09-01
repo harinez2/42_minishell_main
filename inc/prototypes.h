@@ -18,18 +18,20 @@ void			builtincmd_pwd(t_arg *arg, t_cmd *cmd);
 // buildin_unset.c
 void			builtincmd_unset(t_arg *arg, t_cmd *cmd);
 // error.c
-void			print_error(int errcode, char *txt);
+void			print_error(int errcode, char *errcmd, char *txt);
 void			error_exit(int errcode, char *errtxt, t_arg *arg);
 // executer.c
 int				executer(t_arg *arg);
+// executer_builtin_nofork.c
+int				run_builtin_nofork(t_arg *arg, t_cmd *c);
 // executer_cmdexec.c
 void			free_param(char **cmd_with_param);
 void			exec_command(t_cmd *cmd, t_arg *arg);
 // executer_util.c
 void			dbg_print_cmdstart(t_arg *arg, char *s);
 void			dbg_print_cmdend(t_arg *arg, int status);
+void			connect_pipe(int unused, int old, int new, t_arg *arg);
 void			close_pipe(t_arg *arg, char *who, int fd);
-void			check_and_exit_program(t_arg *arg, t_cmd *c);
 // lexer.c
 int				lexer(t_arg *arg, int token_info[][3]);
 // lexer_util.c

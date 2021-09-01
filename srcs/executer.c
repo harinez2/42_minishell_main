@@ -1,22 +1,5 @@
 #include "main.h"
 
-static void	connect_pipe(int unused, int old, int new, t_arg *arg)
-{
-	int		ret;
-
-	if (unused != -1)
-	{
-		close(unused);
-		dbg_print_strint(arg, "[fd] [child] closed: ", unused);
-	}
-	ret = dup2(old, new);
-	if (ret == -1)
-		error_exit(ERR_PIPE, NULL, arg);
-	dbg_print_strint(arg, "[fd] [child] dup2: old", old);
-	dbg_print_strint(arg, "[fd] [child] dup2: new", new);
-	close_pipe(arg, "child", old);
-}
-
 static int	open_infile(char *filename, t_arg *arg)
 {
 	int		fd;
@@ -45,7 +28,7 @@ static int	open_outfile(char *filename, t_cmd *c, t_arg *arg)
 	return (fd);
 }
 
-static void	executer_childprocess(t_arg *arg, t_cmd	*c)
+static void	executer_childprocess(t_arg *arg, t_cmd *c)
 {
 	int		fd;
 
@@ -67,6 +50,14 @@ static void	executer_childprocess(t_arg *arg, t_cmd	*c)
 	exec_command(c, arg);
 }
 
+static void	executer_parentprocess(t_arg *arg, t_cmd *c)
+{
+	if (c->nxtcmd_relation == CONN_PIPE)
+		close_pipe(arg, "parent", c->pipe[PP_WRITE]);
+	if (c->prev != NULL && c->prev->nxtcmd_relation == CONN_PIPE)
+		close_pipe(arg, "parent", c->prev->pipe[PP_READ]);
+}
+
 int	executer(t_arg *arg)
 {
 	pid_t	pid;
@@ -76,19 +67,18 @@ int	executer(t_arg *arg)
 	c = arg->cmdlst;
 	while (c != NULL)
 	{
-		check_and_exit_program(arg, c);
-		if (c->nxtcmd_relation == CONN_PIPE)
-			pipe(c->pipe);
-		pid = fork();
-		if (pid == -1)
-			error_exit(ERR_FAILED_TO_FORK, NULL, arg);
-		else if (pid == 0)
-			executer_childprocess(arg, c);
-		waitpid(pid, &status, 0);
-		if (c->nxtcmd_relation == CONN_PIPE)
-			close_pipe(arg, "parent", c->pipe[PP_WRITE]);
-		if (c->prev != NULL && c->prev->nxtcmd_relation == CONN_PIPE)
-			close_pipe(arg, "parent", c->prev->pipe[PP_READ]);
+		if (run_builtin_nofork(arg, c) == 1)
+		{
+			if (c->nxtcmd_relation == CONN_PIPE)
+				pipe(c->pipe);
+			pid = fork();
+			if (pid == -1)
+				error_exit(ERR_FAILED_TO_FORK, NULL, arg);
+			else if (pid == 0)
+				executer_childprocess(arg, c);
+			waitpid(pid, &status, 0);
+			executer_parentprocess(arg, c);
+		}
 		dbg_print_cmdend(arg, status);
 		c = c->next;
 	}
