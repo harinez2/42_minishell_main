@@ -35,7 +35,7 @@ SRCS		= \
 				$(SRC_DIR)/struct_lst.c \
 				$(SRC_DIR)/struct_print.c
 OBJS		= $(SRCS:.c=.o)
-DEPS		= $(SRCS:%.c=%.d)
+DEPS		= $(SRCS:%.c=%.d) $(NAME).d
 CC			= gcc
 CFLAGS		= -Wall -Wextra -Werror -MMD -MP
 CFLAGS_RL	= -lreadline
@@ -55,7 +55,7 @@ debug: $(SRCS)
 	clang $(SRCS) $(CFLAGS) $(CFLAGS_RL) $(INCLUDE) $(DBGFLG) -o $(NAME)
 
 clean:
-	rm -f $(OBJS) $(DEPS) $(NAME).d
+	rm -f $(OBJS) $(DEPS)
 
 fclean: clean
 	rm -f $(NAME)
