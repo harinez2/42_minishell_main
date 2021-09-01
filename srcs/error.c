@@ -1,23 +1,25 @@
 #include "main.h"
 
-void	print_error(int errcode, char *txt)
+static void	errmsg_prefix(char *errcmd)
 {
-	if (errcode == ERR_CD_INVALIDPATH)
+	putstr_stderr("minishell: ");
+	if (errcmd)
 	{
-		write(2, "Error : ", 8);
-		write(2, txt, ft_strlen(txt));
-		perror(" ");
+		putstr_stderr(errcmd);
+		putstr_stderr(": ");
 	}
 }
 
-void	error_exit(int errcode, char *errtxt, t_arg *arg)
+void	print_error(int errcode, char *errcmd, char *txt)
 {
-	putstr_stderr("minishell: ");
-	if (errtxt)
-	{
-		putstr_stderr(errtxt);
-		putstr_stderr(": ");
-	}
+	errmsg_prefix(errcmd);
+	if (errcode == ERR_CD_INVALIDPATH)
+		perror(txt);
+}
+
+void	error_exit(int errcode, char *errcmd, t_arg *arg)
+{
+	errmsg_prefix(errcmd);
 	if (errcode == ERR_ENV_INVALID)
 		perror("error");
 	else if (errcode == ERR_NOT_ENOUGH_PARAM)

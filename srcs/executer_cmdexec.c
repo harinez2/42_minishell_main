@@ -10,8 +10,6 @@ static int	exec_builtincmd(t_cmd *cmd, t_arg *arg)
 		builtincmd_env(arg, cmd);
 	else if (ft_strncmp("pwd", cmd->param[0], 4) == 0)
 		builtincmd_pwd(arg, cmd);
-	else if (ft_strncmp("cd", cmd->param[0], 3) == 0)
-		builtincmd_cd(arg, cmd);
 	else if (ft_strncmp("unset", cmd->param[0], 6) == 0)
 		builtincmd_unset(arg, cmd);
 	else

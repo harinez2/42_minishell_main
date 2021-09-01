@@ -10,9 +10,10 @@ SRCS		= \
 				$(SRC_DIR)/builtin_pwd.c \
 				$(SRC_DIR)/builtin_unset.c \
 				$(SRC_DIR)/error.c \
-				$(SRC_DIR)/executer.c \
+				$(SRC_DIR)/executer_builtin_nofork.c \
 				$(SRC_DIR)/executer_cmdexec.c \
 				$(SRC_DIR)/executer_util.c \
+				$(SRC_DIR)/executer.c \
 				$(SRC_DIR)/lexer.c \
 				$(SRC_DIR)/lexer_util.c \
 				$(SRC_DIR)/lib_ft.c \
@@ -35,7 +36,7 @@ SRCS		= \
 				$(SRC_DIR)/struct_lst.c \
 				$(SRC_DIR)/struct_print.c
 OBJS		= $(SRCS:.c=.o)
-DEPS		= $(SRCS:%.c=%.d)
+DEPS		= $(SRCS:%.c=%.d) $(NAME).d
 CC			= gcc
 CFLAGS		= -Wall -Wextra -Werror -MMD -MP
 CFLAGS_RL	= -lreadline
