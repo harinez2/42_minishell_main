@@ -55,7 +55,7 @@ debug: $(SRCS)
 	clang $(SRCS) $(CFLAGS) $(CFLAGS_RL) $(INCLUDE) $(DBGFLG) -o $(NAME)
 
 clean:
-	rm -f $(OBJS) $(DEPS)
+	rm -f $(OBJS) $(DEPS) $(NAME).d
 
 fclean: clean
 	rm -f $(NAME)
