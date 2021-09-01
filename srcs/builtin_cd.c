@@ -40,7 +40,7 @@ static void	cd_homedir(t_arg *arg, t_cmd *cmd)
 }
 
 // no arg			move to $HOME dir
-// relative path	depends on chdir spec
+// other path		depends on chdir spec
 void	builtincmd_cd(t_arg *arg, t_cmd *cmd)
 {
 	dbg_print_cmdstart(arg, cmd->param[0]);
