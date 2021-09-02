@@ -38,19 +38,14 @@ void	print_custom_error(t_error_no errcode, char *errcmd, char *argtxt)
 void	print_perror_exit(int err_no, char *errcmd, char *argtxt, t_arg *arg)
 {
 	print_perror(err_no, errcmd, argtxt);
-	if (arg != NULL)
-		free(arg->path[0]);
-	cmd_destroy(arg);
-	//destroy envlst
+	destroy_arg(arg);
 	exit(-1);
 }
 
-void	print_custom_error_exit(t_error_no errcode, char *errcmd, char *argtxt, t_arg *arg)
+void	print_custom_error_exit(
+			t_error_no errcode, char *errcmd, char *argtxt, t_arg *arg)
 {
 	print_custom_error(errcode, errcmd, argtxt);
-	if (arg != NULL)
-		free(arg->path[0]);
-	cmd_destroy(arg);
-	//destroy envlst
+	destroy_arg(arg);
 	exit(-1);
 }
