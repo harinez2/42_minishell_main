@@ -30,7 +30,7 @@ void	connect_pipe(int unused, int old, int new, t_arg *arg)
 	}
 	ret = dup2(old, new);
 	if (ret == -1)
-		error_exit(ERR_PIPE, NULL, arg);
+		print_perror_exit(errno, NULL, NULL, arg);
 	dbg_print_strint(arg, "[fd] [child] dup2: old", old);
 	dbg_print_strint(arg, "[fd] [child] dup2: new", new);
 	close_pipe(arg, "child", old);
@@ -42,7 +42,7 @@ void	close_pipe(t_arg *arg, char *who, int fd)
 
 	ret = close(fd);
 	if (ret == -1)
-		error_exit(ERR_PIPE, NULL, arg);
+		print_perror_exit(errno, NULL, NULL, arg);
 	dbg_print_str(arg, "[fd] [");
 	dbg_print_str(arg, who);
 	dbg_print_strint(arg, "] closed:", fd);

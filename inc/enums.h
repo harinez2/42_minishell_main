@@ -1,6 +1,13 @@
 #ifndef ENUMS_H
 # define ENUMS_H
 
+typedef enum e_error_no {
+	ERR_UNEXPECTED,
+	ERR_FAILED_TO_EXEC,
+	ERR_HEREDOC,
+	ERR_SYNTAX_ERROR
+}	t_error_no;
+
 typedef enum e_token_type {
 	TKN_EOF,
 	TKN_SEMICOLON,

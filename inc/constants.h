@@ -12,17 +12,6 @@
 # define	PNT_CMD					1
 # define	PNT_PARAM				2
 
-# define	ERR_ENV_INVALID			-1
-# define	ERR_NOT_ENOUGH_PARAM	-2
-# define	ERR_FAILED_TO_OPEN_FILE	-3
-# define	ERR_PIPE				-4
-# define	ERR_FAILED_TO_FORK		-5
-# define	ERR_FAILED_TO_EXEC		-6
-# define	ERR_FAILED_TO_MALLOC	-7
-# define	ERR_CD_INVALIDPATH		-8
-# define	ERR_HEREDOC				-9
-# define	ERR_SYNTAX_ERROR		-10
-
 # define	CONN_PIPE				31
 # define	CONN_REDIR_OUT			32
 # define	CONN_AMP				33

@@ -12,6 +12,7 @@
 # include <sys/wait.h>
 # include <fcntl.h>
 # include <signal.h>
+# include <errno.h>
 
 # include "constants.h"
 # include "enums.h"
