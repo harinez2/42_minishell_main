@@ -44,6 +44,7 @@ static void	cd_homedir(t_arg *arg, t_cmd *cmd)
 		}
 		e = e->next;
 	}
+	print_custom_error(ERR_HOME_NOT_SET, cmd->param[0], NULL);
 }
 
 // no arg			move to $HOME dir
