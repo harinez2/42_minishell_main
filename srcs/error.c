@@ -1,6 +1,6 @@
 #include "main.h"
 
-static void	errmsg_prefix(char *errcmd)
+static void	errmsg_prefix(char *errcmd, char *argtxt)
 {
 	putstr_stderr("minishell: ");
 	if (errcmd)
@@ -8,40 +8,44 @@ static void	errmsg_prefix(char *errcmd)
 		putstr_stderr(errcmd);
 		putstr_stderr(": ");
 	}
+	if (argtxt)
+	{
+		putstr_stderr(argtxt);
+		putstr_stderr(": ");
+	}
 }
 
-void	print_error(int errcode, char *errcmd, char *txt)
+void	print_perror(int err_no, char *errcmd, char *argtxt)
 {
-	errmsg_prefix(errcmd);
-	if (errcode == ERR_CD_INVALIDPATH)
-		perror(txt);
+	errmsg_prefix(errcmd, argtxt);
+	putstr_stderr(strerror(err_no));
+	putstr_stderr("\n");
 }
 
-void	error_exit(int errcode, char *errcmd, t_arg *arg)
+void	print_custom_error(t_error_no errcode, char *errcmd, char *argtxt)
 {
-	errmsg_prefix(errcmd);
-	if (errcode == ERR_ENV_INVALID)
-		perror("error");
-	else if (errcode == ERR_NOT_ENOUGH_PARAM)
-		perror("error");
-	else if (errcode == ERR_FAILED_TO_OPEN_FILE)
-		perror("error");
-	else if (errcode == ERR_PIPE)
-		perror("error");
-	else if (errcode == ERR_FAILED_TO_FORK)
-		perror("error");
-	else if (errcode == ERR_FAILED_TO_EXEC)
+	errmsg_prefix(errcmd, argtxt);
+	if (errcode == ERR_FAILED_TO_EXEC)
 		putstr_stderr("command not found\n");
-	else if (errcode == ERR_FAILED_TO_MALLOC)
-		perror("error");
 	else if (errcode == ERR_HEREDOC)
 		putstr_stderr("heredoc error\n");
 	else if (errcode == ERR_SYNTAX_ERROR)
 		putstr_stderr("syntax error\n");
 	else
 		putstr_stderr("unexpected error\n");
-	if (arg != NULL)
-		free(arg->path[0]);
-	cmd_destroy(arg);
+}
+
+void	print_perror_exit(int err_no, char *errcmd, char *argtxt, t_arg *arg)
+{
+	print_perror(err_no, errcmd, argtxt);
+	destroy_arg(arg);
+	exit(-1);
+}
+
+void	print_custom_error_exit(
+			t_error_no errcode, char *errcmd, char *argtxt, t_arg *arg)
+{
+	print_custom_error(errcode, errcmd, argtxt);
+	destroy_arg(arg);
 	exit(-1);
 }

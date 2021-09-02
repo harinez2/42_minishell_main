@@ -18,8 +18,13 @@ void			builtincmd_pwd(t_arg *arg, t_cmd *cmd);
 // buildin_unset.c
 void			builtincmd_unset(t_arg *arg, t_cmd *cmd);
 // error.c
-void			print_error(int errcode, char *errcmd, char *txt);
-void			error_exit(int errcode, char *errtxt, t_arg *arg);
+void			print_perror(int err_no, char *errcmd, char *argtxt);
+void			print_custom_error(
+					t_error_no errcode, char *errcmd, char *argtxt);
+void			print_perror_exit(
+					int err_no, char *errcmd, char *argtxt, t_arg *arg);
+void			print_custom_error_exit(
+					t_error_no errcode, char *errcmd, char *argtxt, t_arg *arg);
 // executer.c
 int				executer(t_arg *arg);
 // executer_builtin_nofork.c
