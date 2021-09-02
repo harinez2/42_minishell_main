@@ -31,6 +31,8 @@ void	print_custom_error(t_error_no errcode, char *errcmd, char *argtxt)
 		putstr_stderr("heredoc error\n");
 	else if (errcode == ERR_SYNTAX_ERROR)
 		putstr_stderr("syntax error\n");
+	else if (errcode == ERR_HOME_NOT_SET)
+		putstr_stderr("HOME not set\n");
 	else
 		putstr_stderr("unexpected error\n");
 }
