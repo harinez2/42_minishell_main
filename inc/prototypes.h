@@ -105,5 +105,7 @@ void			cmd_destroy(t_arg *arg);
 t_cmd			*cmd_get_last_node(t_cmd *cmd);
 // struct_print.c
 void			cmd_print(t_cmd *c);
+// signal.c
+void			set_signal(void);
 
 #endif

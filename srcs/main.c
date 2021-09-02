@@ -24,6 +24,7 @@ int	main(int argc, char **argv, char **envp)
 	t_arg	arg;
 
 	init_arg(argc, argv, envp, &arg);
+	set_signal();
 	if (argc >= 2 && ft_strncmp("-d", argv[1], 3) == 0)
 		arg.dbg = 1;
 	while (1)

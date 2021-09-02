@@ -34,7 +34,9 @@ SRCS		= \
 				$(SRC_DIR)/struct_add.c \
 				$(SRC_DIR)/struct_init_destroy.c \
 				$(SRC_DIR)/struct_lst.c \
-				$(SRC_DIR)/struct_print.c
+				$(SRC_DIR)/struct_print.c \
+				$(SRC_DIR)/signal.c
+
 OBJS		= $(SRCS:.c=.o)
 DEPS		= $(SRCS:%.c=%.d) $(NAME).d
 CC			= gcc
