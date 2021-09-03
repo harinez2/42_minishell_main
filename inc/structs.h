@@ -18,8 +18,9 @@ typedef struct s_cmd
 	int				pipe[2];
 	int				heredoc_flg;
 	char			*redir_in;
-	int				append_flg;
-	char			*redir_out;
+	int				append_flg[MAX_ARGNUM];
+	char			*redir_out[MAX_ARGNUM];
+	int				redir_out_cnt;
 }	t_cmd;
 
 typedef struct s_arg

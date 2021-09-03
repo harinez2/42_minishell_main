@@ -47,3 +47,25 @@ void	close_pipe(t_arg *arg, char *who, int fd)
 	dbg_print_str(arg, who);
 	dbg_print_strint(arg, "] closed:", fd);
 }
+
+void	ignore_toomuch_redirout(t_arg *arg, t_cmd *c)
+{
+	int		i;
+	int		fd;
+	int		ret;
+
+	i = 0;
+	while (i < c->redir_out_cnt - 1)
+	{
+		if (c->append_flg[i] == 0)
+		{
+			fd = open(c->redir_out[i], O_WRONLY | O_CREAT | O_TRUNC, 0666);
+			if (fd == -1)
+				print_perror_exit(errno, NULL, NULL, arg);
+			ret = close(fd);
+			if (ret == -1)
+				print_perror_exit(errno, NULL, NULL, arg);
+		}
+		i++;
+	}
+}

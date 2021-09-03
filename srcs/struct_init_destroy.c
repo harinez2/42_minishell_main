@@ -14,8 +14,9 @@ static t_cmd	*cmd_create_empty_node(t_arg *arg)
 	c->pipe[1] = -1;
 	c->heredoc_flg = 0;
 	c->redir_in = NULL;
-	c->append_flg = 0;
-	c->redir_out = NULL;
+	c->append_flg[0] = 0;
+	c->redir_out[0] = NULL;
+	c->redir_out_cnt = 0;
 	c->next = NULL;
 	c->prev = NULL;
 	return (c);
@@ -79,7 +80,9 @@ void	cmd_destroy(t_arg *arg)
 		if (c->heredoc_flg)
 			unlink(c->redir_in);
 		secure_free(c->redir_in);
-		secure_free(c->redir_out);
+		i = 0;
+		while (i < c->redir_out_cnt)
+			secure_free(c->redir_out[i++]);
 		secure_free(c);
 	}
 }
