@@ -21,9 +21,8 @@ int	cmd_add_redir_filename(t_arg *arg, int inout, char *read, int len)
 	}
 	else
 	{
-		if (c->redir_out != NULL)
-			free(c->redir_out);
-		c->redir_out = filename;
+		c->redir_out[c->redir_out_cnt] = filename;
+		c->append_flg[c->redir_out_cnt++] = 0;
 	}
 	return (0);
 }
@@ -40,7 +39,7 @@ int	cmd_add_flg(t_arg *arg, t_token_type t, int flg)
 	else if (t == TKN_HEREDOC)
 		c->heredoc_flg = 1;
 	else if (t == TKN_REDIR_APPEND)
-		c->append_flg = 1;
+		c->append_flg[c->redir_out_cnt - 1] = 1;
 	return (0);
 }
 

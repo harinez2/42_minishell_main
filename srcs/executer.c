@@ -18,7 +18,7 @@ static int	open_outfile(char *filename, t_cmd *c, t_arg *arg)
 
 	ft_strlcpy(outfilepath, "./", 3);
 	ft_strlcat(outfilepath, filename, ft_strlen(filename) + 3);
-	if (c->append_flg)
+	if (c->append_flg[c->redir_out_cnt - 1])
 		fd = open(outfilepath, O_WRONLY | O_APPEND, 0);
 	else
 		fd = open(outfilepath, O_WRONLY | O_CREAT | O_TRUNC, 0600);
@@ -32,9 +32,10 @@ static void	executer_childprocess(t_arg *arg, t_cmd *c)
 {
 	int		fd;
 
-	if (c->redir_out != NULL)
+	ignore_toomuch_redirout(arg, c);
+	if (c->redir_out_cnt != 0)
 	{
-		fd = open_outfile(c->redir_out, c, arg);
+		fd = open_outfile(c->redir_out[c->redir_out_cnt - 1], c, arg);
 		connect_pipe(-1, fd, 1, arg);
 	}
 	else if (c->nxtcmd_relation == CONN_PIPE)

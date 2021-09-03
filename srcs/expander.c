@@ -12,6 +12,7 @@ void	expander_char(char **text, t_arg *arg)
 void	expander(t_arg *arg)
 {
 	int	cnt;
+	int	i;
 
 	init_env(arg);
 	cnt = 0;
@@ -22,7 +23,8 @@ void	expander(t_arg *arg)
 	}
 	if (arg->cmdlst->redir_in)
 		expander_char(&(arg->cmdlst->redir_in), arg);
-	if (arg->cmdlst->redir_out)
-		expander_char(&(arg->cmdlst->redir_out), arg);
+	i = 0;
+	while (i < arg->cmdlst->redir_out_cnt)
+		expander_char(&(arg->cmdlst->redir_out[i++]), arg);
 	cmd_print(arg->cmdlst);
 }

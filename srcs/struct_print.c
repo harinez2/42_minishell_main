@@ -30,18 +30,24 @@ void	cmd_print(t_cmd *c)
 	while (c != NULL)
 	{
 		printf("[%d]\n", i);
-		printf("  param[0] : %s\n", c->param[0]);
+		printf("  param[0]    : %s\n", c->param[0]);
 		j = 1;
 		while (j <= c->param_cnt)
 		{
-			printf("  param[%d] : ", j);
+			printf("  param[%d]    : ", j);
 			cmd_print_char("", c->param[j++]);
 		}
-		cmd_print_int("  nxtrel   : ", c->nxtcmd_relation);
-		cmd_print_int("  pipe[0]  : ", c->pipe[0]);
-		cmd_print_int("  pipe[1]  : ", c->pipe[1]);
-		cmd_print_char("  redir_in : ", c->redir_in);
-		cmd_print_char("  redir_out: ", c->redir_out);
+		cmd_print_int("  nxtrel      : ", c->nxtcmd_relation);
+		cmd_print_int("  pipe[0]     : ", c->pipe[0]);
+		cmd_print_int("  pipe[1]     : ", c->pipe[1]);
+		cmd_print_int("  heredoc_flg : ", c->heredoc_flg);
+		cmd_print_char("  redir_in    : ", c->redir_in);
+		j = -1;
+		while (++j < c->redir_out_cnt)
+			   printf("  append_flg[%d]: %d\n", j, c->append_flg[j]);
+		j = -1;
+		while (++j < c->redir_out_cnt)
+			   printf("  redir_out[%d] : %s\n", j, c->redir_out[j]);
 		c = c->next;
 		i++;
 	}
