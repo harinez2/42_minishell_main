@@ -88,5 +88,8 @@ int	lexer(t_arg *arg, int token_info[][3])
 	token_info[tki_i][0] = TKN_EOF;
 	token_info[tki_i][1] = i;
 	token_info[tki_i++][2] = i;
-	return (0);
+	if (tki_i == 1)
+		return (-1);
+	else
+		return (0);
 }

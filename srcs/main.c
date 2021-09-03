@@ -4,7 +4,8 @@ static void	command_execution(t_arg *arg)
 {
 	int		token_info[1000][3];
 
-	lexer(arg, token_info);
+	if (lexer(arg, token_info) == -1)
+		return ;
 	if (arg->dbg)
 		print_token_info(token_info, arg->read);
 	if (parser(arg, token_info) == -1)
