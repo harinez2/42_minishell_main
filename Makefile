@@ -9,33 +9,34 @@ SRCS		= \
 				$(SRC_DIR)/builtin_export.c \
 				$(SRC_DIR)/builtin_pwd.c \
 				$(SRC_DIR)/builtin_unset.c \
+				$(SRC_DIR)/env_environ.c \
+				$(SRC_DIR)/env_envlst.c \
 				$(SRC_DIR)/error.c \
+				$(SRC_DIR)/executer.c \
 				$(SRC_DIR)/executer_builtin_nofork.c \
 				$(SRC_DIR)/executer_cmdexec.c \
 				$(SRC_DIR)/executer_util.c \
-				$(SRC_DIR)/executer.c \
+				$(SRC_DIR)/expander.c \
+				$(SRC_DIR)/expander_char_env.c \
+				$(SRC_DIR)/expander_char_quote.c \
 				$(SRC_DIR)/lexer.c \
 				$(SRC_DIR)/lexer_util.c \
 				$(SRC_DIR)/lib_ft.c \
 				$(SRC_DIR)/lib_ft2.c \
 				$(SRC_DIR)/lib_ft3.c \
 				$(SRC_DIR)/lib_ft4.c \
-				$(SRC_DIR)/lib_util_dbg.c \
 				$(SRC_DIR)/lib_util.c \
+				$(SRC_DIR)/lib_util_dbg.c \
 				$(SRC_DIR)/main.c \
+				$(SRC_DIR)/parser.c \
 				$(SRC_DIR)/parser_bnf_compoundcmd.c \
 				$(SRC_DIR)/parser_bnf_redirection.c \
 				$(SRC_DIR)/parser_heredoc.c \
-				$(SRC_DIR)/parser.c \
-				$(SRC_DIR)/expander.c \
-				$(SRC_DIR)/expander_init.c \
-				$(SRC_DIR)/expander_char_env.c \
-				$(SRC_DIR)/expander_char_quote.c \
+				$(SRC_DIR)/signal.c \
 				$(SRC_DIR)/struct_add.c \
 				$(SRC_DIR)/struct_init_destroy.c \
 				$(SRC_DIR)/struct_lst.c \
-				$(SRC_DIR)/struct_print.c \
-				$(SRC_DIR)/signal.c
+				$(SRC_DIR)/struct_print.c
 
 OBJS		= $(SRCS:.c=.o)
 DEPS		= $(SRCS:%.c=%.d) $(NAME).d
@@ -56,6 +57,9 @@ $(NAME): $(OBJS)
 
 debug: $(SRCS)
 	clang $(SRCS) $(CFLAGS) $(CFLAGS_RL) $(INCLUDE) $(DBGFLG) -o $(NAME)
+
+protogen:
+	python3 util/prototype_generator.py
 
 clean:
 	rm -f $(OBJS) $(DEPS)

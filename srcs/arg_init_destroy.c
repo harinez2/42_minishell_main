@@ -10,11 +10,12 @@ void	init_arg(int argc, char **argv, char **envp, t_arg *arg)
 	update_envpath(arg);
 	arg->cmdlst = NULL;
 	arg->envlst = NULL;
+	init_envlst(arg);
 	arg->dbg = 0;
 }
 
 void	update_envpath(t_arg *arg)
-{
+{//TODO:update
 	int			i;
 	extern char	**environ;
 
@@ -43,5 +44,5 @@ void	destroy_arg(t_arg *arg)
 	secure_free(arg->read);
 	secure_free(arg->path[0]);
 	cmd_destroy(arg);
-	// TODO: free envlst
+	destroy_envlst(arg);
 }

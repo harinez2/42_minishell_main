@@ -2,7 +2,7 @@
 
 static void	command_execution(t_arg *arg)
 {
-	int		token_info[1000][3];
+	int		token_info[MAX_TOKENNUM][3];
 
 	if (lexer(arg, token_info) == -1)
 		return ;
@@ -38,5 +38,6 @@ int	main(int argc, char **argv, char **envp)
 		}
 		secure_free(arg.read);
 	}
+	destroy_arg(&arg);
 	return (0);
 }

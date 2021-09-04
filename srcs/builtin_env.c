@@ -2,12 +2,15 @@
 
 void	builtincmd_env(t_arg *arg, t_cmd *cmd)
 {
-	extern char	**environ;
-	int			i;
+	t_env		*e;
 
 	dbg_print_cmdstart(arg, cmd->param[0]);
 	dbg_print_str(arg, "=== builtin cmd env ===\n");
-	i = 0;
-	while (environ[i] != NULL)
-		printf("%s\n", environ[i++]);
+	e = arg->envlst;
+	while (e != NULL)
+	{
+		printf("%s=%s\n", e->env, e->value);
+		
+		e = e->next;
+	}
 }
