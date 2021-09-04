@@ -10,7 +10,6 @@ void	builtincmd_env(t_arg *arg, t_cmd *cmd)
 	while (e != NULL)
 	{
 		printf("%s=%s\n", e->env, e->value);
-		
 		e = e->next;
 	}
 }

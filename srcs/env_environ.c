@@ -9,7 +9,7 @@ char	**generate_environ(t_arg *arg)
 	env = malloc(sizeof(char *) * (count_envlst(arg) + 1));
 	if (!env)
 		print_perror_exit(errno, "", "", arg);
-	env_i= 0;
+	env_i = 0;
 	e = arg->envlst;
 	while (e)
 	{

@@ -45,6 +45,43 @@ void	push_back_envlst(t_env	**envlst, char *env, char *value, t_arg *arg)
 	}
 }
 
+char	*get_env_from_envlst(t_arg *arg, char *envname)
+{
+	t_env		*e;
+
+	e = arg->envlst;
+	while (e != NULL)
+	{
+		if (ft_strncmp(e->env, envname, ft_strlen(e->env)) == 0)
+			return (e->value);
+		e = e->next;
+	}
+	return (NULL);
+}
+
+void	delete_env_from_envlst(t_arg *arg, char *envname)
+{
+	t_env		*e;
+	t_env		*e_prev;
+
+	e = arg->envlst;
+	e_prev = NULL;
+	while (e != NULL)
+	{
+		if (ft_strncmp(e->env, envname, ft_strlen(envname) + 1) == 0)
+		{
+			e_prev->next = e->next;
+			secure_free(e->env);
+			secure_free(e->value);
+			secure_free(e);
+			return ;
+		}
+		e_prev = e;
+		e = e->next;
+	}
+	return ;
+}
+
 int	count_envlst(t_arg *arg)
 {
 	t_env	*e;

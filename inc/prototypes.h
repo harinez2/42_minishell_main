@@ -23,6 +23,8 @@ void	destroy_environ(char **env);
 // env_envlst.c
 void	init_envlst(t_arg *arg);
 void	push_back_envlst(t_env	**envlst, char *env, char *value, t_arg *arg);
+char	*get_env_from_envlst(t_arg *arg, char *envname);
+void	delete_env_from_envlst(t_arg *arg, char *envname);
 int	count_envlst(t_arg *arg);
 void	destroy_envlst(t_arg *arg);
 // error.c
