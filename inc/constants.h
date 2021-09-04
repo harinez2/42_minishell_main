@@ -24,4 +24,8 @@
 # define COL_TX_CYAN	"\x1b[36m"
 # define COL_TX_RESET	"\x1b[39m"
 
+# define BACK_CURSOR			"\033[2D"
+# define CLEAR_FROM_CURSOR		"\033[0K"
+# define SHELL_PROMPT			COL_BK_CYAN"minishell>"COL_BK_RESET" "
+
 #endif
