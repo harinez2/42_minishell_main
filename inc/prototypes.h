@@ -17,6 +17,14 @@ void	builtincmd_export(t_arg *arg, t_cmd *cmd, char **envp);
 void	builtincmd_pwd(t_arg *arg, t_cmd *cmd);
 // builtin_unset.c
 void	builtincmd_unset(t_arg *arg, t_cmd *cmd);
+// env_environ.c
+char	**generate_environ(t_arg *arg);
+void	destroy_environ(char **env);
+// env_envlst.c
+void	init_envlst(t_arg *arg);
+void	push_back_envlst(t_env	**envlst, char *env, char *value, t_arg *arg);
+int	count_envlst(t_arg *arg);
+void	destroy_envlst(t_arg *arg);
 // error.c
 void	print_perror(int err_no, char *errcmd, char *argtxt);
 void	print_custom_error(t_error_no errcode, char *errcmd, char *argtxt);
@@ -42,11 +50,6 @@ void	expander(t_arg *arg);
 void	expander_char_env(char **text, t_arg *arg);
 // expander_char_quote.c
 void	expander_char_quote(char **text);
-// expander_init.c
-void	init_envlst(t_arg *arg);
-void	destroy_envlst(t_arg *arg);
-int	count_envlst(t_arg *arg);
-char	**generate_environ(t_arg *arg);
 // lexer.c
 int	lexer(t_arg *arg, int token_info[][3]);
 // lexer_util.c

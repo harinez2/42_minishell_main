@@ -1,8 +1,8 @@
 import os
 import re
 
-path='../srcs'
-prototype_h = './prototypes.h'
+path = os.path.dirname(__file__) + '/../srcs'
+prototype_h = os.path.dirname(__file__) +'/../inc/prototypes.h'
 
 files = os.listdir(path)
 files_file = [f for f in files if os.path.isfile(os.path.join(path, f))]

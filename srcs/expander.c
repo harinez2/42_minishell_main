@@ -14,7 +14,6 @@ void	expander(t_arg *arg)
 	int	cnt;
 	int	i;
 
-	init_env(arg);
 	cnt = 0;
 	while (arg->cmdlst->param[cnt])
 	{
