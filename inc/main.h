@@ -13,6 +13,7 @@
 # include <fcntl.h>
 # include <signal.h>
 # include <errno.h>
+# include <string.h>
 
 # include "constants.h"
 # include "enums.h"
