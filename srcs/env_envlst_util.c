@@ -1,10 +1,10 @@
 #include "main.h"
 
-t_env	*get_node_from_envlst(t_arg *arg, char *envname)
+t_env	*get_node_from_envlst(t_env	*envlst, char *envname)
 {
 	t_env		*e;
 
-	e = arg->envlst;
+	e = envlst;
 	while (e != NULL)
 	{
 		if (ft_strncmp(e->env, envname, ft_strlen(envname) + 1) == 0)

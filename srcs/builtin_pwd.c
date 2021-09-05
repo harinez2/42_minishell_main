@@ -14,7 +14,7 @@ void	builtincmd_pwd(t_arg *arg, t_cmd *cmd)
 		printf("%s\n", path);
 		return ;
 	}
-	pwd = get_node_from_envlst(arg, "PWD");
+	pwd = get_node_from_envlst(arg->envlst, "PWD");
 	if (pwd)
 	{
 		printf("%s\n", pwd->value);

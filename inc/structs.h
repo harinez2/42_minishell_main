@@ -33,6 +33,7 @@ typedef struct s_arg
 	int		path_cnt;
 	t_cmd	*cmdlst;
 	t_env	*envlst;
+	t_env	*shellenvlst;
 	int		dbg;
 }	t_arg;
 

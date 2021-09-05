@@ -13,7 +13,10 @@ void	builtincmd_unset(t_arg *arg, t_cmd *cmd)
 			print_custom_error(
 				ERR_NOT_VALID_IDENTIFIER, cmd->param[0], cmd->param[i]);
 		else
-			delete_env_from_envlst(arg, cmd->param[i]);
+		{
+			delete_env_from_envlst(&arg->envlst, cmd->param[i]);
+			delete_env_from_envlst(&arg->shellenvlst, cmd->param[i]);
+		}
 		i++;
 	}
 }

@@ -40,7 +40,7 @@ void	push_back_envlst(t_env	**envlst, char *env, char *value, t_arg *arg)
 	t_env	*head;
 	t_env	*tmp;
 
-	tmp = get_node_from_envlst(arg, env);
+	tmp = get_node_from_envlst(*envlst, env);
 	if (tmp)
 	{
 		secure_free(tmp->value);
@@ -61,18 +61,21 @@ void	push_back_envlst(t_env	**envlst, char *env, char *value, t_arg *arg)
 	}
 }
 
-void	delete_env_from_envlst(t_arg *arg, char *envname)
+void	delete_env_from_envlst(t_env **envlst, char *envname)
 {
 	t_env		*e;
 	t_env		*e_prev;
 
-	e = arg->envlst;
+	e = *envlst;
 	e_prev = NULL;
 	while (e != NULL)
 	{
 		if (ft_strncmp(e->env, envname, ft_strlen(envname) + 1) == 0)
 		{
-			e_prev->next = e->next;
+			if (e == *envlst)
+				*envlst = e->next;
+			else
+				e_prev->next = e->next;
 			secure_free(e->env);
 			secure_free(e->value);
 			secure_free(e);
@@ -99,4 +102,14 @@ void	destroy_envlst(t_arg *arg)
 		secure_free(e_tmp);
 	}
 	arg->envlst = NULL;
+	e = arg->shellenvlst;
+	while (e)
+	{
+		secure_free(e->env);
+		secure_free(e->value);
+		e_tmp = e;
+		e = e->next;
+		secure_free(e_tmp);
+	}
+	arg->shellenvlst = NULL;
 }

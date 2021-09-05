@@ -48,3 +48,5 @@ with open(prototype_h, mode='w') as f:
 		f.write(line + '\n')
 	f.write('\n')
 	f.write('#endif\n')
+
+print(prototype_h + ' is updated.\n')

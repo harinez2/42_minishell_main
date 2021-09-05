@@ -2,14 +2,12 @@
 
 int	run_builtin_nofork(t_arg *arg, t_cmd *c)
 {
+	if ((size_t)ft_strchr(c->param[0], '=') != ft_strlen(c->param[0]))
+		return (0);
 	if (ft_strncmp("cd", c->param[0], 3) == 0)
 		builtincmd_cd(arg, c);
-	else if (ft_strncmp("env", c->param[0], 4) == 0)
-		builtincmd_env(arg, c);
-	else if (ft_strncmp("export", c->param[0], 7) == 0)
-		builtincmd_export(arg, c);
-	else if (ft_strncmp("pwd", c->param[0], 4) == 0)
-		builtincmd_pwd(arg, c);
+	else if (ft_strncmp("export", c->param[0], 7) == 0 && c->param_cnt > 1)
+		builtincmd_export_witharg(arg, c);
 	else if (ft_strncmp("unset", c->param[0], 6) == 0)
 		builtincmd_unset(arg, c);
 	else if (ft_strncmp("exit", c->param[0], 5) == 0)
