@@ -12,7 +12,7 @@ void	builtincmd_echo(t_arg *arg, t_cmd *cmd);
 // builtin_env.c
 void	builtincmd_env(t_arg *arg, t_cmd *cmd);
 // builtin_export.c
-void	builtincmd_export(t_arg *arg, t_cmd *cmd, char **envp);
+void	builtincmd_export(t_arg *arg, t_cmd *cmd);
 // builtin_pwd.c
 void	builtincmd_pwd(t_arg *arg, t_cmd *cmd);
 // builtin_unset.c
@@ -78,7 +78,7 @@ char	*ft_strdup2(const char *s1, ssize_t n);
 char	*ft_searchinstr(const char *s, int c);
 // lib_util.c
 void	putstr_stderr(char *s);
-void	copy_array(int *to, int *from, int len, int offset_to);
+void	copy_array(t_env *to[], t_env *from[], int len, int offset_to);
 void	secure_free(void *p);
 // lib_util_dbg.c
 void	dbg_print_str(t_arg *arg, char *s);

@@ -7,7 +7,7 @@ int	run_builtin_nofork(t_arg *arg, t_cmd *c)
 	else if (ft_strncmp("env", c->param[0], 4) == 0)
 		builtincmd_env(arg, c);
 	else if (ft_strncmp("export", c->param[0], 7) == 0)
-		builtincmd_export(arg, c, arg->envp);
+		builtincmd_export(arg, c);
 	else if (ft_strncmp("pwd", c->param[0], 4) == 0)
 		builtincmd_pwd(arg, c);
 	else if (ft_strncmp("unset", c->param[0], 6) == 0)

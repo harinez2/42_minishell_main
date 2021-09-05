@@ -1,21 +1,21 @@
 #include "main.h"
 
-static int	get_bigger_len(char *s1, char *s2)
+static int	get_bigger_len(t_env *s1, t_env *s2)
 {
 	int		ret;
 
-	ret = ft_strlen(s1);
-	if (ret < (int)ft_strlen(s2))
-		ret = ft_strlen(s2);
+	ret = ft_strlen(s1->env);
+	if (ret < (int)ft_strlen(s2->env))
+		ret = ft_strlen(s2->env);
 	return (ret);
 }
 
-static void	mergesort_merge_envp(int *envp_i, char **envp, int start, int end)
+static void	mergesort_merge_env(t_env *env_i[], int start, int end)
 {
 	int		i;
 	int		j;
 	int		mid;
-	int		sorted[MAX_ENVP];
+	t_env	*sorted[MAX_ENVP];
 	int		s;
 
 	mid = start + (end - start) / 2;
@@ -24,49 +24,55 @@ static void	mergesort_merge_envp(int *envp_i, char **envp, int start, int end)
 	s = 0;
 	while (i < mid && j < end)
 	{
-		if (ft_strncmp(envp[envp_i[i]], envp[envp_i[j]],
-				get_bigger_len(envp[envp_i[i]], envp[envp_i[j]])) < 0)
-			sorted[s++] = envp_i[i++];
+		if (ft_strncmp((env_i[i])->env, (env_i[j])->env,
+				get_bigger_len(env_i[i], env_i[j])) < 0)
+			sorted[s++] = env_i[i++];
 		else
-			sorted[s++] = envp_i[j++];
+			sorted[s++] = env_i[j++];
 	}
 	if (i == mid)
 		while (j < end)
-			sorted[s++] = envp_i[j++];
+			sorted[s++] = env_i[j++];
 	else
 		while (i < mid)
-			sorted[s++] = envp_i[i++];
-	copy_array(envp_i, sorted, s, start);
+			sorted[s++] = env_i[i++];
+	copy_array(env_i, sorted, s, start);
 }
 
-static void	mergesort_envp(int *envp_i, char **envp, int start, int end)
+static void	mergesort_env(t_env *env_i[], int start, int end)
 {
 	int		mid;
 
 	if (start == end || start + 1 == end)
 		return ;
 	mid = start + (end - start) / 2;
-	mergesort_envp(envp_i, envp, start, mid);
-	mergesort_envp(envp_i, envp, mid, end);
-	mergesort_merge_envp(envp_i, envp, start, end);
+	mergesort_env(env_i, start, mid);
+	mergesort_env(env_i, mid, end);
+	mergesort_merge_env(env_i, start, end);
 }
 
-void	builtincmd_export(t_arg *arg, t_cmd *cmd, char **envp)
+void	builtincmd_export(t_arg *arg, t_cmd *cmd)
 {
 	int		cnt;
 	int		i;
-	int		envp_i[MAX_ENVP];
+	t_env	*env_i[MAX_ENVP];
+	t_env	*e;
 
 	dbg_print_cmdstart(arg, cmd->param[0]);
 	dbg_print_str(arg, "=== builtin cmd export ===\n");
+	e = arg->envlst;
 	cnt = 0;
-	while (envp[cnt] != NULL)
+	while (e != NULL)
 	{
-		envp_i[cnt] = cnt;
+		env_i[cnt] = e;
 		cnt++;
+		e = e->next;
 	}
-	mergesort_envp(envp_i, envp, 0, --cnt);
+	mergesort_env(env_i, 0, --cnt);
 	i = 0;
 	while (i < cnt)
-		printf("%s\n", envp[envp_i[i++]]);
+	{
+		printf("%s=%s\n", env_i[i]->env, env_i[i]->value);
+		i++;
+	}
 }

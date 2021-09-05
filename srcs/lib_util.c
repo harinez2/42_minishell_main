@@ -5,7 +5,7 @@ void	putstr_stderr(char *s)
 	write(2, s, ft_strlen(s));
 }
 
-void	copy_array(int *to, int *from, int len, int offset_to)
+void	copy_array(t_env *to[], t_env *from[], int len, int offset_to)
 {
 	int		i;
 
