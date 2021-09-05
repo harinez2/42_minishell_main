@@ -7,10 +7,12 @@ SRCS		= \
 				$(SRC_DIR)/builtin_echo.c \
 				$(SRC_DIR)/builtin_env.c \
 				$(SRC_DIR)/builtin_export.c \
+				$(SRC_DIR)/builtin_export_print.c \
 				$(SRC_DIR)/builtin_pwd.c \
 				$(SRC_DIR)/builtin_unset.c \
 				$(SRC_DIR)/env_environ.c \
 				$(SRC_DIR)/env_envlst.c \
+				$(SRC_DIR)/env_envlst_util.c \
 				$(SRC_DIR)/error.c \
 				$(SRC_DIR)/executer.c \
 				$(SRC_DIR)/executer_builtin_nofork.c \

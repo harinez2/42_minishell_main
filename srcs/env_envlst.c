@@ -21,10 +21,9 @@ void	init_envlst(t_arg *arg)
 	}
 }
 
-void	push_back_envlst(t_env	**envlst, char *env, char *value, t_arg *arg)
+static t_env	*create_newnode(char *env, char *value, t_arg *arg)
 {
 	t_env	*new_env;
-	t_env	*head;
 
 	new_env = malloc(sizeof(t_env));
 	if (!new_env)
@@ -32,6 +31,23 @@ void	push_back_envlst(t_env	**envlst, char *env, char *value, t_arg *arg)
 	new_env->env = env;
 	new_env->value = value;
 	new_env->next = NULL;
+	return (new_env);
+}
+
+void	push_back_envlst(t_env	**envlst, char *env, char *value, t_arg *arg)
+{
+	t_env	*new_env;
+	t_env	*head;
+	t_env	*tmp;
+
+	tmp = get_node_from_envlst(arg, env);
+	if (tmp)
+	{
+		secure_free(tmp->value);
+		tmp->value = value;
+		return ;
+	}
+	new_env = create_newnode(env, value, arg);
 	head = *envlst;
 	if (!head)
 	{
@@ -45,19 +61,27 @@ void	push_back_envlst(t_env	**envlst, char *env, char *value, t_arg *arg)
 	}
 }
 
-int	count_envlst(t_arg *arg)
+void	delete_env_from_envlst(t_arg *arg, char *envname)
 {
-	t_env	*e;
-	int		ret;
+	t_env		*e;
+	t_env		*e_prev;
 
-	ret = 0;
 	e = arg->envlst;
-	while (e)
+	e_prev = NULL;
+	while (e != NULL)
 	{
-		ret++;
+		if (ft_strncmp(e->env, envname, ft_strlen(envname) + 1) == 0)
+		{
+			e_prev->next = e->next;
+			secure_free(e->env);
+			secure_free(e->value);
+			secure_free(e);
+			return ;
+		}
+		e_prev = e;
 		e = e->next;
 	}
-	return (ret);
+	return ;
 }
 
 void	destroy_envlst(t_arg *arg)

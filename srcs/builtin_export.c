@@ -1,72 +1,37 @@
 #include "main.h"
 
-static int	get_bigger_len(char *s1, char *s2)
-{
-	int		ret;
-
-	ret = ft_strlen(s1);
-	if (ret < (int)ft_strlen(s2))
-		ret = ft_strlen(s2);
-	return (ret);
-}
-
-static void	mergesort_merge_envp(int *envp_i, char **envp, int start, int end)
+static void	add_param(t_arg *arg, t_cmd *cmd)
 {
 	int		i;
-	int		j;
-	int		mid;
-	int		sorted[MAX_ENVP];
-	int		s;
+	int		eqpos;
+	int		paramlen;
 
-	mid = start + (end - start) / 2;
-	i = start;
-	j = mid;
-	s = 0;
-	while (i < mid && j < end)
+	i = 1;
+	while (cmd->param[i])
 	{
-		if (ft_strncmp(envp[envp_i[i]], envp[envp_i[j]],
-				get_bigger_len(envp[envp_i[i]], envp[envp_i[j]])) < 0)
-			sorted[s++] = envp_i[i++];
+		eqpos = ft_strchr(cmd->param[i], '=');
+		paramlen = ft_strlen(cmd->param[i]);
+		if (eqpos != paramlen)
+			push_back_envlst(&arg->envlst, ft_substr(cmd->param[i], 0, eqpos),
+				ft_substr(cmd->param[i], eqpos + 1, paramlen), arg);
 		else
-			sorted[s++] = envp_i[j++];
+		{
+			// if included shell vars, add it from shell vars to env vars
+
+			//otherwise
+			push_back_envlst(&arg->envlst,
+				ft_substr(cmd->param[i], 0, paramlen), NULL, arg);
+		}
+		i++;
 	}
-	if (i == mid)
-		while (j < end)
-			sorted[s++] = envp_i[j++];
-	else
-		while (i < mid)
-			sorted[s++] = envp_i[i++];
-	copy_array(envp_i, sorted, s, start);
 }
 
-static void	mergesort_envp(int *envp_i, char **envp, int start, int end)
+void	builtincmd_export(t_arg *arg, t_cmd *cmd)
 {
-	int		mid;
-
-	if (start == end || start + 1 == end)
-		return ;
-	mid = start + (end - start) / 2;
-	mergesort_envp(envp_i, envp, start, mid);
-	mergesort_envp(envp_i, envp, mid, end);
-	mergesort_merge_envp(envp_i, envp, start, end);
-}
-
-void	builtincmd_export(t_arg *arg, t_cmd *cmd, char **envp)
-{
-	int		cnt;
-	int		i;
-	int		envp_i[MAX_ENVP];
-
 	dbg_print_cmdstart(arg, cmd->param[0]);
 	dbg_print_str(arg, "=== builtin cmd export ===\n");
-	cnt = 0;
-	while (envp[cnt] != NULL)
-	{
-		envp_i[cnt] = cnt;
-		cnt++;
-	}
-	mergesort_envp(envp_i, envp, 0, --cnt);
-	i = 0;
-	while (i < cnt)
-		printf("%s\n", envp[envp_i[i++]]);
+	if (cmd->param_cnt == 1)
+		print_env_export(arg);
+	else
+		add_param(arg, cmd);
 }

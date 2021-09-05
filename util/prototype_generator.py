@@ -3,6 +3,7 @@ import re
 
 path = os.path.dirname(__file__) + '/../srcs'
 prototype_h = os.path.dirname(__file__) +'/../inc/prototypes.h'
+indentlv = 3
 
 files = os.listdir(path)
 files_file = [f for f in files if os.path.isfile(os.path.join(path, f))]
@@ -24,12 +25,26 @@ for file in files_file:
 				l.append(s)
 				flg = 1
 
+l2 = list()
+for line in l:
+	m = re.match(r'([a-z_]+)(\t+)(.*)', line)
+	if m != None:
+		currenttabcnt = len(m.group(1)) // 4 + len(m.group(2))
+		extratabcnt = indentlv - currenttabcnt
+		l2.append(m.group(1) + m.group(2) + '\t' * extratabcnt + m.group(3))
+	else:
+		m = re.match(r'\t+(.*)', line)
+		if m != None:
+			extratabcnt = indentlv + 1
+			l2.append('\t' * extratabcnt + m.group(1))
+		else:
+			l2.append(line)
+
 with open(prototype_h, mode='w') as f:
 	f.write('#ifndef PROTOTYPES_H\n')
 	f.write('# define PROTOTYPES_H\n')
 	f.write('\n')
-	for line in l:
+	for line in l2:
 		f.write(line + '\n')
 	f.write('\n')
 	f.write('#endif\n')
-
