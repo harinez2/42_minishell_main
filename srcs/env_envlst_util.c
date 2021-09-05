@@ -1,14 +1,14 @@
 #include "main.h"
 
-char	*get_env_from_envlst(t_arg *arg, char *envname)
+t_env	*get_node_from_envlst(t_arg *arg, char *envname)
 {
 	t_env		*e;
 
 	e = arg->envlst;
 	while (e != NULL)
 	{
-		if (ft_strncmp(e->env, envname, ft_strlen(e->env)) == 0)
-			return (e->value);
+		if (ft_strncmp(e->env, envname, ft_strlen(envname) + 1) == 0)
+			return (e);
 		e = e->next;
 	}
 	return (NULL);
