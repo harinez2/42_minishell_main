@@ -6,7 +6,8 @@ typedef enum e_error_no {
 	ERR_FAILED_TO_EXEC,
 	ERR_HEREDOC,
 	ERR_SYNTAX_ERROR,
-	ERR_HOME_NOT_SET
+	ERR_HOME_NOT_SET,
+	ERR_NOT_VALID_IDENTIFIER
 }	t_error_no;
 
 typedef enum e_token_type {

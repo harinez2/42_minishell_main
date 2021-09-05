@@ -13,6 +13,8 @@ void		builtincmd_echo(t_arg *arg, t_cmd *cmd);
 void		builtincmd_env(t_arg *arg, t_cmd *cmd);
 // builtin_export.c
 void		builtincmd_export(t_arg *arg, t_cmd *cmd);
+// builtin_export_print.c
+void		print_env_export(t_arg *arg);
 // builtin_pwd.c
 void		builtincmd_pwd(t_arg *arg, t_cmd *cmd);
 // builtin_unset.c
@@ -23,6 +25,7 @@ void		destroy_environ(char **env);
 // env_envlst.c
 void		init_envlst(t_arg *arg);
 void		push_back_envlst(t_env	**envlst, char *env, char *value, t_arg *arg);
+t_env		*get_node_from_envlst(t_arg *arg, char *envname);
 void		delete_env_from_envlst(t_arg *arg, char *envname);
 void		destroy_envlst(t_arg *arg);
 // env_envlst_util.c
@@ -47,7 +50,6 @@ void		connect_pipe(int unused, int old, int new, t_arg *arg);
 void		close_pipe(t_arg *arg, char *who, int fd);
 void		ignore_toomuch_redirout(t_arg *arg, t_cmd *c);
 // expander.c
-void		expander_char(char **text, t_arg *arg);
 void		expander(t_arg *arg);
 // expander_char_env.c
 void		expander_char_env(char **text, t_arg *arg);
