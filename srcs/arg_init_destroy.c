@@ -10,6 +10,7 @@ void	init_arg(int argc, char **argv, char **envp, t_arg *arg)
 	update_envpath(arg);
 	arg->cmdlst = NULL;
 	arg->envlst = NULL;
+	arg->shellenvlst = NULL;
 	init_envlst(arg);
 	arg->dbg = 0;
 }

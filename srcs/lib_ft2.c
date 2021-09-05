@@ -23,6 +23,8 @@ char	*ft_strdup(const char *s1)
 	int		j;
 	char	*p;
 
+	if (s1 == NULL)
+		return (NULL);
 	i = 0;
 	while (s1[i] != '\0')
 		i++;
