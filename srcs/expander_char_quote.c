@@ -8,7 +8,7 @@ void	expander_char_quote(char **text)
 	int		escape;
 	int		single_quote;
 
-	new = (char *)malloc(ft_strlen(*text));
+	new = (char *)malloc(ft_strlen(*text) + 1);
 	cnt = 0;
 	i = 0;
 	escape = 0;
@@ -31,6 +31,7 @@ void	expander_char_quote(char **text)
 		if (escape == 1)
 			escape = 0;
 	}
+	new[i] = '\0';
 	free(*text);
 	(*text) = ft_strdup2(new, i);
 	free(new);
