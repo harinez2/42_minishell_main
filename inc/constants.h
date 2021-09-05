@@ -27,6 +27,6 @@
 
 # define BACK_CURSOR			"\033[2D"
 # define CLEAR_FROM_CURSOR		"\033[0K"
-# define SHELL_PROMPT			COL_BK_CYAN"minishell>"COL_BK_RESET" "
+# define SHELL_PROMPT			"\x1b[46mminishell>\x1b[49m "
 
 #endif
