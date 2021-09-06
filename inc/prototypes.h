@@ -25,12 +25,12 @@ char		**generate_environ(t_arg *arg);
 void		destroy_environ(char **env);
 // env_envlst.c
 void		init_envlst(t_arg *arg);
-void		push_back_envlst(t_env	**envlst, char *env, char *value, t_arg *arg);
 void		delete_env_from_envlst(t_env **envlst, char *envname);
 void		destroy_envlst(t_arg *arg);
 // env_envlst_util.c
 t_env		*get_node_from_envlst(t_env	*envlst, char *envname);
 int			count_envlst(t_arg *arg);
+void		push_back_envlst(t_env	**envlst, char *env, char *value, t_arg *arg);
 // error.c
 void		print_perror(int err_no, char *errcmd, char *argtxt);
 void		print_custom_error(t_error_no errcode, char *errcmd, char *argtxt);

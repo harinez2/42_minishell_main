@@ -60,6 +60,9 @@ $(NAME): $(OBJS)
 debug: $(SRCS)
 	clang $(SRCS) $(CFLAGS) $(CFLAGS_RL) $(INCLUDE) $(DBGFLG) -o $(NAME)
 
+debugwsl: $(SRCS)
+	clang $(SRCS) $(CFLAGS) -lreadline -lhistory -I./inc $(DBGFLG) -o $(NAME)
+
 protogen:
 	python3 util/prototype_generator.py
 
