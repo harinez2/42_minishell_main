@@ -1,5 +1,5 @@
 NAME		= minishell
-INCLUDE		= -I./inc
+INCLUDE		= -I./inc -I $(shell brew --prefix readline)/include
 SRC_DIR		= srcs
 SRCS		= \
 				$(SRC_DIR)/arg_init_destroy.c \
@@ -44,7 +44,7 @@ OBJS		= $(SRCS:.c=.o)
 DEPS		= $(SRCS:%.c=%.d) $(NAME).d
 CC			= gcc
 CFLAGS		= -Wall -Wextra -Werror -MMD -MP
-CFLAGS_RL	= -lreadline
+CFLAGS_RL	= -lreadline -lhistory -L$(shell brew --prefix readline)/lib
 DBGFLG		= -g3 -fsanitize=address
 
 all: $(NAME)
