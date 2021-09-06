@@ -63,6 +63,11 @@ debug: $(SRCS)
 protogen:
 	python3 util/prototype_generator.py
 
+setup:
+	curl -fsSL https://rawgit.com/kube/42homebrew/master/install.sh | zsh
+	export PATH=$PATH:~/.brew/bin
+	brew install readline
+
 clean:
 	rm -f $(OBJS) $(DEPS)
 
