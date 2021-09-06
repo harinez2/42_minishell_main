@@ -21,46 +21,6 @@ void	init_envlst(t_arg *arg)
 	}
 }
 
-static t_env	*create_newnode(char *env, char *value, t_arg *arg)
-{
-	t_env	*new_env;
-
-	new_env = malloc(sizeof(t_env));
-	if (!new_env)
-		print_perror_exit(errno, "", "", arg);
-	new_env->env = env;
-	new_env->value = value;
-	new_env->next = NULL;
-	return (new_env);
-}
-
-void	push_back_envlst(t_env	**envlst, char *env, char *value, t_arg *arg)
-{
-	t_env	*new_env;
-	t_env	*head;
-	t_env	*tmp;
-
-	tmp = get_node_from_envlst(*envlst, env);
-	if (tmp)
-	{
-		secure_free(tmp->value);
-		tmp->value = value;
-		return ;
-	}
-	new_env = create_newnode(env, value, arg);
-	head = *envlst;
-	if (!head)
-	{
-		(*envlst) = new_env;
-	}
-	else
-	{
-		while (head->next != NULL)
-			head = head->next;
-		head->next = new_env;
-	}
-}
-
 void	delete_env_from_envlst(t_env **envlst, char *envname)
 {
 	t_env		*e;
