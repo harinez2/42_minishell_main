@@ -2,6 +2,8 @@
 
 void	init_arg(int argc, char **argv, char **envp, t_arg *arg)
 {
+	char	currentpath[MAX_PATH];
+
 	arg->argc = argc;
 	arg->argv = argv;
 	arg->envp = envp;
@@ -11,6 +13,10 @@ void	init_arg(int argc, char **argv, char **envp, t_arg *arg)
 	arg->cmdlst = NULL;
 	arg->envlst = NULL;
 	arg->shellenvlst = NULL;
+	arg->pwd = getcwd(currentpath, MAX_PATH);
+	if (!arg->pwd)
+		print_perror_exit(errno, "getcwd", NULL, arg);
+	arg->pwd = ft_strdup(currentpath);
 	init_envlst(arg);
 	arg->dbg = 0;
 }
@@ -44,6 +50,7 @@ void	destroy_arg(t_arg *arg)
 {
 	secure_free(arg->read);
 	secure_free(arg->path[0]);
+	secure_free(arg->pwd);
 	cmd_destroy(arg);
 	destroy_envlst(arg);
 }
