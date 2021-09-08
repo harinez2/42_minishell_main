@@ -4,6 +4,7 @@ SRC_DIR		= srcs
 SRCS		= \
 				$(SRC_DIR)/arg_init_destroy.c \
 				$(SRC_DIR)/builtin_cd.c \
+				$(SRC_DIR)/builtin_cd_util.c \
 				$(SRC_DIR)/builtin_echo.c \
 				$(SRC_DIR)/builtin_env.c \
 				$(SRC_DIR)/builtin_export.c \
@@ -39,7 +40,6 @@ SRCS		= \
 				$(SRC_DIR)/struct_init_destroy.c \
 				$(SRC_DIR)/struct_lst.c \
 				$(SRC_DIR)/struct_print.c
-
 OBJS		= $(SRCS:.c=.o)
 DEPS		= $(SRCS:%.c=%.d) $(NAME).d
 CC			= gcc
