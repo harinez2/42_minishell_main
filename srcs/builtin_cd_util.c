@@ -11,7 +11,7 @@ static int	reduce_verbose_letter(
 		&& (path[*i + 3] == '/' || path[*i + 3] == '\0'))
 	{
 		*i += 3;
-		while (new_i >= 0 && new_path[--(*new_i)] != '/')
+		while (*new_i >= 0 && new_path[--(*new_i)] != '/')
 			;
 	}
 	else

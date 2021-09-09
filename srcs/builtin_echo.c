@@ -29,7 +29,7 @@ static int	read_parameter(t_cmd *cmd, int *i)
 	return (nflg);
 }
 
-void	builtincmd_echo(t_arg *arg, t_cmd *cmd)
+int	builtincmd_echo(t_arg *arg, t_cmd *cmd)
 {
 	int		i;
 	int		nflg;
@@ -48,4 +48,5 @@ void	builtincmd_echo(t_arg *arg, t_cmd *cmd)
 	}
 	if (!nflg)
 		printf("\n");
+	return (0);
 }

@@ -41,9 +41,10 @@ void	builtincmd_export_witharg(t_arg *arg, t_cmd *cmd)
 	}
 }
 
-void	builtincmd_export_noarg(t_arg *arg, t_cmd *cmd)
+int	builtincmd_export_noarg(t_arg *arg, t_cmd *cmd)
 {
 	dbg_print_cmdstart(arg, cmd->param[0]);
 	dbg_print_str(arg, "=== builtin cmd export(noarg) ===\n");
 	print_env_export(arg);
+	return (0);
 }

@@ -50,7 +50,7 @@ void	print_perror_exit(int err_no, char *errcmd, char *argtxt, t_arg *arg)
 {
 	print_perror(err_no, errcmd, argtxt);
 	destroy_arg(arg);
-	exit(-1);
+	exit(MASK_7BIT);
 }
 
 void	print_custom_error_exit(
@@ -58,5 +58,5 @@ void	print_custom_error_exit(
 {
 	print_custom_error(errcode, errcmd, argtxt);
 	destroy_arg(arg);
-	exit(-1);
+	exit(MASK_7BIT);
 }

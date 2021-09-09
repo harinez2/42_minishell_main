@@ -12,16 +12,16 @@ char		*resolve_relative_path(char *path);
 void		update_pwd_with_getcwd(t_arg *arg);
 void		update_env_pwd(t_arg *arg);
 // builtin_echo.c
-void		builtincmd_echo(t_arg *arg, t_cmd *cmd);
+int			builtincmd_echo(t_arg *arg, t_cmd *cmd);
 // builtin_env.c
-void		builtincmd_env(t_arg *arg, t_cmd *cmd);
+int			builtincmd_env(t_arg *arg, t_cmd *cmd);
 // builtin_export.c
 void		builtincmd_export_witharg(t_arg *arg, t_cmd *cmd);
-void		builtincmd_export_noarg(t_arg *arg, t_cmd *cmd);
+int			builtincmd_export_noarg(t_arg *arg, t_cmd *cmd);
 // builtin_export_print.c
 void		print_env_export(t_arg *arg);
 // builtin_pwd.c
-void		builtincmd_pwd(t_arg *arg, t_cmd *cmd);
+int			builtincmd_pwd(t_arg *arg, t_cmd *cmd);
 // builtin_unset.c
 void		builtincmd_unset(t_arg *arg, t_cmd *cmd);
 // env_environ.c
@@ -83,6 +83,7 @@ ssize_t		ft_strchr(const char *s, int c);
 char		*ft_strdup2(const char *s1, ssize_t n);
 // lib_ft4.c
 char		*ft_searchinstr(const char *s, int c);
+char			*ft_itoa(int n);
 // lib_util.c
 void		putstr_stderr(char *s);
 void		copy_array(t_env *to[], t_env *from[], int len, int offset_to);

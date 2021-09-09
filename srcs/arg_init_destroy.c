@@ -18,6 +18,7 @@ void	init_arg(int argc, char **argv, char **envp, t_arg *arg)
 		print_perror_exit(errno, "getcwd", NULL, arg);
 	arg->pwd = ft_strdup(currentpath);
 	init_envlst(arg);
+	arg->last_exit_status = 0;
 	arg->dbg = 0;
 }
 

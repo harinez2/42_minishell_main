@@ -2,17 +2,19 @@
 
 static int	exec_builtincmd(t_cmd *c, t_arg *arg)
 {
+	int		ret;
+
 	if (ft_strncmp("echo", c->param[0], 5) == 0)
-		builtincmd_echo(arg, c);
+		ret = builtincmd_echo(arg, c);
 	else if (ft_strncmp("export", c->param[0], 7) == 0)
-		builtincmd_export_noarg(arg, c);
+		ret = builtincmd_export_noarg(arg, c);
 	else if (ft_strncmp("env", c->param[0], 4) == 0)
-		builtincmd_env(arg, c);
+		ret = builtincmd_env(arg, c);
 	else if (ft_strncmp("pwd", c->param[0], 4) == 0)
-		builtincmd_pwd(arg, c);
+		ret = builtincmd_pwd(arg, c);
 	else
 		return (0);
-	exit (0);
+	exit (ret);
 }
 
 static int	exec_shellcmd(t_cmd *cmd, t_arg *arg)
@@ -39,7 +41,7 @@ static int	exec_shellcmd(t_cmd *cmd, t_arg *arg)
 	}
 	cmd->param[0] = param_zero;
 	destroy_environ(env);
-	return (-1);
+	return (MASK_7BIT);
 }
 
 void	exec_command(t_cmd *cmd, t_arg *arg)
