@@ -75,7 +75,7 @@ static void	cd_homedir(t_arg *arg, t_cmd *cmd)
 
 // no arg			move to $HOME dir
 // other path		depends on chdir spec
-void	builtincmd_cd(t_arg *arg, t_cmd *cmd)
+int	builtincmd_cd(t_arg *arg, t_cmd *cmd)
 {
 	dbg_print_cmdstart(arg, cmd->param[0]);
 	dbg_print_str(arg, "=== builtin cmd cd ===\n");
@@ -83,4 +83,5 @@ void	builtincmd_cd(t_arg *arg, t_cmd *cmd)
 		cd_homedir(arg, cmd);
 	else
 		cd_chdir(arg, cmd, cmd->param[1]);
+	return (0);
 }

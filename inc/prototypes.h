@@ -6,7 +6,7 @@ void		init_arg(int argc, char **argv, char **envp, t_arg *arg);
 void		update_envpath(t_arg *arg);
 void		destroy_arg(t_arg *arg);
 // builtin_cd.c
-void		builtincmd_cd(t_arg *arg, t_cmd *cmd);
+int			builtincmd_cd(t_arg *arg, t_cmd *cmd);
 // builtin_cd_util.c
 char		*resolve_relative_path(char *path);
 void		update_pwd_with_getcwd(t_arg *arg);
@@ -16,14 +16,14 @@ int			builtincmd_echo(t_arg *arg, t_cmd *cmd);
 // builtin_env.c
 int			builtincmd_env(t_arg *arg, t_cmd *cmd);
 // builtin_export.c
-void		builtincmd_export_witharg(t_arg *arg, t_cmd *cmd);
+int			builtincmd_export_witharg(t_arg *arg, t_cmd *cmd);
 int			builtincmd_export_noarg(t_arg *arg, t_cmd *cmd);
 // builtin_export_print.c
 void		print_env_export(t_arg *arg);
 // builtin_pwd.c
 int			builtincmd_pwd(t_arg *arg, t_cmd *cmd);
 // builtin_unset.c
-void		builtincmd_unset(t_arg *arg, t_cmd *cmd);
+int			builtincmd_unset(t_arg *arg, t_cmd *cmd);
 // env_environ.c
 char		**generate_environ(t_arg *arg);
 void		destroy_environ(char **env);
@@ -44,12 +44,12 @@ void		print_custom_error_exit(
 // executer.c
 int			executer(t_arg *arg);
 // executer_builtin_nofork.c
-int			run_builtin_nofork(t_arg *arg, t_cmd *c);
+int			run_builtin_nofork(t_arg *arg, t_cmd *c, int *status);
 // executer_cmdexec.c
 void		exec_command(t_cmd *cmd, t_arg *arg);
 // executer_util.c
 void		dbg_print_cmdstart(t_arg *arg, char *s);
-void		dbg_print_cmdend(t_arg *arg, int status);
+void		handling_exit_status(t_arg *arg, int status);
 void		connect_pipe(int unused, int old, int new, t_arg *arg);
 void		close_pipe(t_arg *arg, char *who, int fd);
 void		ignore_toomuch_redirout(t_arg *arg, t_cmd *c);

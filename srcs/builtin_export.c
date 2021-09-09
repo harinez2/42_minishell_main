@@ -27,7 +27,7 @@ static void	add_oneparam(t_arg *arg, t_cmd *cmd, int i)
 			ft_substr(cmd->param[i], eqpos + 1, paramlen), arg);
 }
 
-void	builtincmd_export_witharg(t_arg *arg, t_cmd *cmd)
+int	builtincmd_export_witharg(t_arg *arg, t_cmd *cmd)
 {
 	int		i;
 
@@ -39,6 +39,7 @@ void	builtincmd_export_witharg(t_arg *arg, t_cmd *cmd)
 		add_oneparam(arg, cmd, i);
 		i++;
 	}
+	return (0);
 }
 
 int	builtincmd_export_noarg(t_arg *arg, t_cmd *cmd)

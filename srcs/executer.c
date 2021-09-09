@@ -68,7 +68,7 @@ int	executer(t_arg *arg)
 	c = arg->cmdlst;
 	while (c != NULL)
 	{
-		if (run_builtin_nofork(arg, c) == 1)
+		if (run_builtin_nofork(arg, c, &status) == 1)
 		{
 			if (c->nxtcmd_relation == CONN_PIPE)
 				pipe(c->pipe);
@@ -78,13 +78,9 @@ int	executer(t_arg *arg)
 			else if (pid == 0)
 				executer_childprocess(arg, c);
 			waitpid(pid, &status, 0);
-			if (WIFEXITED(status))
-				arg->last_exit_status = WEXITSTATUS(status) & MASK_7BIT;
-			else
-				arg->last_exit_status = MASK_7BIT;
 			executer_parentprocess(arg, c);
 		}
-		dbg_print_cmdend(arg, status);
+		handling_exit_status(arg, status);
 		c = c->next;
 	}
 	return (0);

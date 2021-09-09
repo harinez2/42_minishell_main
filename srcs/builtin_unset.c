@@ -1,6 +1,6 @@
 #include "main.h"
 
-void	builtincmd_unset(t_arg *arg, t_cmd *cmd)
+int	builtincmd_unset(t_arg *arg, t_cmd *cmd)
 {
 	int		i;
 
@@ -19,4 +19,5 @@ void	builtincmd_unset(t_arg *arg, t_cmd *cmd)
 		}
 		i++;
 	}
+	return (0);
 }
