@@ -6,7 +6,7 @@ prototype_h = os.path.dirname(__file__) +'/../inc/prototypes.h'
 indentlv = 3
 
 files = os.listdir(path)
-files_file = [f for f in files if os.path.isfile(os.path.join(path, f))]
+files_file = [f for f in files if os.path.isfile(os.path.join(path, f)) and os.path.splitext(f)[-1] == ".c"]
 
 l = list()
 for file in files_file:
