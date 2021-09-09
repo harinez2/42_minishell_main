@@ -83,7 +83,7 @@ ssize_t		ft_strchr(const char *s, int c);
 char		*ft_strdup2(const char *s1, ssize_t n);
 // lib_ft4.c
 char		*ft_searchinstr(const char *s, int c);
-char			*ft_itoa(int n);
+char		*ft_itoa(int n);
 // lib_util.c
 void		putstr_stderr(char *s);
 void		copy_array(t_env *to[], t_env *from[], int len, int offset_to);

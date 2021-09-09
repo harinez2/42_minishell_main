@@ -18,7 +18,7 @@ char	*ft_searchinstr(const char *s, int c)
 	return (NULL);
 }
 
-static int		intlen(long n)
+static int	intlen(long n)
 {
 	int		i;
 
@@ -31,7 +31,7 @@ static int		intlen(long n)
 	return (i);
 }
 
-static void		put_int(char *s, long n, int neg, int len)
+static void	put_int(char *s, long n, int neg, int len)
 {
 	s[len--] = '\0';
 	if (n == 0)
@@ -49,7 +49,7 @@ static void		put_int(char *s, long n, int neg, int len)
 	}
 }
 
-char			*ft_itoa(int n)
+char	*ft_itoa(int n)
 {
 	long	nn;
 	int		len;

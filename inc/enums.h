@@ -15,7 +15,7 @@ typedef enum e_connection_type {
 	CONN_PIPE,
 	CONN_REDIR_OUT,
 	CONN_AMP
-} t_connection_type;
+}	t_connection_type;
 
 typedef enum e_token_type {
 	TKN_EOF,
