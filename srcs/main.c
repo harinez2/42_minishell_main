@@ -26,6 +26,12 @@ int	main(int argc, char **argv, char **envp)
 
 	init_arg(argc, argv, envp, &arg);
 	set_signal();
+	if (argc > 2 && ft_strncmp("-c", argv[1], 3) == 0)
+	{
+		arg.read = argv[2];
+		command_execution(&arg);
+		return (0);
+	}
 	if (argc >= 2 && ft_strncmp("-d", argv[1], 3) == 0)
 		arg.dbg = 1;
 	while (1)
