@@ -1,6 +1,6 @@
 #include "main.h"
 
-static void	add_oneparam(t_arg *arg, t_cmd *cmd, int i)
+static int	add_oneparam(t_arg *arg, t_cmd *cmd, int i)
 {
 	int		eqpos;
 	int		paramlen;
@@ -8,38 +8,41 @@ static void	add_oneparam(t_arg *arg, t_cmd *cmd, int i)
 	t_env	*e;
 
 	eqpos = ft_strchr(cmd->param[i], '=');
+	if (eqpos == 0)
+		return (print_custom_error(
+				ERR_NOT_VALID_IDENTIFIER, cmd->param[0], cmd->param[i]));
 	paramlen = ft_strlen(cmd->param[i]);
 	envname = ft_substr(cmd->param[i], 0, eqpos);
-	e = get_node_from_envlst(arg->shellenvlst, envname);
-	if (e != NULL)
+	if (eqpos == paramlen)
 	{
-		if (eqpos == paramlen)
+		e = get_node_from_envlst(arg->shellenvlst, envname);
+		if (e != NULL)
 			push_back_envlst(&arg->envlst, envname, ft_strdup(e->value), arg);
 		else
-			push_back_envlst(&arg->envlst, envname,
-				ft_substr(cmd->param[i], eqpos + 1, paramlen), arg);
-		delete_env_from_envlst(&arg->shellenvlst, envname);
+			push_back_envlst(&arg->envlst, envname, NULL, arg);
 	}
-	else if (eqpos == paramlen)
-		push_back_envlst(&arg->envlst, envname, NULL, arg);
 	else
 		push_back_envlst(&arg->envlst, envname,
 			ft_substr(cmd->param[i], eqpos + 1, paramlen), arg);
+	delete_env_from_envlst(&arg->shellenvlst, envname);
+	return (0);
 }
 
 int	builtincmd_export_witharg(t_arg *arg, t_cmd *cmd)
 {
 	int		i;
+	int		ret;
 
 	dbg_print_cmdstart(arg, cmd->param[0]);
 	dbg_print_str(arg, "=== builtin cmd export(witharg) ===\n");
+	ret = 0;
 	i = 1;
 	while (cmd->param[i])
 	{
-		add_oneparam(arg, cmd, i);
+		ret |= add_oneparam(arg, cmd, i);
 		i++;
 	}
-	return (0);
+	return (ret);
 }
 
 int	builtincmd_export_noarg(t_arg *arg, t_cmd *cmd)

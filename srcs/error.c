@@ -29,7 +29,7 @@ void	print_perror(int err_no, char *errcmd, char *argtxt)
 	putstr_stderr("\n");
 }
 
-void	print_custom_error(t_error_no errcode, char *errcmd, char *argtxt)
+int	print_custom_error(t_error_no errcode, char *errcmd, char *argtxt)
 {
 	errmsg_prefix(errcode, errcmd, argtxt);
 	if (errcode == ERR_FAILED_TO_EXEC)
@@ -44,6 +44,7 @@ void	print_custom_error(t_error_no errcode, char *errcmd, char *argtxt)
 		putstr_stderr("not a valid identifier\n");
 	else
 		putstr_stderr("unexpected error\n");
+	return (1);
 }
 
 void	print_perror_exit(int err_no, char *errcmd, char *argtxt, t_arg *arg)

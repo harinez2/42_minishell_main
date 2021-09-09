@@ -37,7 +37,7 @@ int			count_envlst(t_arg *arg);
 void		push_back_envlst(t_env	**envlst, char *env, char *value, t_arg *arg);
 // error.c
 void		print_perror(int err_no, char *errcmd, char *argtxt);
-void		print_custom_error(t_error_no errcode, char *errcmd, char *argtxt);
+int			print_custom_error(t_error_no errcode, char *errcmd, char *argtxt);
 void		print_perror_exit(int err_no, char *errcmd, char *argtxt, t_arg *arg);
 void		print_custom_error_exit(
 				t_error_no errcode, char *errcmd, char *argtxt, t_arg *arg);
