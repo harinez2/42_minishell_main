@@ -1,60 +1,79 @@
 #include "main.h"
 
-static int	update_pwd(t_arg *arg, t_cmd *cmd, char *dest_path)
+static int	generate_fullpath(
+	t_arg *arg, t_cmd *cmd, char *dest_path, char **dest_fullpath)
 {
-	char	*tmppath;
 	t_env	*e;
 
-	tmppath = arg->pwd;
 	if (dest_path[0] == '/')
-		arg->pwd = ft_strdup(dest_path);
+		*dest_fullpath = ft_strdup(dest_path);
 	else if (dest_path[0] == '~')
 	{
 		e = get_node_from_envlst(arg->envlst, "HOME");
 		if (!e)
 		{
 			print_custom_error(ERR_HOME_NOT_SET, cmd->param[0], NULL);
-			return (-1);
+			return (-2);
 		}
-		arg->pwd = ft_strjoin(e->value, dest_path + 1);
+		*dest_fullpath = ft_strjoin(e->value, dest_path + 1);
 	}
 	else
-		arg->pwd = ft_strjoin3(tmppath, "/", dest_path);
-	secure_free(tmppath);
+		*dest_fullpath = ft_strjoin3(arg->pwd, "/", dest_path);
 	return (0);
 }
 
-static void	run_chdir(t_arg *arg, t_cmd *cmd, char *dest_path)
+static int	run_chdir(
+	t_arg *arg, t_cmd *cmd, char *dest_path, char	**dest_fullpath)
 {
 	char	*tmppath;
 	int		ret;
 
-	if (update_pwd(arg, cmd, dest_path) == -1)
-		return ;
-	ret = chdir(arg->pwd);
+	if (generate_fullpath(arg, cmd, dest_path, dest_fullpath) == -2)
+		return (-2);
+	ret = chdir(*dest_fullpath);
 	if (ret == -1)
 	{
-		tmppath = resolve_relative_path(arg->pwd);
+		tmppath = resolve_relative_path(*dest_fullpath);
 		ret = chdir(tmppath);
-		if (ret == -1)
-			putstr_stderr("cd: error retrieving current directory");
 		secure_free(tmppath);
 	}
+	return (ret);
 }
 
-static void	cd_chdir(t_arg *arg, t_cmd *cmd, char *dest_path)
+static int	cd_chdir(t_arg *arg, t_cmd *cmd, char *dest_path)
 {
+	int		chdir_ret;
+	int		getcwd_ret;
+	char	*dest_fullpath;
+
 	if (arg->dbg)
 	{
 		printf("  previous pwd : %s\n", arg->pwd);
 		printf("  changing to  : %s\n", dest_path);
 	}
-	run_chdir(arg, cmd, dest_path);
-	update_pwd_with_getcwd(arg);
-	update_env_pwd(arg);
+	chdir_ret = run_chdir(arg, cmd, dest_path, &dest_fullpath);
+	if (chdir_ret == -2)
+		return (1);
+	getcwd_ret = update_pwd_with_getcwd(&dest_fullpath);
+	if (chdir_ret != 0 && getcwd_ret != 0)
+	{
+		putstr_stderr("cd: error retrieving current directory");
+		putstr_stderr(": getcwd: cannot access parent directories: ");
+		putstr_stderr(strerror(getcwd_ret));
+		putstr_stderr("\n");
+		update_pwd_envs(arg, dest_fullpath);
+	}
+	else if (chdir_ret != 0)
+		print_perror(chdir_ret, cmd->param[0], cmd->param[1]);
+	else
+	{
+		update_pwd_envs(arg, dest_fullpath);
+		return (0);
+	}
+	return (1);
 }
 
-static void	cd_homedir(t_arg *arg, t_cmd *cmd)
+static int	cd_homedir(t_arg *arg, t_cmd *cmd)
 {
 	t_env	*e;
 
@@ -65,23 +84,26 @@ static void	cd_homedir(t_arg *arg, t_cmd *cmd)
 		{
 			if (arg->dbg)
 				printf("  $HOME found  : %s\n", e->value);
-			cd_chdir(arg, cmd, e->value);
-			return ;
+			return (cd_chdir(arg, cmd, e->value));
 		}
 		e = e->next;
 	}
 	print_custom_error(ERR_HOME_NOT_SET, cmd->param[0], NULL);
+	return (1);
 }
 
 // no arg			move to $HOME dir
 // other path		depends on chdir spec
 int	builtincmd_cd(t_arg *arg, t_cmd *cmd)
 {
+	int		ret;
+
 	dbg_print_cmdstart(arg, cmd->param[0]);
 	dbg_print_str(arg, "=== builtin cmd cd ===\n");
+	ret = 0;
 	if (cmd->param_cnt == 1)
-		cd_homedir(arg, cmd);
+		ret = cd_homedir(arg, cmd);
 	else
-		cd_chdir(arg, cmd, cmd->param[1]);
-	return (0);
+		ret = cd_chdir(arg, cmd, cmd->param[1]);
+	return (ret);
 }

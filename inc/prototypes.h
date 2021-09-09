@@ -9,8 +9,8 @@ void		destroy_arg(t_arg *arg);
 int			builtincmd_cd(t_arg *arg, t_cmd *cmd);
 // builtin_cd_util.c
 char		*resolve_relative_path(char *path);
-void		update_pwd_with_getcwd(t_arg *arg);
-void		update_env_pwd(t_arg *arg);
+int			update_pwd_with_getcwd(char **dest_fullpath);
+void		update_pwd_envs(t_arg *arg, char *path);
 // builtin_echo.c
 int			builtincmd_echo(t_arg *arg, t_cmd *cmd);
 // builtin_env.c

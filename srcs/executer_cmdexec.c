@@ -25,7 +25,7 @@ static int	exec_shellcmd(t_cmd *cmd, t_arg *arg)
 	int		i;
 
 	i = 0;
-	ret = -1;
+	ret = MASK_7BIT;
 	env = generate_environ(arg);
 	param_zero = cmd->param[0];
 	while (ret != 0 && arg->path[i] != NULL)
@@ -41,7 +41,7 @@ static int	exec_shellcmd(t_cmd *cmd, t_arg *arg)
 	}
 	cmd->param[0] = param_zero;
 	destroy_environ(env);
-	return (MASK_7BIT);
+	return (ret);
 }
 
 void	exec_command(t_cmd *cmd, t_arg *arg)
