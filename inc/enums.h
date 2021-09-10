@@ -10,6 +10,13 @@ typedef enum e_error_no {
 	ERR_NOT_VALID_IDENTIFIER
 }	t_error_no;
 
+typedef enum e_connection_type {
+	CONN_NONE,
+	CONN_PIPE,
+	CONN_REDIR_OUT,
+	CONN_AMP
+}	t_connection_type;
+
 typedef enum e_token_type {
 	TKN_EOF,
 	TKN_SEMICOLON,

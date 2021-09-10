@@ -17,3 +17,60 @@ char	*ft_searchinstr(const char *s, int c)
 	}
 	return (NULL);
 }
+
+static int	intlen(long n)
+{
+	int		i;
+
+	i = 0;
+	while (n > 0)
+	{
+		n /= 10;
+		i++;
+	}
+	return (i);
+}
+
+static void	put_int(char *s, long n, int neg, int len)
+{
+	s[len--] = '\0';
+	if (n == 0)
+	{
+		s[0] = '0';
+		return ;
+	}
+	if (neg == -1)
+		s[0] = '-';
+	while (n > 0)
+	{
+		s[len] = n % 10 + '0';
+		n /= 10;
+		len--;
+	}
+}
+
+char	*ft_itoa(int n)
+{
+	long	nn;
+	int		len;
+	int		neg;
+	char	*ret;
+
+	neg = 1;
+	nn = (long)n;
+	len = 0;
+	if (nn < 0)
+	{
+		nn *= -1;
+		neg *= -1;
+		len++;
+	}
+	len += intlen(nn);
+	if (n == 0)
+		len = 1;
+	ret = malloc(sizeof(char) * (len + 1));
+	if (ret == NULL)
+		return (NULL);
+	put_int(ret, nn, neg, len);
+	return (ret);
+}

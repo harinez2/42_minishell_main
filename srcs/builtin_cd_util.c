@@ -1,5 +1,30 @@
 #include "main.h"
 
+int	generate_fullpath(
+	t_arg *arg, t_cmd *cmd, char *dest_path, char **dest_fullpath)
+{
+	t_env	*e;
+
+	if (dest_path[0] == '/')
+		*dest_fullpath = ft_strdup(dest_path);
+	else if (dest_path[0] == '~')
+	{
+		e = get_node_from_envlst(arg->envlst, "HOME");
+		if (e)
+			*dest_fullpath = ft_strjoin(e->value, dest_path + 1);
+		else if (arg->initial_home)
+			*dest_fullpath = ft_strjoin(arg->initial_home, dest_path + 1);
+		else
+		{
+			print_custom_error(ERR_HOME_NOT_SET, cmd->param[0], NULL);
+			return (-2);
+		}
+	}
+	else
+		*dest_fullpath = ft_strjoin3(arg->pwd, "/", dest_path);
+	return (0);
+}
+
 static int	reduce_verbose_letter(
 	char *path, int *i, char *new_path, int *new_i)
 {
@@ -11,7 +36,7 @@ static int	reduce_verbose_letter(
 		&& (path[*i + 3] == '/' || path[*i + 3] == '\0'))
 	{
 		*i += 3;
-		while (new_i >= 0 && new_path[--(*new_i)] != '/')
+		while (*new_i >= 0 && new_path[--(*new_i)] != '/')
 			;
 	}
 	else
@@ -42,47 +67,46 @@ char	*resolve_relative_path(char *path)
 	return (ret);
 }
 
-void	update_pwd_with_getcwd(t_arg *arg)
+int	update_pwd_with_getcwd(char **dest_fullpath)
 {
-	char	currentpath[MAX_PATH];
+	char	currentpath[MAX_PATH_LEN];
 	char	*retcwd;
-	int		err_no;
 
-	retcwd = getcwd(currentpath, MAX_PATH);
+	retcwd = getcwd(currentpath, MAX_PATH_LEN);
 	if (!retcwd)
 	{
-		err_no = errno;
-		putstr_stderr(": getcwd: cannot access parent directories: ");
-		putstr_stderr(strerror(err_no));
-		putstr_stderr("\n");
+		return (errno);
 	}
 	else
 	{
-		secure_free(arg->pwd);
-		arg->pwd = ft_strdup(currentpath);
+		secure_free(*dest_fullpath);
+		*dest_fullpath = ft_strdup(currentpath);
 	}
-	if (arg->dbg)
-		printf("  new pwd      : %s\n", arg->pwd);
+	return (0);
 }
 
-void	update_env_pwd(t_arg *arg)
+void	update_pwd_envs(t_arg *arg, char *dest_fullpath)
 {
 	t_env	*pwd_node;
 
+	secure_free(arg->pwd);
+	arg->pwd = dest_fullpath;
+	if (arg->dbg)
+		printf("  pwd updated  : %s\n", arg->pwd);
 	delete_env_from_envlst(&arg->envlst, "OLDPWD");
 	pwd_node = get_node_from_envlst(arg->envlst, "PWD");
 	if (pwd_node)
 		push_back_envlst(&arg->envlst, ft_strdup("OLDPWD"),
 			ft_strdup(pwd_node->value), arg);
 	delete_env_from_envlst(&arg->envlst, "PWD");
-	push_back_envlst(&arg->envlst, ft_strdup("PWD"), ft_strdup(arg->pwd), arg);
+	push_back_envlst(&arg->envlst, ft_strdup("PWD"), ft_strdup(dest_fullpath), arg);
 	if (arg->dbg)
 	{
-		pwd_node = get_node_from_envlst(arg->envlst, "OLDPWD");
-		if (pwd_node)
-			printf("  env          : OLDPWD = %s\n", pwd_node->value);
 		pwd_node = get_node_from_envlst(arg->envlst, "PWD");
 		if (pwd_node)
-			printf("  env          : PWD    = %s\n", pwd_node->value);
+			printf("  env PWD      : %s\n", pwd_node->value);
+		pwd_node = get_node_from_envlst(arg->envlst, "OLDPWD");
+		if (pwd_node)
+			printf("  env OLDPWD   : %s\n", pwd_node->value);
 	}
 }

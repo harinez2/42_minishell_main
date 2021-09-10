@@ -3,27 +3,31 @@
 
 // arg_init_destroy.c
 void		init_arg(int argc, char **argv, char **envp, t_arg *arg);
-void		update_envpath(t_arg *arg);
+void		update_envpath_with_environ(t_arg *arg);
+void		update_envpath(t_arg *arg, char *path_env);
+void		destroy_path(t_arg *arg);
 void		destroy_arg(t_arg *arg);
 // builtin_cd.c
-void		builtincmd_cd(t_arg *arg, t_cmd *cmd);
+int			builtincmd_cd(t_arg *arg, t_cmd *cmd);
 // builtin_cd_util.c
+int			generate_fullpath(
+				t_arg *arg, t_cmd *cmd, char *dest_path, char **dest_fullpath);
 char		*resolve_relative_path(char *path);
-void		update_pwd_with_getcwd(t_arg *arg);
-void		update_env_pwd(t_arg *arg);
+int			update_pwd_with_getcwd(char **dest_fullpath);
+void		update_pwd_envs(t_arg *arg, char *path);
 // builtin_echo.c
-void		builtincmd_echo(t_arg *arg, t_cmd *cmd);
+int			builtincmd_echo(t_arg *arg, t_cmd *cmd);
 // builtin_env.c
-void		builtincmd_env(t_arg *arg, t_cmd *cmd);
+int			builtincmd_env(t_arg *arg, t_cmd *cmd);
 // builtin_export.c
-void		builtincmd_export_witharg(t_arg *arg, t_cmd *cmd);
-void		builtincmd_export_noarg(t_arg *arg, t_cmd *cmd);
+int			builtincmd_export_witharg(t_arg *arg, t_cmd *cmd);
+int			builtincmd_export_noarg(t_arg *arg, t_cmd *cmd);
 // builtin_export_print.c
 void		print_env_export(t_arg *arg);
 // builtin_pwd.c
-void		builtincmd_pwd(t_arg *arg, t_cmd *cmd);
+int			builtincmd_pwd(t_arg *arg, t_cmd *cmd);
 // builtin_unset.c
-void		builtincmd_unset(t_arg *arg, t_cmd *cmd);
+int			builtincmd_unset(t_arg *arg, t_cmd *cmd);
 // env_environ.c
 char		**generate_environ(t_arg *arg);
 void		destroy_environ(char **env);
@@ -37,19 +41,19 @@ int			count_envlst(t_arg *arg);
 void		push_back_envlst(t_env	**envlst, char *env, char *value, t_arg *arg);
 // error.c
 void		print_perror(int err_no, char *errcmd, char *argtxt);
-void		print_custom_error(t_error_no errcode, char *errcmd, char *argtxt);
+int			print_custom_error(t_error_no errcode, char *errcmd, char *argtxt);
 void		print_perror_exit(int err_no, char *errcmd, char *argtxt, t_arg *arg);
 void		print_custom_error_exit(
 				t_error_no errcode, char *errcmd, char *argtxt, t_arg *arg);
 // executer.c
 int			executer(t_arg *arg);
 // executer_builtin_nofork.c
-int			run_builtin_nofork(t_arg *arg, t_cmd *c);
+int			run_builtin_nofork(t_arg *arg, t_cmd *c, int *status);
 // executer_cmdexec.c
 void		exec_command(t_cmd *cmd, t_arg *arg);
 // executer_util.c
 void		dbg_print_cmdstart(t_arg *arg, char *s);
-void		dbg_print_cmdend(t_arg *arg, int status);
+void		handling_exit_status(t_arg *arg, int status);
 void		connect_pipe(int unused, int old, int new, t_arg *arg);
 void		close_pipe(t_arg *arg, char *who, int fd);
 void		ignore_toomuch_redirout(t_arg *arg, t_cmd *c);
@@ -83,6 +87,7 @@ ssize_t		ft_strchr(const char *s, int c);
 char		*ft_strdup2(const char *s1, ssize_t n);
 // lib_ft4.c
 char		*ft_searchinstr(const char *s, int c);
+char		*ft_itoa(int n);
 // lib_util.c
 void		putstr_stderr(char *s);
 void		copy_array(t_env *to[], t_env *from[], int len, int offset_to);
