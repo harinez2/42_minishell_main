@@ -28,7 +28,7 @@ static int	exec_shellcmd(t_cmd *cmd, t_arg *arg)
 	ret = MASK_7BIT;
 	env = generate_environ(arg);
 	param_zero = cmd->param[0];
-	while (ret != 0 && arg->path[i] != NULL)
+	while (ret != 0 && i < arg->path_cnt)
 	{
 		cmd->param[0] = ft_strjoin3(arg->path[i], "/", param_zero);
 		if (access(cmd->param[0], X_OK) == 0)

@@ -28,13 +28,12 @@ int	builtincmd_env(t_arg *arg, t_cmd *cmd)
 	dbg_print_cmdstart(arg, cmd->param[0]);
 	dbg_print_str(arg, "=== builtin cmd env ===\n");
 	ret = print_env_env(arg->envlst, arg, cmd);
-	if (ret != 0)
-		return (ret);
 	if (arg->dbg)
 	{
 		printf(COL_TX_CYAN"\nshell envs:\n");
-		print_env_env(arg->shellenvlst, arg, cmd);
+		if (arg->shellenvlst != NULL)
+			print_env_env(arg->shellenvlst, arg, cmd);
 		printf(COL_TX_RESET);
 	}
-	return (0);
+	return (ret);
 }
