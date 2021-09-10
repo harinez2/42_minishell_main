@@ -1,5 +1,27 @@
 #include "main.h"
 
+int	generate_fullpath(
+	t_arg *arg, t_cmd *cmd, char *dest_path, char **dest_fullpath)
+{
+	t_env	*e;
+
+	if (dest_path[0] == '/')
+		*dest_fullpath = ft_strdup(dest_path);
+	else if (dest_path[0] == '~')
+	{
+		e = get_node_from_envlst(arg->envlst, "HOME");
+		if (!e)
+		{
+			print_custom_error(ERR_HOME_NOT_SET, cmd->param[0], NULL);
+			return (-2);
+		}
+		*dest_fullpath = ft_strjoin(e->value, dest_path + 1);
+	}
+	else
+		*dest_fullpath = ft_strjoin3(arg->pwd, "/", dest_path);
+	return (0);
+}
+
 static int	reduce_verbose_letter(
 	char *path, int *i, char *new_path, int *new_i)
 {
@@ -60,12 +82,12 @@ int	update_pwd_with_getcwd(char **dest_fullpath)
 	return (0);
 }
 
-void	update_pwd_envs(t_arg *arg, char *path)
+void	update_pwd_envs(t_arg *arg, char *dest_fullpath)
 {
 	t_env	*pwd_node;
 
 	secure_free(arg->pwd);
-	arg->pwd = path;
+	arg->pwd = dest_fullpath;
 	if (arg->dbg)
 		printf("  pwd updated  : %s\n", arg->pwd);
 	delete_env_from_envlst(&arg->envlst, "OLDPWD");
@@ -74,7 +96,7 @@ void	update_pwd_envs(t_arg *arg, char *path)
 		push_back_envlst(&arg->envlst, ft_strdup("OLDPWD"),
 			ft_strdup(pwd_node->value), arg);
 	delete_env_from_envlst(&arg->envlst, "PWD");
-	push_back_envlst(&arg->envlst, ft_strdup("PWD"), ft_strdup(path), arg);
+	push_back_envlst(&arg->envlst, ft_strdup("PWD"), ft_strdup(dest_fullpath), arg);
 	if (arg->dbg)
 	{
 		pwd_node = get_node_from_envlst(arg->envlst, "PWD");

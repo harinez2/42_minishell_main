@@ -10,6 +10,8 @@ void		destroy_arg(t_arg *arg);
 // builtin_cd.c
 int			builtincmd_cd(t_arg *arg, t_cmd *cmd);
 // builtin_cd_util.c
+int			generate_fullpath(
+				t_arg *arg, t_cmd *cmd, char *dest_path, char **dest_fullpath);
 char		*resolve_relative_path(char *path);
 int			update_pwd_with_getcwd(char **dest_fullpath);
 void		update_pwd_envs(t_arg *arg, char *path);
