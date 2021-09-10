@@ -5,6 +5,8 @@ static char	*expander_char_env_judge(char *env, t_arg *arg)
 	t_env	*tmp;
 	char	*value;
 
+	if (ft_strncmp(env, "?", 1) == 0)
+		return (ft_itoa(arg->last_exit_status));
 	tmp = arg->envlst;
 	while (tmp->next)
 	{
@@ -60,7 +62,7 @@ static void	expander_char_env_replace(char **text, int *cnt, t_arg *arg)
 		if ((*text)[i] == '"')
 		{
 			if (!(expander_char_env_cut(text, *cnt, i, arg)))
-				; /// please fix
+			{} /// please fix
 			(*cnt) = i + 1;
 			break ;
 		}
@@ -69,8 +71,9 @@ static void	expander_char_env_replace(char **text, int *cnt, t_arg *arg)
 	if (i == (int)ft_strlen(*text))
 	{
 		if (!(expander_char_env_cut(text, *cnt, ft_strlen(*text), arg)))
-			; /// please fix
-		(*cnt) = i + 1;
+		{} /// please fix
+		// commentted out below line. please check this.
+		// (*cnt) = i + 1;
 	}
 }
 
@@ -85,11 +88,11 @@ void	expander_char_env(char **text, t_arg *arg)
 	{
 		if ((*text)[cnt] == '\'' && escape == 0)
 			escape = 1;
-		if ((*text)[cnt] == '\'' && escape == 1)
+		else if ((*text)[cnt] == '\'' && escape == 1)
 			escape = 0;
-		if ((*text)[cnt] == '$' && escape != 1)
+		else if ((*text)[cnt] == '$' && escape != 1)
 			expander_char_env_replace(text, &cnt, arg);
-		if ((*text)[cnt] == '\\')
+		else if ((*text)[cnt] == '\\' && (*text)[cnt + 1] != '\0')
 			cnt ++;
 		cnt ++;
 	}
