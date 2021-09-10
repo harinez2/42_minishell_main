@@ -2,7 +2,8 @@
 # define CONSTANTS_H
 
 # define	MAX_ENVP				100
-# define	MAX_PATH				1024
+# define	MAX_PATH_LEN			1024
+# define	MAX_PATH_CNT			1024
 # define	MAX_ARGNUM				100
 # define	MAX_TOKENNUM			1000
 # define	MAX_RETRY_HEREDOC		10

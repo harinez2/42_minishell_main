@@ -3,7 +3,9 @@
 
 // arg_init_destroy.c
 void		init_arg(int argc, char **argv, char **envp, t_arg *arg);
-void		update_envpath(t_arg *arg);
+void		update_envpath_with_environ(t_arg *arg);
+void		update_envpath(t_arg *arg, char *path_env);
+void		destroy_path(t_arg *arg);
 void		destroy_arg(t_arg *arg);
 // builtin_cd.c
 int			builtincmd_cd(t_arg *arg, t_cmd *cmd);

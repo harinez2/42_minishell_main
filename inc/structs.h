@@ -29,7 +29,7 @@ typedef struct s_arg
 	char	**argv;
 	char	**envp;
 	char	*read;
-	char	*path[MAX_PATH];
+	char	*path[MAX_PATH_CNT];
 	int		path_cnt;
 	t_cmd	*cmdlst;
 	t_env	*envlst;

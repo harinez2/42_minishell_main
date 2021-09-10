@@ -44,10 +44,10 @@ char	*resolve_relative_path(char *path)
 
 int	update_pwd_with_getcwd(char **dest_fullpath)
 {
-	char	currentpath[MAX_PATH];
+	char	currentpath[MAX_PATH_LEN];
 	char	*retcwd;
 
-	retcwd = getcwd(currentpath, MAX_PATH);
+	retcwd = getcwd(currentpath, MAX_PATH_LEN);
 	if (!retcwd)
 	{
 		return (errno);
