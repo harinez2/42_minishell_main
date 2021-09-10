@@ -29,6 +29,22 @@ void	print_perror(int err_no, char *errcmd, char *argtxt)
 	putstr_stderr("\n");
 }
 
+static int	get_retcode(t_error_no errcode)
+{
+	if (errcode == ERR_FAILED_TO_EXEC)
+		return (127);
+	else if (errcode == ERR_HEREDOC)
+		return (1);
+	else if (errcode == ERR_SYNTAX_ERROR)
+		return (258);
+	else if (errcode == ERR_HOME_NOT_SET)
+		return (1);
+	else if (errcode == ERR_NOT_VALID_IDENTIFIER)
+		return (1);
+	else
+		return (1);
+}
+
 int	print_custom_error(t_error_no errcode, char *errcmd, char *argtxt)
 {
 	errmsg_prefix(errcode, errcmd, argtxt);
@@ -44,7 +60,7 @@ int	print_custom_error(t_error_no errcode, char *errcmd, char *argtxt)
 		putstr_stderr("not a valid identifier\n");
 	else
 		putstr_stderr("unexpected error\n");
-	return (1);
+	return (get_retcode(errcode));
 }
 
 void	print_perror_exit(int err_no, char *errcmd, char *argtxt, t_arg *arg)
