@@ -2,9 +2,6 @@
 
 static void	expander_char(char **text, t_arg *arg)
 {
-	char	*tmp;
-
-	tmp = *text;
 	expander_char_env(text, arg);
 	expander_char_quote(text);
 }
