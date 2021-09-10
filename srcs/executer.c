@@ -14,14 +14,11 @@ static int	open_infile(char *filename, t_arg *arg)
 static int	open_outfile(char *filename, t_cmd *c, t_arg *arg)
 {
 	int		fd;
-	char	outfilepath[300];
 
-	ft_strlcpy(outfilepath, "./", 3);
-	ft_strlcat(outfilepath, filename, ft_strlen(filename) + 3);
 	if (c->append_flg[c->redir_out_cnt - 1])
-		fd = open(outfilepath, O_WRONLY | O_APPEND, 0);
+		fd = open(filename, O_WRONLY | O_APPEND, 0);
 	else
-		fd = open(outfilepath, O_WRONLY | O_CREAT | O_TRUNC, 0600);
+		fd = open(filename, O_WRONLY | O_CREAT | O_TRUNC, 0600);
 	if (fd == -1)
 		print_perror_exit(errno, NULL, NULL, arg);
 	dbg_print_strint(arg, "[fd] [child] open outfile: ", fd);
