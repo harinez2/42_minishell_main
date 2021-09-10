@@ -35,6 +35,7 @@ typedef struct s_arg
 	t_env	*envlst;
 	t_env	*shellenvlst;
 	char	*pwd;
+	char	*initial_home;
 	int		last_exit_status;
 	int		dbg;
 }	t_arg;

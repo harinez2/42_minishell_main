@@ -18,6 +18,7 @@ void	init_arg(int argc, char **argv, char **envp, t_arg *arg)
 		print_perror_exit(errno, "getcwd", NULL, arg);
 	arg->pwd = ft_strdup(currentpath);
 	init_envlst(arg);
+	arg->initial_home = ft_strdup(get_node_from_envlst(arg->envlst, "HOME")->value);
 	arg->last_exit_status = 0;
 	arg->dbg = 0;
 }
@@ -75,6 +76,7 @@ void	destroy_arg(t_arg *arg)
 	secure_free(arg->read);
 	destroy_path(arg);
 	secure_free(arg->pwd);
+	secure_free(arg->initial_home);
 	cmd_destroy(arg);
 	destroy_envlst(arg);
 }

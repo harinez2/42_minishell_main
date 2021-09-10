@@ -10,12 +10,15 @@ int	generate_fullpath(
 	else if (dest_path[0] == '~')
 	{
 		e = get_node_from_envlst(arg->envlst, "HOME");
-		if (!e)
+		if (e)
+			*dest_fullpath = ft_strjoin(e->value, dest_path + 1);
+		else if (arg->initial_home)
+			*dest_fullpath = ft_strjoin(arg->initial_home, dest_path + 1);
+		else
 		{
 			print_custom_error(ERR_HOME_NOT_SET, cmd->param[0], NULL);
 			return (-2);
 		}
-		*dest_fullpath = ft_strjoin(e->value, dest_path + 1);
 	}
 	else
 		*dest_fullpath = ft_strjoin3(arg->pwd, "/", dest_path);
