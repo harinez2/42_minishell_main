@@ -14,7 +14,7 @@ int			generate_fullpath(
 				t_arg *arg, t_cmd *cmd, char *dest_path, char **dest_fullpath);
 char		*resolve_relative_path(char *path);
 int			update_pwd_with_getcwd(char **dest_fullpath);
-void		update_pwd_envs(t_arg *arg, char *path);
+void		update_pwd_envs(t_arg *arg, char *dest_fullpath);
 // builtin_echo.c
 int			builtincmd_echo(t_arg *arg, t_cmd *cmd);
 // builtin_env.c
@@ -51,6 +51,8 @@ int			executer(t_arg *arg);
 int			run_builtin_nofork(t_arg *arg, t_cmd *c, int *status);
 // executer_cmdexec.c
 void		exec_command(t_cmd *cmd, t_arg *arg);
+// executer_cmdexec_shellcmd.c
+int			exec_shellcmd(t_cmd *cmd, t_arg *arg);
 // executer_util.c
 void		dbg_print_cmdstart(t_arg *arg, char *s);
 void		handling_exit_status(t_arg *arg, int status);

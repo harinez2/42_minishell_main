@@ -18,6 +18,7 @@ SRCS		= \
 				$(SRC_DIR)/executer.c \
 				$(SRC_DIR)/executer_builtin_nofork.c \
 				$(SRC_DIR)/executer_cmdexec.c \
+				$(SRC_DIR)/executer_cmdexec_shellcmd.c \
 				$(SRC_DIR)/executer_util.c \
 				$(SRC_DIR)/expander.c \
 				$(SRC_DIR)/expander_char_env.c \
