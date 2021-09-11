@@ -7,7 +7,7 @@ static int	open_infile(char *filename, t_arg *arg)
 	fd = open(filename, O_RDONLY);
 	if (fd == -1)
 		print_perror_exit(errno, NULL, NULL, arg);
-	dbg_print_strint(arg, "[fd] [child] open infile: ", fd);
+	dbg_print_strint(arg, "  [fd] [child] open infile: ", fd);
 	return (fd);
 }
 
@@ -21,7 +21,7 @@ static int	open_outfile(char *filename, t_cmd *c, t_arg *arg)
 		fd = open(filename, O_WRONLY | O_CREAT | O_TRUNC, 0600);
 	if (fd == -1)
 		print_perror_exit(errno, NULL, NULL, arg);
-	dbg_print_strint(arg, "[fd] [child] open outfile: ", fd);
+	dbg_print_strint(arg, "  [fd] [child] open outfile: ", fd);
 	return (fd);
 }
 

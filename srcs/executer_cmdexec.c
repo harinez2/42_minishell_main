@@ -31,7 +31,7 @@ void	exec_command(t_cmd *cmd, t_arg *arg)
 		return ;
 	ret = exec_shellcmd(cmd, arg);
 	if (arg->dbg)
-		printf("command execution failed: %d\n", ret);
+		printf("  command execution failed: %d\n", ret);
 	if (ret == 0)
 		return ;
 	else if (ret != -1)
