@@ -10,16 +10,23 @@ static int	set_shellenv(char *text, t_arg *arg)
 {
 	int		pos;
 	int		len;
+	int		plus;
 
 	pos = ft_strchr(text, '=');
 	len = ft_strlen(text);
-	if (pos != len)
-	{
-		push_back_envlst(&arg->shellenvlst, ft_substr(text, 0, pos),
+	plus = 0;
+	if (pos == len || pos == 0)
+		return (0);
+	if (pos >= 1 && text[pos - 1] == '+')
+		plus = 1;
+	if (pos == 0 || !is_shellver_char(text, 0, pos - plus))
+		return (0);
+	if (plus && concat_envvalue(text, pos, len, arg) == 1)
+		;
+	else
+		push_back_envlst(&arg->shellenvlst, ft_substr(text, 0, pos - plus),
 			ft_substr(text, pos + 1, len), arg);
-		return (1);
-	}
-	return (0);
+	return (1);
 }
 
 static void	expander_cmd(t_arg *arg, t_cmd *c)
