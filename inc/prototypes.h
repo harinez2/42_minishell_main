@@ -19,6 +19,8 @@ void		update_pwd_envs(t_arg *arg, char *dest_fullpath);
 int			builtincmd_echo(t_arg *arg, t_cmd *cmd);
 // builtin_env.c
 int			builtincmd_env(t_arg *arg, t_cmd *cmd);
+// builtin_exit.c
+int			builtincmd_exit(t_arg *arg, t_cmd *cmd);
 // builtin_export.c
 int			builtincmd_export_witharg(t_arg *arg, t_cmd *cmd);
 int			builtincmd_export_noarg(t_arg *arg, t_cmd *cmd);
@@ -95,6 +97,7 @@ char		*ft_strdup2(const char *s1, ssize_t n);
 // lib_ft4.c
 char		*ft_searchinstr(const char *s, int c);
 char		*ft_itoa(int n);
+int			ft_atoi(char *s);
 // lib_util.c
 void		putstr_stderr(char *s);
 void		copy_array(t_env *to[], t_env *from[], int len, int offset_to);
