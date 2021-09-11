@@ -16,7 +16,7 @@ static int	get_retcode(t_error_no errcode)
 		return (1);
 }
 
-int	print_custom_error(t_error_no errcode, char *errcmd, char *argtxt)
+int	print_custom_error(t_error_no errcode, char *errcmd, char *argtxt, t_arg *arg)
 {
 	errmsg_prefix(errcode, errcmd, argtxt);
 	if (errcode == ERR_FAILED_TO_EXEC)
@@ -31,13 +31,16 @@ int	print_custom_error(t_error_no errcode, char *errcmd, char *argtxt)
 		putstr_stderr("not a valid identifier\n");
 	else
 		putstr_stderr("unexpected error\n");
+	arg->last_exit_status = get_retcode(errcode);
 	return (get_retcode(errcode));
 }
 
 void	print_custom_error_exit(
 			t_error_no errcode, char *errcmd, char *argtxt, t_arg *arg)
 {
-	print_custom_error(errcode, errcmd, argtxt);
+	int		ret;
+
+	ret = print_custom_error(errcode, errcmd, argtxt, arg);
 	destroy_arg(arg);
-	exit(MASK_7BIT);
+	exit(ret);
 }

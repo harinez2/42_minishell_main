@@ -16,7 +16,7 @@ int	generate_fullpath(
 			*dest_fullpath = ft_strjoin(arg->initial_home, dest_path + 1);
 		else
 		{
-			print_custom_error(ERR_HOME_NOT_SET, cmd->param[0], NULL);
+			print_custom_error(ERR_HOME_NOT_SET, cmd->param[0], NULL, arg);
 			return (-2);
 		}
 	}

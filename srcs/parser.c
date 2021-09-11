@@ -89,7 +89,7 @@ int	parser(t_arg *arg, int token_info[][3])
 	{
 		if (arg->dbg)
 			printf("##### parse failed! #####\n\n");
-		print_custom_error(ERR_SYNTAX_ERROR, NULL, NULL);
+		print_custom_error(ERR_SYNTAX_ERROR, NULL, NULL, arg);
 		return (-1);
 	}
 	return (0);

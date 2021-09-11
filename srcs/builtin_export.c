@@ -10,7 +10,7 @@ static int	add_oneparam(t_arg *arg, t_cmd *cmd, int i)
 	eqpos = ft_strchr(cmd->param[i], '=');
 	if (eqpos == 0)
 		return (print_custom_error(
-				ERR_NOT_VALID_IDENTIFIER, cmd->param[0], cmd->param[i]));
+				ERR_NOT_VALID_IDENTIFIER, cmd->param[0], cmd->param[i], arg));
 	paramlen = ft_strlen(cmd->param[i]);
 	envname = ft_substr(cmd->param[i], 0, eqpos);
 	if (eqpos == paramlen)

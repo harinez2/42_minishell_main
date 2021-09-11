@@ -14,7 +14,7 @@ int	builtincmd_unset(t_arg *arg, t_cmd *cmd)
 		if ((size_t)ft_strchr(cmd->param[i], '=') != ft_strlen(cmd->param[i]))
 		{
 			print_custom_error(
-				ERR_NOT_VALID_IDENTIFIER, cmd->param[0], cmd->param[i]);
+				ERR_NOT_VALID_IDENTIFIER, cmd->param[0], cmd->param[i], arg);
 			ret = 1;
 		}
 		else
