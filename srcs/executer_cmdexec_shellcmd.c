@@ -6,7 +6,7 @@ static int	exec_shellcmd_execve(t_cmd *cmd, t_arg *arg, char **env)
 	int			stat_ret;
 	struct stat	sb;
 
-	ret = MASK_7BIT;
+	ret = -1;
 	stat_ret = stat(cmd->param[0], &sb);
 	if (arg->dbg)
 		printf("trying to exec...%s (stat() ret:%d, S_ISREG:%d)\n",
@@ -39,7 +39,7 @@ static int	exec_shellcmd_with_envpath(t_cmd *cmd, t_arg *arg, char **env)
 	int		ret;
 	char	*param_zero;
 	int		i;
-	
+
 	ret = MASK_7BIT;
 	i = 0;
 	param_zero = cmd->param[0];
