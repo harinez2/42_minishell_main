@@ -43,9 +43,11 @@ t_env		*get_node_from_envlst(t_env	*envlst, char *envname);
 int			count_envlst(t_arg *arg);
 int			is_shellver_char(char *s, int start, int len);
 // error.c
+void		errmsg_prefix(t_error_no errcode, char *errcmd, char *argtxt);
 void		print_perror(int err_no, char *errcmd, char *argtxt);
-int			print_custom_error(t_error_no errcode, char *errcmd, char *argtxt);
 void		print_perror_exit(int err_no, char *errcmd, char *argtxt, t_arg *arg);
+// error_custom.c
+int			print_custom_error(t_error_no errcode, char *errcmd, char *argtxt);
 void		print_custom_error_exit(
 				t_error_no errcode, char *errcmd, char *argtxt, t_arg *arg);
 // executer.c

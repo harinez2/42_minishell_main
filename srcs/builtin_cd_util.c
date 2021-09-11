@@ -99,7 +99,8 @@ void	update_pwd_envs(t_arg *arg, char *dest_fullpath)
 		push_back_envlst(&arg->envlst, ft_strdup("OLDPWD"),
 			ft_strdup(pwd_node->value), arg);
 	delete_env_from_envlst(&arg->envlst, "PWD");
-	push_back_envlst(&arg->envlst, ft_strdup("PWD"), ft_strdup(dest_fullpath), arg);
+	push_back_envlst(
+		&arg->envlst, ft_strdup("PWD"), ft_strdup(dest_fullpath), arg);
 	if (arg->dbg)
 	{
 		pwd_node = get_node_from_envlst(arg->envlst, "PWD");

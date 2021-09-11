@@ -16,6 +16,7 @@ SRCS		= \
 				$(SRC_DIR)/env_envlst_add.c \
 				$(SRC_DIR)/env_envlst_util.c \
 				$(SRC_DIR)/error.c \
+				$(SRC_DIR)/error_custom.c \
 				$(SRC_DIR)/executer.c \
 				$(SRC_DIR)/executer_builtin_nofork.c \
 				$(SRC_DIR)/executer_cmdexec.c \
