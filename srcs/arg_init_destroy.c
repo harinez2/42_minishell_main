@@ -18,7 +18,8 @@ void	init_arg(int argc, char **argv, char **envp, t_arg *arg)
 		print_perror_exit(errno, "getcwd", NULL, arg);
 	arg->pwd = ft_strdup(currentpath);
 	init_envlst(arg);
-	arg->initial_home = ft_strdup(get_node_from_envlst(arg->envlst, "HOME")->value);
+	arg->initial_home
+		= ft_strdup(get_node_from_envlst(arg->envlst, "HOME")->value);
 	arg->last_exit_status = 0;
 	arg->dbg = 0;
 }

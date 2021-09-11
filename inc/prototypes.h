@@ -14,7 +14,7 @@ int			generate_fullpath(
 				t_arg *arg, t_cmd *cmd, char *dest_path, char **dest_fullpath);
 char		*resolve_relative_path(char *path);
 int			update_pwd_with_getcwd(char **dest_fullpath);
-void		update_pwd_envs(t_arg *arg, char *path);
+void		update_pwd_envs(t_arg *arg, char *dest_fullpath);
 // builtin_echo.c
 int			builtincmd_echo(t_arg *arg, t_cmd *cmd);
 // builtin_env.c
@@ -35,14 +35,19 @@ void		destroy_environ(char **env);
 void		init_envlst(t_arg *arg);
 void		delete_env_from_envlst(t_env **envlst, char *envname);
 void		destroy_envlst(t_arg *arg);
+// env_envlst_add.c
+void		push_back_envlst(t_env	**envlst, char *env, char *value, t_arg *arg);
+int			concat_envvalue(char *text, int pos, int len, t_arg *arg);
 // env_envlst_util.c
 t_env		*get_node_from_envlst(t_env	*envlst, char *envname);
 int			count_envlst(t_arg *arg);
-void		push_back_envlst(t_env	**envlst, char *env, char *value, t_arg *arg);
+int			is_shellver_char(char *s, int start, int len);
 // error.c
+void		errmsg_prefix(t_error_no errcode, char *errcmd, char *argtxt);
 void		print_perror(int err_no, char *errcmd, char *argtxt);
-int			print_custom_error(t_error_no errcode, char *errcmd, char *argtxt);
 void		print_perror_exit(int err_no, char *errcmd, char *argtxt, t_arg *arg);
+// error_custom.c
+int			print_custom_error(t_error_no errcode, char *errcmd, char *argtxt);
 void		print_custom_error_exit(
 				t_error_no errcode, char *errcmd, char *argtxt, t_arg *arg);
 // executer.c
@@ -51,6 +56,8 @@ int			executer(t_arg *arg);
 int			run_builtin_nofork(t_arg *arg, t_cmd *c, int *status);
 // executer_cmdexec.c
 void		exec_command(t_cmd *cmd, t_arg *arg);
+// executer_cmdexec_shellcmd.c
+int			exec_shellcmd(t_cmd *cmd, t_arg *arg);
 // executer_util.c
 void		dbg_print_cmdstart(t_arg *arg, char *s);
 void		handling_exit_status(t_arg *arg, int status);

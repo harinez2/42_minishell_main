@@ -13,11 +13,14 @@ SRCS		= \
 				$(SRC_DIR)/builtin_unset.c \
 				$(SRC_DIR)/env_environ.c \
 				$(SRC_DIR)/env_envlst.c \
+				$(SRC_DIR)/env_envlst_add.c \
 				$(SRC_DIR)/env_envlst_util.c \
 				$(SRC_DIR)/error.c \
+				$(SRC_DIR)/error_custom.c \
 				$(SRC_DIR)/executer.c \
 				$(SRC_DIR)/executer_builtin_nofork.c \
 				$(SRC_DIR)/executer_cmdexec.c \
+				$(SRC_DIR)/executer_cmdexec_shellcmd.c \
 				$(SRC_DIR)/executer_util.c \
 				$(SRC_DIR)/expander.c \
 				$(SRC_DIR)/expander_char_env.c \
