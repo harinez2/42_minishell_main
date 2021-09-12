@@ -79,6 +79,9 @@ static void	check_and_replace_env(char **text, int *cnt, t_arg *arg)
 static void	remove_dollar(char **text, int *cnt, t_arg *arg)
 {
 	// remove $
+	(void)text;
+	(void)cnt;
+	(void)arg;
 }
 
 void	expander_char_env(char **text, t_arg *arg)
