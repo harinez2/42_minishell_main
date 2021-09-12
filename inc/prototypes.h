@@ -50,7 +50,8 @@ void		errmsg_prefix(t_error_no errcode, char *errcmd, char *argtxt);
 void		print_perror(int err_no, char *errcmd, char *argtxt);
 void		print_perror_exit(int err_no, char *errcmd, char *argtxt, t_arg *arg);
 // error_custom.c
-int			print_custom_error(t_error_no errcode, char *errcmd, char *argtxt, t_arg *arg);
+int			print_custom_error(
+				t_error_no errcode, char *errcmd, char *argtxt, t_arg *arg);
 void		print_custom_error_exit(
 				t_error_no errcode, char *errcmd, char *argtxt, t_arg *arg);
 // executer.c
