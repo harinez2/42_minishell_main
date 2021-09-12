@@ -44,7 +44,7 @@ static void	expander_cmd(t_arg *arg, t_cmd *c)
 	while (c->param[i])
 	{
 		if (accept_envname_value_pair(c->param[i], arg) == 0)
-			break;
+			break ;
 		i++;
 	}
 	while (i-- > 0)

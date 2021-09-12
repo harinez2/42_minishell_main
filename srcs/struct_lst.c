@@ -14,7 +14,7 @@ void	remove_cmdparam_head(t_cmd *c)
 	int		i;
 
 	if (c->param_cnt == 0)
-		return;
+		return ;
 	secure_free(c->param[0]);
 	i = 0;
 	while (i < c->param_cnt)
