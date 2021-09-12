@@ -62,6 +62,8 @@ int	executer(t_arg *arg)
 	t_cmd	*c;
 	int		status;
 
+	if (arg->dbg)
+		printf(COL_TX_CYAN"<<< executer results >>>\n"COL_TX_RESET);
 	c = arg->cmdlst;
 	while (c != NULL)
 	{
