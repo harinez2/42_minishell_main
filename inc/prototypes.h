@@ -140,6 +140,7 @@ t_cmd		*cmd_create_node_with_redir(
 void		cmd_destroy(t_arg *arg);
 // struct_lst.c
 t_cmd		*cmd_get_last_node(t_cmd *cmd);
+void		remove_cmdparam_head(t_cmd *c);
 // struct_print.c
 void		cmd_print(t_cmd *c);
 

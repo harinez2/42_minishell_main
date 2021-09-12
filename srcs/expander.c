@@ -43,14 +43,12 @@ static void	expander_cmd(t_arg *arg, t_cmd *c)
 	i = 0;
 	while (c->param[i])
 	{
-		if (accept_envname_value_pair(c->param[i], arg) == 1)
-		{
-			i++;
-			continue ;
-		}
-		else
-			break ;
+		if (accept_envname_value_pair(c->param[i], arg) == 0)
+			break;
+		i++;
 	}
+	while (i-- > 0)
+		remove_cmdparam_head(c);
 }
 
 void	expander(t_arg *arg)
