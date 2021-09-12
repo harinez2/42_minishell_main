@@ -13,10 +13,7 @@ int	run_builtin_nofork(t_arg *arg, t_cmd *c, int *status)
 	else if (ft_strncmp("unset", c->param[0], 6) == 0)
 		ret = builtincmd_unset(arg, c);
 	else if (ft_strncmp("exit", c->param[0], 5) == 0)
-	{
-		destroy_arg(arg);
-		exit (0);
-	}
+		ret = builtincmd_exit(arg, c);
 	else
 		return (1);
 	*status = ret << 8 & 0xff00;

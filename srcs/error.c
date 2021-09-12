@@ -33,5 +33,5 @@ void	print_perror_exit(int err_no, char *errcmd, char *argtxt, t_arg *arg)
 {
 	print_perror(err_no, errcmd, argtxt);
 	destroy_arg(arg);
-	exit(MASK_7BIT);
+	exit(err_no);
 }

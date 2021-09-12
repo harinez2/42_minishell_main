@@ -19,6 +19,8 @@ void		update_pwd_envs(t_arg *arg, char *dest_fullpath);
 int			builtincmd_echo(t_arg *arg, t_cmd *cmd);
 // builtin_env.c
 int			builtincmd_env(t_arg *arg, t_cmd *cmd);
+// builtin_exit.c
+int			builtincmd_exit(t_arg *arg, t_cmd *cmd);
 // builtin_export.c
 int			builtincmd_export_witharg(t_arg *arg, t_cmd *cmd);
 int			builtincmd_export_noarg(t_arg *arg, t_cmd *cmd);
@@ -41,13 +43,14 @@ int			concat_envvalue(char *text, int pos, int len, t_arg *arg);
 // env_envlst_util.c
 t_env		*get_node_from_envlst(t_env	*envlst, char *envname);
 int			count_envlst(t_arg *arg);
+int			is_shellver_char_onechar(char c);
 int			is_shellver_char(char *s, int start, int len);
 // error.c
 void		errmsg_prefix(t_error_no errcode, char *errcmd, char *argtxt);
 void		print_perror(int err_no, char *errcmd, char *argtxt);
 void		print_perror_exit(int err_no, char *errcmd, char *argtxt, t_arg *arg);
 // error_custom.c
-int			print_custom_error(t_error_no errcode, char *errcmd, char *argtxt);
+int			print_custom_error(t_error_no errcode, char *errcmd, char *argtxt, t_arg *arg);
 void		print_custom_error_exit(
 				t_error_no errcode, char *errcmd, char *argtxt, t_arg *arg);
 // executer.c
@@ -95,6 +98,7 @@ char		*ft_strdup2(const char *s1, ssize_t n);
 // lib_ft4.c
 char		*ft_searchinstr(const char *s, int c);
 char		*ft_itoa(int n);
+int			ft_atoi(char *s);
 // lib_util.c
 void		putstr_stderr(char *s);
 void		copy_array(t_env *to[], t_env *from[], int len, int offset_to);

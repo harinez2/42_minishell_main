@@ -29,7 +29,7 @@ int	count_envlst(t_arg *arg)
 	return (ret);
 }
 
-static int	is_shellver_char_onechar(char c)
+int	is_shellver_char_onechar(char c)
 {
 	if (('a' <= c && c <= 'z') || ('A' <= c && c <= 'Z')
 		|| ('0' <= c && c <= '9') || c == '_')
