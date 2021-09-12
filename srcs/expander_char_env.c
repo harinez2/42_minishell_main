@@ -27,6 +27,7 @@ static int	expander_char_env_cut(char **text, int start, int end, t_arg *arg)
 	char	*after;
 	char	*value;
 	char	*tmp;
+	int		next_start;
 
 	env = ft_strdup2(&(*text)[start + 1], end - start - 1);
 	value = expander_char_env_judge(env, arg);
@@ -38,18 +39,20 @@ static int	expander_char_env_cut(char **text, int start, int end, t_arg *arg)
 	before = ft_strdup2((*text), start);
 	after = ft_strdup2(&(*text)[end], ft_strlen(*text) - end);
 	tmp = ft_strjoin3(before, value, after);
+	next_start = ft_strlen(before) + ft_strlen(value);
 	free(*text);
 	free(before);
 	free(after);
 	free(value);
 	free(env);
 	(*text) = tmp;
-	return (1);
+	return (next_start);
 }
 
 static void	expander_char_env_replace(char **text, int *cnt, t_arg *arg)
 {
 	int		i;
+	int		tmp;
 
 	i = *cnt;
 	if ((*text)[(*cnt) + 1] == '"')
@@ -57,23 +60,30 @@ static void	expander_char_env_replace(char **text, int *cnt, t_arg *arg)
 		(*cnt) += 2;
 		return ;
 	}
+	i++;
 	while ((*text)[i])
 	{
-		if ((*text)[i] == '"')
+		if ((*text)[i] < '0' || ('9' < (*text)[i]  && (*text)[i] < 'A') || ('Z' < (*text)[i]  && (*text)[i] < 'a') || ('z' < (*text)[i]))
 		{
-			if (!(expander_char_env_cut(text, *cnt, i, arg)))
-			{} /// please fix
-			(*cnt) = i + 1;
+			tmp = expander_char_env_cut(text, *cnt, i, arg);
+			if (tmp == 0)
+			{
+				(*text) = ft_strdup("");
+			}
+			(*cnt) = tmp;
 			break ;
 		}
 		i++;
 	}
 	if (i == (int)ft_strlen(*text))
 	{
-		if (!(expander_char_env_cut(text, *cnt, ft_strlen(*text), arg)))
-		{} /// please fix
+		tmp = expander_char_env_cut(text, *cnt, i, arg);
+		if (tmp == 0)
+		{
+			(*text) = ft_strdup("");
+		}
 		// commentted out below line. please check this.
-		// (*cnt) = i + 1;
+		(*cnt) = tmp;
 	}
 }
 
@@ -85,7 +95,7 @@ void	expander_char_env(char **text, t_arg *arg)
 	cnt = 0;
 	escape = 0;
 	while ((*text)[cnt])
-	{
+	{	
 		if ((*text)[cnt] == '\'' && escape == 0)
 			escape = 1;
 		else if ((*text)[cnt] == '\'' && escape == 1)
