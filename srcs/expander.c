@@ -58,12 +58,16 @@ void	expander(t_arg *arg)
 {
 	t_cmd	*c;
 
+	if (arg->dbg)
+		printf(COL_TX_CYAN"<<< expander results >>>\n"COL_TX_RESET);
 	c = arg->cmdlst;
 	while (c)
 	{
 		expander_cmd(arg, c);
 		c = c->next;
 	}
+	if (arg->dbg)
+		printf("\n");
 	if (arg->dbg)
 		cmd_print(arg->cmdlst);
 }

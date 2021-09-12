@@ -14,8 +14,6 @@ static void	command_execution(t_arg *arg)
 		return ;
 	}
 	expander(arg);
-	if (arg->dbg)
-		cmd_print(arg->cmdlst);
 	executer(arg);
 	cmd_destroy(arg);
 }

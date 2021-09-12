@@ -12,13 +12,13 @@ static char	*get_env_value(char *env, t_arg *arg)
 	if (tmp)
 	{
 		if (arg->dbg)
-			printf("    found in env...%s/%s\n", env, tmp->value);
+			printf("      found in env...%s/%s\n", env, tmp->value);
 		return (ft_strdup(tmp->value));
 	}
 	else
 	{
 		if (arg->dbg)
-			printf("    env not found...%s\n", env);
+			printf("      env not found...%s\n", env);
 		return (ft_strdup(""));
 	}
 }
@@ -39,9 +39,9 @@ static int	replace_env_value(char **text, int start, int end, t_arg *arg)
 	new_text = ft_strjoin3(before, value, after);
 	next_start = ft_strlen(before) + ft_strlen(value) - 1;
 	if (arg->dbg)
-		printf("    cutting...<%s><%s><%s>, nextstart:%d\n", before, value, after, next_start);
+		printf("      cutting...<%s><%s><%s>, nextstart:%d\n", before, value, after, next_start);
 	if (arg->dbg)
-		printf("    replaced value...<%s>\n", new_text);
+		printf("      replaced value...<%s>\n", new_text);
 	secure_free(*text);
 	secure_free(before);
 	secure_free(after);
@@ -61,7 +61,7 @@ static void	check_and_replace_env(char **text, int *cnt, t_arg *arg)
 	while ((*text)[i])
 	{
 		if (arg->dbg)
-			printf("  checking...%d,%c\n", i, (*text)[i]);
+			printf("    is env char?...%d,%c\n", i, (*text)[i]);
 		if (i == *cnt + 1 && (*text)[i] == '?')
 		{
 			i++;
@@ -79,6 +79,9 @@ static void	check_and_replace_env(char **text, int *cnt, t_arg *arg)
 static void	remove_dollar(char **text, int *cnt, t_arg *arg)
 {
 	// remove $
+	(void)text;
+	(void)cnt;
+	(void)arg;
 }
 
 void	expander_char_env(char **text, t_arg *arg)
@@ -91,7 +94,7 @@ void	expander_char_env(char **text, t_arg *arg)
 	while ((*text)[cnt])
 	{	
 		if (arg->dbg)
-			printf("judging...%d,%c\n", cnt, (*text)[cnt]);
+			printf("  checking...%d,%c\n", cnt, (*text)[cnt]);
 		if ((*text)[cnt] == '\'' && escape == 0)
 			escape = 1;
 		else if ((*text)[cnt] == '\'' && escape == 1)

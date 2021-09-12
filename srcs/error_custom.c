@@ -1,6 +1,6 @@
 #include "main.h"
 
-static int	get_retcode(t_error_no errcode)
+static int	get_retcode_custom(t_error_no errcode)
 {
 	if (errcode == ERR_FAILED_TO_EXEC)
 		return (127);
@@ -16,7 +16,8 @@ static int	get_retcode(t_error_no errcode)
 		return (1);
 }
 
-int	print_custom_error(t_error_no errcode, char *errcmd, char *argtxt, t_arg *arg)
+int	print_custom_error(
+	t_error_no errcode, char *errcmd, char *argtxt, t_arg *arg)
 {
 	errmsg_prefix(errcode, errcmd, argtxt);
 	if (errcode == ERR_FAILED_TO_EXEC)
@@ -31,8 +32,8 @@ int	print_custom_error(t_error_no errcode, char *errcmd, char *argtxt, t_arg *ar
 		putstr_stderr("not a valid identifier\n");
 	else
 		putstr_stderr("unexpected error\n");
-	arg->last_exit_status = get_retcode(errcode);
-	return (get_retcode(errcode));
+	arg->last_exit_status = get_retcode_custom(errcode);
+	return (get_retcode_custom(errcode));
 }
 
 void	print_custom_error_exit(

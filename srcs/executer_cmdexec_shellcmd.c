@@ -8,9 +8,16 @@ static int	exec_shellcmd_execve(t_cmd *cmd, t_arg *arg, char **env)
 
 	ret = -1;
 	stat_ret = stat(cmd->param[0], &sb);
+	ret = errno;
 	if (arg->dbg)
-		printf("  trying to exec...%s (stat() ret:%d, S_ISREG:%d)\n",
-			cmd->param[0], stat_ret, S_ISREG(sb.st_mode));
+	{
+		printf("  searching file...%s (stat() ret:%d, S_ISREG:%d, errno:%d)",
+			cmd->param[0], stat_ret, S_ISREG(sb.st_mode), ret);
+		if (stat_ret == -1)
+			printf("...not found.\n");
+		else
+			printf("...found. try execution.\n");
+	}
 	if (stat_ret == 0 && S_ISREG(sb.st_mode))
 	{
 		dbg_print_cmdstart(arg, cmd->param[0]);
