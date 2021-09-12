@@ -58,15 +58,15 @@ void	push_back_envlst(t_env	**envlst, char *env, char *value, t_arg *arg)
 	}
 }
 
-int	concat_envvalue(char *text, int pos, int len, t_arg *arg)
+int	concat_envvalue(char *text, int eqpos, int len, t_arg *arg)
 {
 	t_env	*tmp;
 	char	*env;
 	char	*value;
 	char	*new_value;
 
-	env = ft_substr(text, 0, pos - 1);
-	value = ft_substr(text, pos + 1, len);
+	env = ft_substr(text, 0, eqpos - 1);
+	value = ft_substr(text, eqpos + 1, len);
 	tmp = get_node_from_envlst(arg->shellenvlst, env);
 	if (!tmp)
 		tmp = get_node_from_envlst(arg->envlst, env);

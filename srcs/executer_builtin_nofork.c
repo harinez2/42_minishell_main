@@ -4,7 +4,7 @@ int	run_builtin_nofork(t_arg *arg, t_cmd *c, int *status)
 {
 	int		ret;
 
-	if ((size_t)ft_strchr(c->param[0], '=') != ft_strlen(c->param[0]))
+	if (c->param[0] == NULL)
 		ret = 0;
 	else if (ft_strncmp("cd", c->param[0], 3) == 0)
 		ret = builtincmd_cd(arg, c);

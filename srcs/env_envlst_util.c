@@ -53,3 +53,17 @@ int	is_shellver_char(char *s, int start, int len)
 	}
 	return (1);
 }
+
+int	is_valid_env_definition(char *s)
+{
+	int		eqpos;
+
+	eqpos = ft_strchr(s, '=');
+	if ((size_t)eqpos != ft_strlen(s)
+		&& eqpos != 0
+		&& is_shellver_char(s, 0, eqpos - 1) == 1
+		&& (is_shellver_char_onechar(s[eqpos - 1]) || s[eqpos - 1] == '+'))
+		return (1);
+	else
+		return (0);
+}

@@ -6,26 +6,25 @@ static void	expander_char(char **text, t_arg *arg)
 	expander_char_quote(text);
 }
 
-static int	set_shellenv(char *text, t_arg *arg)
+// accept 'NAME=value' or 'NAME+=value'
+static int	accept_envname_value_pair(char *text, t_arg *arg)
 {
-	int		pos;
+	int		eqpos;
 	int		len;
 	int		plus;
 
-	pos = ft_strchr(text, '=');
+	if (!is_valid_env_definition(text))
+		return (0);
+	eqpos = ft_strchr(text, '=');
 	len = ft_strlen(text);
 	plus = 0;
-	if (pos == len || pos == 0)
-		return (0);
-	if (pos >= 1 && text[pos - 1] == '+')
+	if (text[eqpos - 1] == '+')
 		plus = 1;
-	if (pos == 0 || !is_shellver_char(text, 0, pos - plus))
-		return (0);
-	if (plus && concat_envvalue(text, pos, len, arg) == 1)
+	if (plus && concat_envvalue(text, eqpos, len, arg) == 1)
 		;
 	else
-		push_back_envlst(&arg->shellenvlst, ft_substr(text, 0, pos - plus),
-			ft_substr(text, pos + 1, len), arg);
+		push_back_envlst(&arg->shellenvlst, ft_substr(text, 0, eqpos - plus),
+			ft_substr(text, eqpos + 1, len), arg);
 	return (1);
 }
 
@@ -44,14 +43,12 @@ static void	expander_cmd(t_arg *arg, t_cmd *c)
 	i = 0;
 	while (c->param[i])
 	{
-		if (set_shellenv(c->param[i], arg) == 1)
-		{
-			i++;
-			continue ;
-		}
-		else
+		if (accept_envname_value_pair(c->param[i], arg) == 0)
 			break ;
+		i++;
 	}
+	while (i-- > 0)
+		remove_cmdparam_head(c);
 }
 
 void	expander(t_arg *arg)
