@@ -83,8 +83,8 @@ char	*ft_strjoin3(char const *s1, char const *s2, char const *s3)
 	if (!t)
 		return (NULL);
 	i = ft_strlcpy(t, s1, s1len + 1);
-	i += ft_strlcpy(t + i, s2, s2len + 1);
-	i += ft_strlcpy(t + i, s3, s3len + 1);
+	i += ft_strlcpy(t + s1len, s2, s2len + 1);
+	i += ft_strlcpy(t + s1len + s2len, s3, s3len + 1);
 	return (t);
 }
 

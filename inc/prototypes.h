@@ -43,6 +43,7 @@ int			concat_envvalue(char *text, int pos, int len, t_arg *arg);
 // env_envlst_util.c
 t_env		*get_node_from_envlst(t_env	*envlst, char *envname);
 int			count_envlst(t_arg *arg);
+int			is_shellver_char_onechar(char c);
 int			is_shellver_char(char *s, int start, int len);
 // error.c
 void		errmsg_prefix(t_error_no errcode, char *errcmd, char *argtxt);
