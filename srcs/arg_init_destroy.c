@@ -1,5 +1,22 @@
 #include "main.h"
 
+static void	update_shlvl(t_arg *arg)
+{
+	t_env	*e;
+	char	*value;
+	int		value_int;
+	
+	e = get_node_from_envlst(arg->envlst, "SHLVL");
+	if (e != NULL)
+	{
+		value = ft_strdup(e->value);
+		value_int = ft_atoi(value);
+		value_int++;
+		update_existing_env(&(arg->envlst), ft_strdup("SHLVL"), ft_itoa(value_int), arg);
+		secure_free(value);
+	}
+}
+
 void	init_arg(int argc, char **argv, char **envp, t_arg *arg)
 {
 	char		currentpath[MAX_PATH_LEN];
@@ -18,6 +35,7 @@ void	init_arg(int argc, char **argv, char **envp, t_arg *arg)
 		print_perror_exit(errno, "getcwd", NULL, arg);
 	arg->pwd = ft_strdup(currentpath);
 	init_envlst(arg);
+	update_shlvl(arg);
 	arg->initial_home
 		= ft_strdup(get_node_from_envlst(arg->envlst, "HOME")->value);
 	arg->last_exit_status = 0;

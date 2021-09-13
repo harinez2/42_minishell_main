@@ -38,6 +38,8 @@ void		init_envlst(t_arg *arg);
 void		delete_env_from_envlst(t_env **envlst, char *envname);
 void		destroy_envlst(t_arg *arg);
 // env_envlst_add.c
+int			update_existing_env(
+				t_env	**envlst, char *env, char *value, t_arg *arg);
 void		push_back_envlst(t_env	**envlst, char *env, char *value, t_arg *arg);
 int			concat_envvalue(char *text, int eqpos, int len, t_arg *arg);
 // env_envlst_util.c

@@ -13,7 +13,7 @@ static t_env	*create_newnode(char *env, char *value, t_arg *arg)
 	return (new_env);
 }
 
-static int	update_existing_env(
+int	update_existing_env(
 	t_env	**envlst, char *env, char *value, t_arg *arg)
 {
 	t_env	*tmp;
