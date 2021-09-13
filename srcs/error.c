@@ -37,8 +37,10 @@ static int	get_retcode(t_error_no errcode)
 		return (MASK_7BIT);
 }
 
-void	print_perror(int err_no, char *errcmd, char *argtxt)
+void	print_perror(int err_no, char *errcmd, char *argtxt, t_arg *arg)
 {
+	if (arg->dbg)
+		printf("  errno: %d\n", err_no);
 	errmsg_prefix(-1, errcmd, argtxt);
 	putstr_stderr(strerror(err_no));
 	putstr_stderr("\n");
@@ -46,7 +48,7 @@ void	print_perror(int err_no, char *errcmd, char *argtxt)
 
 void	print_perror_exit(int err_no, char *errcmd, char *argtxt, t_arg *arg)
 {
-	print_perror(err_no, errcmd, argtxt);
+	print_perror(err_no, errcmd, argtxt, arg);
 	destroy_arg(arg);
 	exit(get_retcode(err_no));
 }

@@ -7,7 +7,7 @@ static int	print_env_env(t_env *envlst, t_arg *arg, t_cmd *cmd)
 	e = envlst;
 	if (!e)
 	{
-		print_perror(ENOENT, cmd->param[0], NULL);
+		print_perror(ENOENT, cmd->param[0], NULL, arg);
 		return (MASK_7BIT);
 	}
 	while (e != NULL)

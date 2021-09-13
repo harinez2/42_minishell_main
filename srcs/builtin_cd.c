@@ -50,7 +50,7 @@ static int	cd_chdir(t_arg *arg, t_cmd *cmd, char *dest_path)
 			update_pwd_envs(arg, dest_fullpath);
 		}
 		else
-			print_perror(chdir_ret, cmd->param[0], dest_path);
+			print_perror(chdir_ret, cmd->param[0], dest_path, arg);
 		return (1);
 	}
 	update_pwd_envs(arg, dest_fullpath);
