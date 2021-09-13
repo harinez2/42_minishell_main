@@ -29,6 +29,34 @@ static int	read_parameter(t_cmd *cmd, int *i)
 	return (nflg);
 }
 
+static void	remove_escapechar(t_arg *arg, t_cmd *cmd)
+{
+	int		i;
+	int		j;
+	int		yflg;
+
+	i = 0;
+	while (cmd->param[i])
+	{
+		j = 0;
+		yflg = 0;
+		while (cmd->param[i][j])
+		{
+			if (yflg == 0 && cmd->param[i][j] == '\\')
+			{
+				remove_char_in_heap(&(cmd->param[i]), j--);
+				yflg = 1;
+			}
+			else if (yflg == 1)
+				yflg = 0;
+			j++;
+		}
+		if (arg->dbg)
+			printf("  removed '\\' : %s\n", cmd->param[i]);
+		i++;
+	}
+}
+
 int	builtincmd_echo(t_arg *arg, t_cmd *cmd)
 {
 	int		i;
@@ -37,6 +65,7 @@ int	builtincmd_echo(t_arg *arg, t_cmd *cmd)
 	dbg_print_cmdstart(arg, cmd->param[0]);
 	dbg_print_str(arg, "=== builtin cmd echo ===\n");
 	i = 1;
+	remove_escapechar(arg, cmd);
 	nflg = read_parameter(cmd, &i);
 	while (cmd->param[i])
 	{

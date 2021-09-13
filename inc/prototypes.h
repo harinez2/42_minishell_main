@@ -101,6 +101,8 @@ char		*ft_strdup2(const char *s1, ssize_t n);
 char		*ft_searchinstr(const char *s, int c);
 char		*ft_itoa(int n);
 int			ft_atoi(char *s);
+// lib_ft5.c
+void		remove_char_in_heap(char **s, int i);
 // lib_util.c
 void		putstr_stderr(char *s);
 void		copy_array(t_env *to[], t_env *from[], int len, int offset_to);
