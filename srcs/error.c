@@ -22,6 +22,7 @@ void	errmsg_prefix(t_error_no errcode, char *errcmd, char *argtxt)
 	}
 }
 
+// #define ENOTDIR         20      /* Not a directory */
 // #define ENOENT           2      /* No such file or directory */
 // #define EACCES          13      /* Permission denied */
 static int	get_retcode(t_error_no errcode)
