@@ -1,12 +1,12 @@
 #ifndef PROTOTYPES_H
 # define PROTOTYPES_H
 
-// arg_init_destroy.c
-void		init_arg(int argc, char **argv, char **envp, t_arg *arg);
-void		update_envpath_with_environ(t_arg *arg);
-void		update_envpath(t_arg *arg, char *path_env);
+// arg_destroy.c
 void		destroy_path(t_arg *arg);
 void		destroy_arg(t_arg *arg);
+// arg_init.c
+void		update_envpath(t_arg *arg, char *path_env);
+void		init_arg(int argc, char **argv, char **envp, t_arg *arg);
 // builtin_cd.c
 int			builtincmd_cd(t_arg *arg, t_cmd *cmd);
 // builtin_cd_util.c
