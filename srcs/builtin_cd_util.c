@@ -21,7 +21,11 @@ int	generate_fullpath(
 		}
 	}
 	else
+	{
+		if (arg->pwd[ft_strlen(arg->pwd) - 1] == '/')
+			arg->pwd[ft_strlen(arg->pwd) - 1] = '\0';
 		*dest_fullpath = ft_strjoin3(arg->pwd, "/", dest_path);
+	}
 	return (0);
 }
 
