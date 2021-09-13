@@ -26,7 +26,9 @@ void	errmsg_prefix(t_error_no errcode, char *errcmd, char *argtxt)
 // #define EACCES          13      /* Permission denied */
 static int	get_retcode(t_error_no errcode)
 {
-	if (errcode == EACCES)
+	if (errcode == ENOTDIR)
+		return (1);
+	else if (errcode == EACCES)
 		return (126);
 	else if (errcode == ENOENT)
 		return (127);
