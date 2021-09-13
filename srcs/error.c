@@ -22,11 +22,14 @@ void	errmsg_prefix(t_error_no errcode, char *errcmd, char *argtxt)
 	}
 }
 
+// #define ENOTDIR         20      /* Not a directory */
 // #define ENOENT           2      /* No such file or directory */
 // #define EACCES          13      /* Permission denied */
 static int	get_retcode(t_error_no errcode)
 {
-	if (errcode == EACCES)
+	if (errcode == ENOTDIR)
+		return (1);
+	else if (errcode == EACCES)
 		return (126);
 	else if (errcode == ENOENT)
 		return (127);
@@ -34,8 +37,10 @@ static int	get_retcode(t_error_no errcode)
 		return (MASK_7BIT);
 }
 
-void	print_perror(int err_no, char *errcmd, char *argtxt)
+void	print_perror(int err_no, char *errcmd, char *argtxt, t_arg *arg)
 {
+	if (arg->dbg)
+		printf("  errno: %d\n", err_no);
 	errmsg_prefix(-1, errcmd, argtxt);
 	putstr_stderr(strerror(err_no));
 	putstr_stderr("\n");
@@ -43,7 +48,7 @@ void	print_perror(int err_no, char *errcmd, char *argtxt)
 
 void	print_perror_exit(int err_no, char *errcmd, char *argtxt, t_arg *arg)
 {
-	print_perror(err_no, errcmd, argtxt);
+	print_perror(err_no, errcmd, argtxt, arg);
 	destroy_arg(arg);
 	exit(get_retcode(err_no));
 }

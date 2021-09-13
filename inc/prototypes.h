@@ -1,12 +1,12 @@
 #ifndef PROTOTYPES_H
 # define PROTOTYPES_H
 
-// arg_init_destroy.c
-void		init_arg(int argc, char **argv, char **envp, t_arg *arg);
-void		update_envpath_with_environ(t_arg *arg);
-void		update_envpath(t_arg *arg, char *path_env);
+// arg_destroy.c
 void		destroy_path(t_arg *arg);
 void		destroy_arg(t_arg *arg);
+// arg_init.c
+void		update_envpath(t_arg *arg, char *path_env);
+void		init_arg(int argc, char **argv, char **envp, t_arg *arg);
 // builtin_cd.c
 int			builtincmd_cd(t_arg *arg, t_cmd *cmd);
 // builtin_cd_util.c
@@ -38,6 +38,8 @@ void		init_envlst(t_arg *arg);
 void		delete_env_from_envlst(t_env **envlst, char *envname);
 void		destroy_envlst(t_arg *arg);
 // env_envlst_add.c
+int			update_existing_env(
+				t_env	**envlst, char *env, char *value, t_arg *arg);
 void		push_back_envlst(t_env	**envlst, char *env, char *value, t_arg *arg);
 int			concat_envvalue(char *text, int eqpos, int len, t_arg *arg);
 // env_envlst_util.c
@@ -48,7 +50,7 @@ int			is_shellver_char(char *s, int start, int len);
 int			is_valid_env_definition(char *s);
 // error.c
 void		errmsg_prefix(t_error_no errcode, char *errcmd, char *argtxt);
-void		print_perror(int err_no, char *errcmd, char *argtxt);
+void		print_perror(int err_no, char *errcmd, char *argtxt, t_arg *arg);
 void		print_perror_exit(int err_no, char *errcmd, char *argtxt, t_arg *arg);
 // error_custom.c
 int			print_custom_error(
@@ -101,6 +103,8 @@ char		*ft_strdup2(const char *s1, ssize_t n);
 char		*ft_searchinstr(const char *s, int c);
 char		*ft_itoa(int n);
 int			ft_atoi(char *s);
+// lib_ft5.c
+void		remove_char_in_heap(char **s, int i);
 // lib_util.c
 void		putstr_stderr(char *s);
 void		copy_array(t_env *to[], t_env *from[], int len, int offset_to);

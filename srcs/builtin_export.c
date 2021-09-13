@@ -12,8 +12,10 @@ static void	set_env_with_envname_only(t_arg *arg, char *envname)
 		push_back_envlst(
 			&arg->envlst, ft_strdup(envname), ft_strdup(e->value), arg);
 		delete_env_from_envlst(&arg->shellenvlst, envname);
+		return ;
 	}
-	else
+	e = get_node_from_envlst(arg->envlst, envname);
+	if (!e)
 		push_back_envlst(&arg->envlst, ft_strdup(envname), NULL, arg);
 }
 

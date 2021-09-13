@@ -2,7 +2,8 @@ NAME		= minishell
 INCLUDE		= -I./inc -I $(shell brew --prefix readline)/include
 SRC_DIR		= srcs
 SRCS		= \
-				$(SRC_DIR)/arg_init_destroy.c \
+				$(SRC_DIR)/arg_destroy.c \
+				$(SRC_DIR)/arg_init.c \
 				$(SRC_DIR)/builtin_cd.c \
 				$(SRC_DIR)/builtin_cd_util.c \
 				$(SRC_DIR)/builtin_echo.c \
@@ -32,6 +33,7 @@ SRCS		= \
 				$(SRC_DIR)/lib_ft2.c \
 				$(SRC_DIR)/lib_ft3.c \
 				$(SRC_DIR)/lib_ft4.c \
+				$(SRC_DIR)/lib_ft5.c \
 				$(SRC_DIR)/lib_util.c \
 				$(SRC_DIR)/lib_util_dbg.c \
 				$(SRC_DIR)/main.c \
