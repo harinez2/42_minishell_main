@@ -17,15 +17,16 @@ void	expander_char_quote(char **text)
 	{
 		if ((*text)[cnt] == '\'')
 			single_quote ^= 1;
-		if ((*text)[cnt] == '\\' && single_quote == 0 && escape == 0)
-			escape = 1;
 		if (((*text)[cnt] == '\"' && escape == 0) || (*text)[cnt] == '\''
-			|| ((*text)[cnt] == '\\' && single_quote == 0 && escape == 0))
+			|| (((*text)[cnt] == '\\' && single_quote == 0 && escape == 0)))
 		{
+			if ((*text)[cnt] == '\\')
+				escape = 1;
 			cnt ++;
 			continue ;
 		}
 		new[i] = (*text)[cnt];
+		printf("character: %c\nescape: %d\nsingle_quote: %d\n---------\n", (*text)[cnt], escape, single_quote);
 		i ++;
 		cnt ++;
 		if (escape == 1)
