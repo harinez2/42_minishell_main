@@ -1,6 +1,6 @@
 #include "main.h"
 
-void	errmsg_prefix(t_error_no errcode, char *errcmd, char *argtxt)
+void	errmsg_prefix(t_error_no myerrcode, char *errcmd, char *argtxt)
 {
 	putstr_stderr("minishell: ");
 	if (errcmd)
@@ -10,7 +10,7 @@ void	errmsg_prefix(t_error_no errcode, char *errcmd, char *argtxt)
 	}
 	if (argtxt)
 	{
-		if (errcode == ERR_NOT_VALID_IDENTIFIER)
+		if (myerrcode == ERR_NOT_VALID_IDENTIFIER)
 		{
 			putstr_stderr("`");
 			putstr_stderr(argtxt);
@@ -22,17 +22,17 @@ void	errmsg_prefix(t_error_no errcode, char *errcmd, char *argtxt)
 	}
 }
 
-// #define ENOTDIR         20      /* Not a directory */
 // #define ENOENT           2      /* No such file or directory */
 // #define EACCES          13      /* Permission denied */
-static int	get_retcode(t_error_no errcode)
+// #define ENOTDIR         20      /* Not a directory */
+static int	get_retcode(t_error_no err_no)
 {
-	if (errcode == ENOTDIR)
-		return (1);
-	else if (errcode == EACCES)
-		return (126);
-	else if (errcode == ENOENT)
+	if (err_no == ENOENT)
 		return (127);
+	else if (err_no == EACCES)
+		return (126);
+	else if (err_no == ENOTDIR)
+		return (1);
 	else
 		return (MASK_7BIT);
 }
