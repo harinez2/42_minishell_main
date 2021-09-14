@@ -101,6 +101,8 @@ void	expander_char_env(char **text, t_arg *arg)
 			escape = 0;
 		else if ((*text)[cnt] == '$' && (*text)[cnt + 1] == '"' && escape != 1)
 			remove_dollar(text, &cnt, arg);
+		else if ((*text)[cnt] == '$' && (*text)[cnt + 1] == '\0')
+			return ;
 		else if ((*text)[cnt] == '$' && escape != 1)
 			check_and_replace_env(text, &cnt, arg);
 		else if ((*text)[cnt] == '\\' && (*text)[cnt + 1] != '\0')
