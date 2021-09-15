@@ -15,5 +15,6 @@ int	builtincmd_exit(t_arg *arg, t_cmd *cmd)
 	if (arg->dbg)
 		printf("Exit code:%d\n", ret);
 	destroy_arg(arg);
+	write(2, "exit\n", 5);
 	exit (ret);
 }

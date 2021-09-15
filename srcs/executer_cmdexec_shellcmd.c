@@ -47,7 +47,7 @@ static int	exec_shellcmd_with_envpath(t_cmd *cmd, t_arg *arg, char **env)
 	char	*param_zero;
 	int		i;
 
-	ret = MASK_7BIT;
+	ret = -1;
 	i = 0;
 	param_zero = cmd->param[0];
 	while (ret != 0 && i < arg->path_cnt)
@@ -61,6 +61,16 @@ static int	exec_shellcmd_with_envpath(t_cmd *cmd, t_arg *arg, char **env)
 	return (ret);
 }
 
+static void	display_errmsg(t_arg *arg, t_cmd *cmd, int ret, int envpathflg)
+{
+	if (arg->dbg)
+		printf("  command execution failed: %d\n", ret);
+	if (envpathflg && (ret == ENOENT || ret == -1))
+		print_custom_error_exit(ERR_FAILED_TO_EXEC, cmd->param[0], NULL, arg);
+	else
+		print_perror_exit(ret, cmd->param[0], NULL, arg);
+}
+
 int	exec_shellcmd(t_cmd *cmd, t_arg *arg)
 {
 	int		ret;
@@ -72,7 +82,13 @@ int	exec_shellcmd(t_cmd *cmd, t_arg *arg)
 	else if (ft_strncmp(cmd->param[0], "./", 2) == 0)
 		ret = exec_shellcmd_relativepath(cmd, arg, env);
 	else
+	{
 		ret = exec_shellcmd_with_envpath(cmd, arg, env);
+		destroy_environ(env);
+		display_errmsg(arg, cmd, ret, 1);
+		return (ret);
+	}
 	destroy_environ(env);
+	display_errmsg(arg, cmd, ret, 0);
 	return (ret);
 }

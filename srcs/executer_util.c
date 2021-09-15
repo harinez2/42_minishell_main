@@ -17,7 +17,7 @@ void	handling_exit_status(t_arg *arg, int status)
 		arg->last_exit_status = MASK_7BIT;
 	dbg_print_str(arg, ", Exit status: ");
 	dbg_print_int(arg, arg->last_exit_status);
-	dbg_print_str(arg, ")\n");
+	dbg_print_str(arg, ")\n\n");
 }
 
 void	connect_pipe(int unused, int old, int new, t_arg *arg)

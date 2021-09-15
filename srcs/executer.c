@@ -56,31 +56,25 @@ static void	executer_parentprocess(t_arg *arg, t_cmd *c)
 		close_pipe(arg, "parent", c->prev->pipe[PP_READ]);
 }
 
-int	executer(t_arg *arg)
+int	executer(t_arg *arg, t_cmd	*c)
 {
 	pid_t	pid;
-	t_cmd	*c;
 	int		status;
 
 	if (arg->dbg)
 		printf(COL_TX_CYAN"<<< executer results >>>\n"COL_TX_RESET);
-	c = arg->cmdlst;
-	while (c != NULL)
+	if (run_builtin_nofork(arg, c, &status) == 1)
 	{
-		if (run_builtin_nofork(arg, c, &status) == 1)
-		{
-			if (c->nxtcmd_relation == CONN_PIPE)
-				pipe(c->pipe);
-			pid = fork();
-			if (pid == -1)
-				print_perror_exit(errno, NULL, NULL, arg);
-			else if (pid == 0)
-				executer_childprocess(arg, c);
-			waitpid(pid, &status, 0);
-			executer_parentprocess(arg, c);
-		}
-		handling_exit_status(arg, status);
-		c = c->next;
+		if (c->nxtcmd_relation == CONN_PIPE)
+			pipe(c->pipe);
+		pid = fork();
+		if (pid == -1)
+			print_perror_exit(errno, NULL, NULL, arg);
+		else if (pid == 0)
+			executer_childprocess(arg, c);
+		waitpid(pid, &status, 0);
+		executer_parentprocess(arg, c);
 	}
+	handling_exit_status(arg, status);
 	return (arg->last_exit_status);
 }

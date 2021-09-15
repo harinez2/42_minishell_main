@@ -3,6 +3,7 @@
 static int	command_execution(t_arg *arg)
 {
 	int		token_info[MAX_TOKENNUM][3];
+	t_cmd	*c;
 	int		ret;
 
 	if (lexer(arg, token_info) == -1)
@@ -15,8 +16,13 @@ static int	command_execution(t_arg *arg)
 		cmd_destroy(arg);
 		return (ret);
 	}
-	expander(arg);
-	ret = executer(arg);
+	c = arg->cmdlst;
+	while (c)
+	{
+		expander(arg, c);
+		ret = executer(arg, c);
+		c = c->next;
+	}
 	cmd_destroy(arg);
 	return (ret);
 }

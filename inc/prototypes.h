@@ -9,10 +9,10 @@ void		update_envpath(t_arg *arg, char *path_env);
 void		init_arg(int argc, char **argv, char **envp, t_arg *arg);
 // builtin_cd.c
 int			builtincmd_cd(t_arg *arg, t_cmd *cmd);
+// builtin_cd_chdir.c
+int			run_chdir(
+				t_arg *arg, t_cmd *cmd, char *dest_path, char	**dest_fullpath);
 // builtin_cd_util.c
-int			generate_fullpath(
-				t_arg *arg, t_cmd *cmd, char *dest_path, char **dest_fullpath);
-char		*resolve_relative_path(char *path);
 int			update_pwd_with_getcwd(char **dest_fullpath);
 void		update_pwd_envs(t_arg *arg, char *dest_fullpath);
 // builtin_echo.c
@@ -58,7 +58,7 @@ int			print_custom_error(
 void		print_custom_error_exit(
 				t_error_no myerrcode, char *errcmd, char *argtxt, t_arg *arg);
 // executer.c
-int			executer(t_arg *arg);
+int			executer(t_arg *arg, t_cmd	*c);
 // executer_builtin_nofork.c
 int			run_builtin_nofork(t_arg *arg, t_cmd *c, int *status);
 // executer_cmdexec.c
@@ -72,7 +72,7 @@ void		connect_pipe(int unused, int old, int new, t_arg *arg);
 void		close_pipe(t_arg *arg, char *who, int fd);
 void		ignore_toomuch_redirout(t_arg *arg, t_cmd *c);
 // expander.c
-void		expander(t_arg *arg);
+void		expander(t_arg *arg, t_cmd	*c);
 // expander_char_env.c
 void		expander_char_env(char **text, t_arg *arg);
 // expander_char_quote.c

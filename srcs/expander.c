@@ -55,18 +55,11 @@ static void	expander_cmd(t_arg *arg, t_cmd *c)
 		remove_cmdparam_head(c);
 }
 
-void	expander(t_arg *arg)
+void	expander(t_arg *arg, t_cmd	*c)
 {
-	t_cmd	*c;
-
 	if (arg->dbg)
 		printf(COL_TX_CYAN"<<< expander results >>>\n"COL_TX_RESET);
-	c = arg->cmdlst;
-	while (c)
-	{
-		expander_cmd(arg, c);
-		c = c->next;
-	}
+	expander_cmd(arg, c);
 	if (arg->dbg)
 		printf("\n");
 	if (arg->dbg)
