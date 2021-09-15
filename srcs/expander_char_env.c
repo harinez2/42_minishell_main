@@ -94,7 +94,7 @@ void	expander_char_env(char **text, t_arg *arg)
 	while ((*text)[cnt])
 	{	
 		if (arg->dbg)
-			printf("  checking...%d,%c\n", cnt, (*text)[cnt]);
+			printf("  cnt: %d, char: %c, esc: %d\n", cnt, (*text)[cnt], escape);
 		if ((*text)[cnt] == '\'' && escape == 0)
 			escape = 1;
 		else if ((*text)[cnt] == '\'' && escape == 1)

@@ -76,7 +76,7 @@ void		expander(t_arg *arg);
 // expander_char_env.c
 void		expander_char_env(char **text, t_arg *arg);
 // expander_char_quote.c
-void		expander_char_quote(char **text);
+void		expander_char_quote(char **text, t_arg *arg);
 // lexer.c
 int			lexer(t_arg *arg, int token_info[][3]);
 // lexer_util.c

@@ -1,6 +1,6 @@
 #include "main.h"
 
-void	expander_char_quote(char **text)
+void	expander_char_quote(char **text, t_arg *arg)
 {
 	char	*new;
 	int		cnt;
@@ -26,7 +26,8 @@ void	expander_char_quote(char **text)
 			continue ;
 		}
 		new[i] = (*text)[cnt];
-		printf("character: %c\nescape: %d\nsingle_quote: %d\n---------\n", (*text)[cnt], escape, single_quote);
+		if (arg->dbg)
+			printf("  cnt: %d, char: %c, esc: %d, single_quote: %d\n", cnt, (*text)[cnt], escape, single_quote);
 		i ++;
 		cnt ++;
 		if (escape == 1)

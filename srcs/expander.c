@@ -2,8 +2,12 @@
 
 static void	expander_char(char **text, t_arg *arg)
 {
+	if (arg->dbg)
+		printf("replacing env-------------\n");
 	expander_char_env(text, arg);
-	expander_char_quote(text);
+	if (arg->dbg)
+		printf("replacing quote-----------\n");
+	expander_char_quote(text, arg);
 }
 
 // accept 'NAME=value' or 'NAME+=value'
