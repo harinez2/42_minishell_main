@@ -29,7 +29,7 @@ int	generate_fullpath(
 	return (0);
 }
 
-static int	reduce_verbose_letter(
+static void	reduce_verbose_letter(
 	char *path, int *i, char *new_path, int *new_i)
 {
 	if (path[*i] == '/' && path[*i + 1] == '/')
@@ -44,8 +44,7 @@ static int	reduce_verbose_letter(
 			;
 	}
 	else
-		return (0);
-	return (1);
+		new_path[(*new_i)++] = path[(*i)++];
 }
 
 char	*resolve_relative_path(char *path)
@@ -59,12 +58,7 @@ char	*resolve_relative_path(char *path)
 	i = 0;
 	new_i = 0;
 	while (path[i])
-	{
-		if (reduce_verbose_letter(path, &i, new_path, &new_i) == 1)
-			;
-		else
-			new_path[new_i++] = path[i++];
-	}
+		reduce_verbose_letter(path, &i, new_path, &new_i);
 	new_path[new_i] = '\0';
 	ret = ft_strdup(new_path);
 	secure_free(new_path);
