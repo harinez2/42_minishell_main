@@ -11,8 +11,9 @@ static int	command_execution(t_arg *arg)
 		print_token_info(token_info, arg->read);
 	if (parser(arg, token_info) == -1)
 	{
+		ret = arg->last_exit_status;
 		cmd_destroy(arg);
-		return (1);
+		return (ret);
 	}
 	expander(arg);
 	ret = executer(arg);
@@ -27,7 +28,7 @@ static int	inline_execution(t_arg *arg, char *read)
 	arg->read = read;
 	ret = command_execution(arg);
 	destroy_arg(arg);
-	return (ret);
+	return (ret % 256);
 }
 
 int	main(int argc, char **argv, char **envp)
