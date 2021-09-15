@@ -20,7 +20,6 @@ static int	exec_builtincmd(t_cmd *c, t_arg *arg)
 void	exec_command(t_cmd *cmd, t_arg *arg)
 {
 	t_env	*e;
-	int		ret;
 
 	e = get_node_from_envlst(arg->envlst, "PATH");
 	if (!e)
@@ -29,13 +28,5 @@ void	exec_command(t_cmd *cmd, t_arg *arg)
 		update_envpath(arg, e->value);
 	if (exec_builtincmd(cmd, arg) != 0)
 		return ;
-	ret = exec_shellcmd(cmd, arg);
-	if (arg->dbg)
-		printf("  command execution failed: %d\n", ret);
-	if (ret == 0)
-		return ;
-	else if (ret == ENOENT || ret == -1)
-		print_custom_error_exit(ERR_FAILED_TO_EXEC, cmd->param[0], NULL, arg);
-	else
-		print_perror_exit(ret, cmd->param[0], NULL, arg);
+	exec_shellcmd(cmd, arg);
 }
