@@ -1,25 +1,5 @@
 #include "main.h"
 
-static int	run_chdir(
-	t_arg *arg, t_cmd *cmd, char *dest_path, char	**dest_fullpath)
-{
-	char	*tmppath;
-	int		ret;
-
-	if (generate_fullpath(arg, cmd, dest_path, dest_fullpath) == -2)
-		return (-2);
-	ret = chdir(*dest_fullpath);
-	if (ret == -1)
-	{
-		tmppath = resolve_relative_path(*dest_fullpath);
-		ret = chdir(tmppath);
-		if (ret == -1)
-			ret = errno;
-		secure_free(tmppath);
-	}
-	return (ret);
-}
-
 static int	cd_chdir_multiple_errorcase(
 	t_arg *arg, char *dest_fullpath, int getcwd_ret)
 {
