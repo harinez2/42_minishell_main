@@ -18,7 +18,6 @@
 # include "constants.h"
 # include "enums.h"
 # include "structs.h"
-# include "main2.h"
 # include "prototypes.h"
 
 #endif
