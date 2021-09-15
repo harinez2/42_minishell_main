@@ -6,6 +6,8 @@ void	update_envpath(t_arg *arg, char *path_env)
 	int			start_i;
 
 	destroy_path(arg);
+	if (!path_env)
+		return ;
 	i = 0;
 	while (path_env[i] != '\0' && arg->path_cnt < MAX_PATH_CNT)
 	{
