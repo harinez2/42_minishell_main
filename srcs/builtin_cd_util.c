@@ -29,8 +29,7 @@ int	generate_fullpath(
 	return (0);
 }
 
-static int	reduce_verbose_letter(
-	char *path, char *new_path)
+static int	reduce_verbose_letter(char *path, char *new_path)
 {
 	int		i;
 	int		new_i;
