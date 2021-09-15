@@ -29,23 +29,30 @@ int	generate_fullpath(
 	return (0);
 }
 
-static int	reduce_verbose_letter(
-	char *path, int *i, char *new_path, int *new_i)
+static int	reduce_verbose_letter(char *path, char *new_path)
 {
-	if (path[*i] == '/' && path[*i + 1] == '/')
-		(*i)++;
-	else if (path[*i] == '/' && path[*i + 1] == '.' && path[*i + 2] == '/')
-		*i += 2;
-	else if (path[*i] == '/' && path[*i + 1] == '.' && path[*i + 2] == '.'
-		&& (path[*i + 3] == '/' || path[*i + 3] == '\0'))
+	int		i;
+	int		new_i;
+
+	i = 0;
+	new_i = 0;
+	while (path[i])
 	{
-		*i += 3;
-		while (*new_i >= 0 && new_path[--(*new_i)] != '/')
-			;
+		if (path[i] == '/' && path[i + 1] == '/')
+			i++;
+		else if (path[i] == '/' && path[i + 1] == '.' && path[i + 2] == '/')
+			i += 2;
+		else if (path[i] == '/' && path[i + 1] == '.' && path[i + 2] == '.'
+			&& (path[i + 3] == '/' || path[i + 3] == '\0'))
+		{
+			i += 3;
+			while (new_i > 0 && new_path[new_i] != '/')
+				new_i--;
+		}
+		else
+			new_path[new_i++] = path[i++];
 	}
-	else
-		return (0);
-	return (1);
+	return (new_i);
 }
 
 char	*resolve_relative_path(char *path)
@@ -53,18 +60,9 @@ char	*resolve_relative_path(char *path)
 	char	*new_path;
 	char	*ret;
 	int		new_i;
-	int		i;
 
 	new_path = ft_strdup(path);
-	i = 0;
-	new_i = 0;
-	while (path[i])
-	{
-		if (reduce_verbose_letter(path, &i, new_path, &new_i) == 1)
-			;
-		else
-			new_path[new_i++] = path[i++];
-	}
+	new_i = reduce_verbose_letter(path, new_path);
 	new_path[new_i] = '\0';
 	ret = ft_strdup(new_path);
 	secure_free(new_path);

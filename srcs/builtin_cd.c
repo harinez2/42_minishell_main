@@ -20,12 +20,15 @@ static int	run_chdir(
 	return (ret);
 }
 
-static void	print_non_existing_path_error(int getcwd_ret)
+static int	cd_chdir_multiple_errorcase(
+	t_arg *arg, char *dest_fullpath, int getcwd_ret)
 {
 	putstr_stderr("cd: error retrieving current directory");
 	putstr_stderr(": getcwd: cannot access parent directories: ");
 	putstr_stderr(strerror(getcwd_ret));
 	putstr_stderr("\n");
+	update_pwd_envs(arg, dest_fullpath);
+	return (1);
 }
 
 static int	cd_chdir(t_arg *arg, t_cmd *cmd, char *dest_path)
@@ -40,17 +43,17 @@ static int	cd_chdir(t_arg *arg, t_cmd *cmd, char *dest_path)
 		printf("  changing to  : %s\n", dest_path);
 	chdir_ret = run_chdir(arg, cmd, dest_path, &dest_fullpath);
 	if (chdir_ret == -2)
-		return (1);
-	getcwd_ret = update_pwd_with_getcwd(&dest_fullpath);
-	if (chdir_ret != 0)
 	{
-		if (getcwd_ret != 0)
-		{
-			print_non_existing_path_error(getcwd_ret);
-			update_pwd_envs(arg, dest_fullpath);
-		}
-		else
-			print_perror(chdir_ret, cmd->param[0], dest_path, arg);
+		secure_free(dest_fullpath);
+		return (1);
+	}
+	getcwd_ret = update_pwd_with_getcwd(&dest_fullpath);
+	if (chdir_ret != 0 && getcwd_ret != 0)
+		return (cd_chdir_multiple_errorcase(arg, dest_fullpath, getcwd_ret));
+	else if (chdir_ret != 0)
+	{
+		secure_free(dest_fullpath);
+		print_perror(chdir_ret, cmd->param[0], dest_path, arg);
 		return (1);
 	}
 	update_pwd_envs(arg, dest_fullpath);

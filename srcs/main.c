@@ -1,21 +1,34 @@
 #include "main.h"
 
-static void	command_execution(t_arg *arg)
+static int	command_execution(t_arg *arg)
 {
 	int		token_info[MAX_TOKENNUM][3];
+	int		ret;
 
 	if (lexer(arg, token_info) == -1)
-		return ;
+		return (0);
 	if (arg->dbg)
 		print_token_info(token_info, arg->read);
 	if (parser(arg, token_info) == -1)
 	{
+		ret = arg->last_exit_status;
 		cmd_destroy(arg);
-		return ;
+		return (ret);
 	}
 	expander(arg);
-	executer(arg);
+	ret = executer(arg);
 	cmd_destroy(arg);
+	return (ret);
+}
+
+static int	inline_execution(t_arg *arg, char *read)
+{
+	int		ret;
+
+	arg->read = read;
+	ret = command_execution(arg);
+	destroy_arg(arg);
+	return (ret % 256);
 }
 
 int	main(int argc, char **argv, char **envp)
@@ -25,11 +38,7 @@ int	main(int argc, char **argv, char **envp)
 	init_arg(argc, argv, envp, &arg);
 	set_signal();
 	if (argc > 2 && ft_strncmp("-c", argv[1], 3) == 0)
-	{
-		arg.read = argv[2];
-		command_execution(&arg);
-		return (0);
-	}
+		return (inline_execution(&arg, argv[2]));
 	if (argc >= 2 && ft_strncmp("-d", argv[1], 3) == 0)
 		arg.dbg = 1;
 	while (1)

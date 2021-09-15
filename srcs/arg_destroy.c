@@ -12,7 +12,8 @@ void	destroy_path(t_arg *arg)
 
 void	destroy_arg(t_arg *arg)
 {
-	secure_free(arg->read);
+	if (arg->read != arg->argv[2])
+		secure_free(arg->read);
 	destroy_path(arg);
 	secure_free(arg->pwd);
 	secure_free(arg->initial_home);

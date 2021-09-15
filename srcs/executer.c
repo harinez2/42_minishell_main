@@ -82,5 +82,5 @@ int	executer(t_arg *arg)
 		handling_exit_status(arg, status);
 		c = c->next;
 	}
-	return (0);
+	return (arg->last_exit_status);
 }
