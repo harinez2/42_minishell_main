@@ -28,6 +28,7 @@ int	main(int argc, char **argv, char **envp)
 	{
 		arg.read = argv[2];
 		command_execution(&arg);
+		destroy_arg(&arg);
 		return (0);
 	}
 	if (argc >= 2 && ft_strncmp("-d", argv[1], 3) == 0)
