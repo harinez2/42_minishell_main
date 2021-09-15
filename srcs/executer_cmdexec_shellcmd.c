@@ -47,7 +47,7 @@ static int	exec_shellcmd_with_envpath(t_cmd *cmd, t_arg *arg, char **env)
 	char	*param_zero;
 	int		i;
 
-	ret = MASK_7BIT;
+	ret = -1;
 	i = 0;
 	param_zero = cmd->param[0];
 	while (ret != 0 && i < arg->path_cnt)

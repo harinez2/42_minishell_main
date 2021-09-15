@@ -34,7 +34,7 @@ void	exec_command(t_cmd *cmd, t_arg *arg)
 		printf("  command execution failed: %d\n", ret);
 	if (ret == 0)
 		return ;
-	else if (ret == ENOENT)
+	else if (ret == ENOENT || ret == -1)
 		print_custom_error_exit(ERR_FAILED_TO_EXEC, cmd->param[0], NULL, arg);
 	else
 		print_perror_exit(ret, cmd->param[0], NULL, arg);
