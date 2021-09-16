@@ -37,7 +37,8 @@ int	update_existing_env(
 	return (0);
 }
 
-void	push_back_envlst(t_env	**envlst, char *env, char *value, t_arg *arg)
+void	push_back_envlst(
+	t_env **envlst, char *env, char *value, t_arg *arg)
 {
 	t_env	*new_env;
 	t_env	*head;

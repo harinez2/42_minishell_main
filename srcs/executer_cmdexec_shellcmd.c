@@ -18,12 +18,13 @@ static int	exec_shellcmd_execve(t_cmd *cmd, t_arg *arg, char **env)
 		else
 			printf("...found. try execution.\n");
 	}
-	if (stat_ret == 0 && S_ISREG(sb.st_mode))
+	if (stat_ret == 0 && S_ISDIR(sb.st_mode))
+		ret = EISDIR;
+	else if (stat_ret == 0 && S_ISREG(sb.st_mode))
 	{
 		dbg_print_cmdstart(arg, cmd->param[0]);
-		ret = execve(cmd->param[0], cmd->param, env);
-		if (ret == -1)
-			ret = errno;
+		execve(cmd->param[0], cmd->param, env);
+		ret = errno;
 	}
 	return (ret);
 }

@@ -57,7 +57,8 @@ static void	bnf_redirection_append(
 	cmd_add_flg(arg, TKN_REDIR_APPEND, 1);
 }
 
-void	bnf_redirection_op(t_arg *arg, int token_info[][3], int *i, int leftflg)
+void	bnf_redirection_op(
+	t_arg *arg, int token_info[][3], int *i, int leftflg)
 {
 	if (token_info[*i - 1][0] == TKN_REDIR_LEFT)
 		bnf_redirection_left(arg, token_info, i, leftflg);
