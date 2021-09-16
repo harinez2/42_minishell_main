@@ -6,7 +6,7 @@
 /*   By: yonishi <yonishi@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/16 19:41:51 by yonishi           #+#    #+#             */
-/*   Updated: 2021/09/16 21:08:51 by yonishi          ###   ########.fr       */
+/*   Updated: 2021/09/16 21:32:42 by yonishi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,11 +63,7 @@ int	main(int argc, char **argv, char **envp)
 	{
 		arg.read = readline(SHELL_PROMPT);
 		if (arg.read == NULL)
-		{
-			putstr_stderr(GOUP_ONELINE);
-			putstr_stderr(SHELL_PROMPT"exit\n");
 			break ;
-		}
 		else if (arg.read[0] != '\0')
 		{
 			add_history(arg.read);
@@ -75,6 +71,8 @@ int	main(int argc, char **argv, char **envp)
 		}
 		secure_free(arg.read);
 	}
+	putstr_stderr(GOUP_ONELINE);
+	putstr_stderr(SHELL_PROMPT"exit\n");
 	destroy_arg(&arg);
 	return (0);
 }
