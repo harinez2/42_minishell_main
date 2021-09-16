@@ -61,6 +61,7 @@ static void	update_shlvl(t_arg *arg)
 void	init_arg(int argc, char **argv, char **envp, t_arg *arg)
 {
 	char		currentpath[MAX_PATH_LEN];
+	t_env		*e;
 
 	arg->argc = argc;
 	arg->argv = argv;
@@ -77,8 +78,11 @@ void	init_arg(int argc, char **argv, char **envp, t_arg *arg)
 	arg->pwd = ft_strdup(currentpath);
 	init_envlst(arg);
 	update_shlvl(arg);
-	arg->initial_home
-		= ft_strdup(get_node_from_envlst(arg->envlst, "HOME")->value);
+	arg->initial_home = NULL;
+	e = get_node_from_envlst(arg->envlst, "HOME");
+	if (!e)
+		print_custom_error_exit(ERR_HOME_NOT_SET, NULL, NULL, arg);
+	arg->initial_home = ft_strdup(e->value);
 	arg->last_exit_status = 0;
 	arg->dbg = 0;
 }
