@@ -43,24 +43,21 @@ static void	update_envpath_with_environ(t_arg *arg)
 static void	update_shlvl(t_arg *arg)
 {
 	t_env	*e;
-	char	*value;
 	int		value_int;
 
+	value_int = 0;
 	e = get_node_from_envlst(arg->envlst, "SHLVL");
 	if (e != NULL)
-	{
-		value = ft_strdup(e->value);
-		value_int = ft_atoi(value);
-		value_int++;
-		update_existing_env(
-			&(arg->envlst), ft_strdup("SHLVL"), ft_itoa(value_int), arg);
-		secure_free(value);
-	}
+		value_int = ft_atoi(e->value);
+	value_int++;
+	push_back_envlst(
+		&(arg->envlst), ft_strdup("SHLVL"), ft_itoa(value_int), arg);
 }
 
 void	init_arg(int argc, char **argv, char **envp, t_arg *arg)
 {
 	char		currentpath[MAX_PATH_LEN];
+	t_env		*e;
 
 	arg->argc = argc;
 	arg->argv = argv;
@@ -77,8 +74,11 @@ void	init_arg(int argc, char **argv, char **envp, t_arg *arg)
 	arg->pwd = ft_strdup(currentpath);
 	init_envlst(arg);
 	update_shlvl(arg);
-	arg->initial_home
-		= ft_strdup(get_node_from_envlst(arg->envlst, "HOME")->value);
+	arg->initial_home = NULL;
+	e = get_node_from_envlst(arg->envlst, "HOME");
+	if (!e)
+		print_custom_error_exit(ERR_HOME_NOT_SET, NULL, NULL, arg);
+	arg->initial_home = ft_strdup(e->value);
 	arg->last_exit_status = 0;
 	arg->dbg = 0;
 }
