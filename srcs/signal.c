@@ -6,7 +6,7 @@
 /*   By: yonishi <yonishi@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/16 19:42:07 by yonishi           #+#    #+#             */
-/*   Updated: 2021/09/16 20:39:35 by yonishi          ###   ########.fr       */
+/*   Updated: 2021/09/16 21:30:33 by yonishi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,11 +15,9 @@
 void	sigint_handler(int signum)
 {
 	(void)signum;
+	putstr_stderr("\n");
 	rl_replace_line("", 0);
 	rl_on_new_line();
-	write(1, BACK_CURSOR, ft_strlen(BACK_CURSOR));
-	write(1, CLEAR_FROM_CURSOR, ft_strlen(CLEAR_FROM_CURSOR));
-	write(1, "\n", 1);
 	rl_redisplay();
 }
 

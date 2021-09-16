@@ -6,7 +6,7 @@
 /*   By: yonishi <yonishi@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/16 19:42:30 by yonishi           #+#    #+#             */
-/*   Updated: 2021/09/16 19:42:31 by yonishi          ###   ########.fr       */
+/*   Updated: 2021/09/16 21:09:46 by yonishi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,7 @@
 # define	COL_TX_CYAN				"\x1b[36m"
 # define	COL_TX_RESET			"\x1b[39m"
 
+# define	GOUP_ONELINE			"\033[1A"
 # define	BACK_CURSOR				"\033[2D"
 # define	CLEAR_FROM_CURSOR		"\033[0K"
 # define	SHELL_PROMPT			"\x1b[46m\x1b[30mminishell>\x1b[39m\x1b[49m "

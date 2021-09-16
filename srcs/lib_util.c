@@ -6,7 +6,7 @@
 /*   By: yonishi <yonishi@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/16 19:41:48 by yonishi           #+#    #+#             */
-/*   Updated: 2021/09/16 19:41:49 by yonishi          ###   ########.fr       */
+/*   Updated: 2021/09/16 21:08:05 by yonishi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,8 @@
 
 void	putstr_stderr(char *s)
 {
+	if (!s)
+		return ;
 	write(2, s, ft_strlen(s));
 }
 
