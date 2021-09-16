@@ -6,7 +6,7 @@
 /*   By: yonishi <yonishi@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/16 19:42:07 by yonishi           #+#    #+#             */
-/*   Updated: 2021/09/16 19:42:08 by yonishi          ###   ########.fr       */
+/*   Updated: 2021/09/16 20:31:13 by yonishi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,4 +26,5 @@ void	sigint_handler(int signum)
 void	set_signal(void)
 {
 	signal(SIGINT, sigint_handler);
+	signal(SIGQUIT, SIG_IGN);
 }
