@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   expander.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yonishi <yonishi@student.42tokyo.jp>       +#+  +:+       +#+        */
+/*   By: rtomiki <rtomiki@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/16 19:41:21 by yonishi           #+#    #+#             */
-/*   Updated: 2021/09/16 19:41:22 by yonishi          ###   ########.fr       */
+/*   Updated: 2021/09/16 21:04:39 by rtomiki          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ static void	expander_char(char **text, t_arg *arg)
 	expander_char_env(text, arg);
 	if (arg->dbg)
 		printf("replacing quote-----------\n");
-	expander_char_quote(text, arg);
+	expander_char_quote(text);
 }
 
 // accept 'NAME=value' or 'NAME+=value'

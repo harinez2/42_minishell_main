@@ -6,7 +6,7 @@
 /*   By: rtomiki <rtomiki@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/16 20:15:48 by rtomiki           #+#    #+#             */
-/*   Updated: 2021/09/16 20:32:43 by rtomiki          ###   ########.fr       */
+/*   Updated: 2021/09/16 21:04:01 by rtomiki          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ int	judge_escpae(char c, int *single_quote, int *escape, int *cnt)
 	return (0);
 }
 
-void	expander_char_quote(char **text, t_arg *arg)
+void	expander_char_quote(char **text)
 {
 	char	*new;
 	int		cnt;
@@ -35,7 +35,6 @@ void	expander_char_quote(char **text, t_arg *arg)
 	int		escape;
 	int		single_quote;
 
-	(void)arg;
 	new = (char *)malloc(ft_strlen(*text) + 1);
 	cnt = 0;
 	i = 0;
@@ -45,19 +44,7 @@ void	expander_char_quote(char **text, t_arg *arg)
 	{
 		if (judge_escpae((*text)[cnt], &single_quote, &escape, &cnt))
 			continue ;
-/*		if ((*text)[cnt] == '\'')
-			single_quote ^= 1;
-		if (((*text)[cnt] == '\"' && escape == 0) || (*text)[cnt] == '\''
-			|| (((*text)[cnt] == '\\' && single_quote == 0 && escape == 0)))
-		{
-			if ((*text)[cnt] == '\\')
-				escape = 1;
-			cnt ++;
-			continue ;
-		}*/
 		new[i] = (*text)[cnt];
-/*		if (arg->dbg)
-			printf("  cnt: %d, char: %c, esc: %d, single_quote: %d\n", cnt, (*text)[cnt], escape, single_quote);*/
 		i ++;
 		cnt ++;
 		if (escape == 1)
