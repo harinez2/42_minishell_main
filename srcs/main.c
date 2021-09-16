@@ -6,7 +6,7 @@
 /*   By: yonishi <yonishi@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/16 19:41:51 by yonishi           #+#    #+#             */
-/*   Updated: 2021/09/16 19:41:52 by yonishi          ###   ########.fr       */
+/*   Updated: 2021/09/16 20:39:40 by yonishi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,7 +62,12 @@ int	main(int argc, char **argv, char **envp)
 	while (1)
 	{
 		arg.read = readline(SHELL_PROMPT);
-		if (arg.read[0] != '\0')
+		if (arg.read == NULL)
+		{
+			write(1, "\n", 1);
+			break ;
+		}
+		else if (arg.read[0] != '\0')
 		{
 			add_history(arg.read);
 			command_execution(&arg);
