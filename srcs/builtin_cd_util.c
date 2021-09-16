@@ -2,14 +2,15 @@
 
 int	update_pwd_with_getcwd(char **dest_fullpath)
 {
-	char	currentpath[MAX_PATH_LEN];
-	char	*retcwd;
+	char		currentpath[MAX_PATH_LEN];
+	char		*retcwd;
+	struct stat	sb;
 
 	retcwd = getcwd(currentpath, MAX_PATH_LEN);
 	if (!retcwd)
-	{
 		return (errno);
-	}
+	if (lstat(*dest_fullpath, &sb) == 0 && S_ISLNK(sb.st_mode))
+		;
 	else
 	{
 		secure_free(*dest_fullpath);
