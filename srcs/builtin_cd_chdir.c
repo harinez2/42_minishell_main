@@ -88,7 +88,7 @@ static char	*resolve_relative_path(char *path)
 }
 
 int	run_chdir(
-	t_arg *arg, t_cmd *cmd, char *dest_path, char	**dest_fullpath)
+	t_arg *arg, t_cmd *cmd, char *dest_path, char **dest_fullpath)
 {
 	char	*tmppath;
 	int		ret;

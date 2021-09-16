@@ -5,7 +5,8 @@
 // 	|	">" string
 // 	|	"<<" string
 // 	|	">>" string
-int	bnf_redirection(t_arg *arg, int token_info[][3], int *i, int leftflg)
+int	bnf_redirection(
+	t_arg *arg, int token_info[][3], int *i, int leftflg)
 {
 	if (arg->dbg)
 		printf("%2d <redirection>\n", *i);

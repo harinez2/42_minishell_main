@@ -11,7 +11,7 @@ void		init_arg(int argc, char **argv, char **envp, t_arg *arg);
 int			builtincmd_cd(t_arg *arg, t_cmd *cmd);
 // builtin_cd_chdir.c
 int			run_chdir(
-				t_arg *arg, t_cmd *cmd, char *dest_path, char	**dest_fullpath);
+				t_arg *arg, t_cmd *cmd, char *dest_path, char **dest_fullpath);
 // builtin_cd_util.c
 int			update_pwd_with_getcwd(char **dest_fullpath);
 void		update_pwd_envs(t_arg *arg, char *dest_fullpath);
@@ -40,7 +40,8 @@ void		destroy_envlst(t_arg *arg);
 // env_envlst_add.c
 int			update_existing_env(
 				t_env	**envlst, char *env, char *value, t_arg *arg);
-void		push_back_envlst(t_env	**envlst, char *env, char *value, t_arg *arg);
+void		push_back_envlst(
+				t_env **envlst, char *env, char *value, t_arg *arg);
 int			concat_envvalue(char *text, int eqpos, int len, t_arg *arg);
 // env_envlst_util.c
 t_env		*get_node_from_envlst(t_env	*envlst, char *envname);
@@ -51,7 +52,8 @@ int			is_valid_env_definition(char *s);
 // error.c
 void		errmsg_prefix(t_error_no myerrcode, char *errcmd, char *argtxt);
 void		print_perror(int err_no, char *errcmd, char *argtxt, t_arg *arg);
-void		print_perror_exit(int err_no, char *errcmd, char *argtxt, t_arg *arg);
+void		print_perror_exit(
+				int err_no, char *errcmd, char *argtxt, t_arg *arg);
 // error_custom.c
 int			print_custom_error(
 				t_error_no myerrcode, char *errcmd, char *argtxt, t_arg *arg);
@@ -121,13 +123,15 @@ int			bnf_separation_op(t_arg *arg, int token_info[][3], int *i);
 int			bnf_command_line(t_arg *arg, int token_info[][3], int *i);
 int			parser(t_arg *arg, int token_info[][3]);
 // parser_bnf_compoundcmd.c
-int			bnf_redirection(t_arg *arg, int token_info[][3], int *i, int leftflg);
+int			bnf_redirection(
+				t_arg *arg, int token_info[][3], int *i, int leftflg);
 int			bnf_param_redir(t_arg *arg, int token_info[][3], int *i);
 int			bnf_command_elements(t_arg *arg, int token_info[][3], int *i);
 int			bnf_simple_command(t_arg *arg, int token_info[][3], int *i);
 int			bnf_compoud_command(t_arg *arg, int token_info[][3], int *i);
 // parser_bnf_redirection.c
-void		bnf_redirection_op(t_arg *arg, int token_info[][3], int *i, int leftflg);
+void		bnf_redirection_op(
+				t_arg *arg, int token_info[][3], int *i, int leftflg);
 // parser_heredoc.c
 char		*heredoc_read(t_arg *arg, char *eof_name);
 // signal.c

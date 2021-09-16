@@ -46,7 +46,8 @@ void	print_perror(int err_no, char *errcmd, char *argtxt, t_arg *arg)
 	putstr_stderr("\n");
 }
 
-void	print_perror_exit(int err_no, char *errcmd, char *argtxt, t_arg *arg)
+void	print_perror_exit(
+	int err_no, char *errcmd, char *argtxt, t_arg *arg)
 {
 	print_perror(err_no, errcmd, argtxt, arg);
 	destroy_arg(arg);
