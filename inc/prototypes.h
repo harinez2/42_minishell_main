@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   prototypes.h                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yonishi <yonishi@student.42tokyo.jp>       +#+  +:+       +#+        */
+/*   By: rtomiki <rtomiki@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/16 19:42:38 by yonishi           #+#    #+#             */
-/*   Updated: 2021/09/16 19:42:39 by yonishi          ###   ########.fr       */
+/*   Updated: 2021/09/16 21:04:15 by rtomiki          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,7 +90,7 @@ void		expander(t_arg *arg, t_cmd	*c);
 // expander_char_env.c
 void		expander_char_env(char **text, t_arg *arg);
 // expander_char_quote.c
-void		expander_char_quote(char **text, t_arg *arg);
+void		expander_char_quote(char **text);
 // lexer.c
 int			lexer(t_arg *arg, int token_info[][3]);
 // lexer_util.c
