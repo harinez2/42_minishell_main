@@ -90,6 +90,7 @@ void		expander(t_arg *arg, t_cmd	*c);
 // expander_char_env.c
 void		expander_char_env(char **text, t_arg *arg);
 // expander_char_quote.c
+int			judge_escpae(char c, int *single_quote, int *escape, int *cnt);
 void		expander_char_quote(char **text);
 // lexer.c
 int			lexer(t_arg *arg, int token_info[][3]);
