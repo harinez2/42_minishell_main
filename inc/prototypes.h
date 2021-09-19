@@ -149,7 +149,8 @@ void		bnf_redirection_op(
 char		*heredoc_read(t_arg *arg, char *eof_name);
 // signal.c
 void		sigint_handler(int signum);
-void		set_signal(void);
+void		set_signal(t_arg *arg);
+void		unset_signal(t_arg *arg);
 // struct_add.c
 int			cmd_add_redir_filename(t_arg *arg, int inout, char *read, int len);
 int			cmd_add_flg(t_arg *arg, t_token_type t, int flg);

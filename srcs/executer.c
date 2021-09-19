@@ -6,7 +6,7 @@
 /*   By: yonishi <yonishi@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/16 19:41:13 by yonishi           #+#    #+#             */
-/*   Updated: 2021/09/16 19:41:14 by yonishi          ###   ########.fr       */
+/*   Updated: 2021/09/19 17:28:09 by yonishi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,7 @@ static void	executer_childprocess(t_arg *arg, t_cmd *c)
 {
 	int		fd;
 
+	unset_signal(arg);
 	ignore_toomuch_redirout(arg, c);
 	if (c->redir_out_cnt != 0)
 	{
