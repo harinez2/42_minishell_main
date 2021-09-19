@@ -6,7 +6,7 @@
 /*   By: yonishi <yonishi@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/16 19:40:43 by yonishi           #+#    #+#             */
-/*   Updated: 2021/09/16 19:40:44 by yonishi          ###   ########.fr       */
+/*   Updated: 2021/09/19 15:58:03 by yonishi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ int	builtincmd_unset(t_arg *arg, t_cmd *cmd)
 	i = 1;
 	while (i < cmd->param_cnt)
 	{
-		if ((size_t)ft_strchr(cmd->param[i], '=') != ft_strlen(cmd->param[i]))
+		if (is_shellver_char(cmd->param[i], 0, ft_strlen(cmd->param[i])) == 0)
 		{
 			print_custom_error(
 				ERR_NOT_VALID_IDENTIFIER, cmd->param[0], cmd->param[i], arg);

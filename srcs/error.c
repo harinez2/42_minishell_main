@@ -6,7 +6,7 @@
 /*   By: yonishi <yonishi@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/16 19:40:58 by yonishi           #+#    #+#             */
-/*   Updated: 2021/09/16 19:40:59 by yonishi          ###   ########.fr       */
+/*   Updated: 2021/09/19 16:01:48 by yonishi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,7 @@ static int	get_retcode(t_error_no err_no)
 	else if (err_no == EACCES)
 		return (126);
 	else if (err_no == ENOTDIR)
-		return (1);
+		return (126);
 	else
 		return (MASK_7BIT);
 }

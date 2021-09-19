@@ -90,6 +90,7 @@ void		expander(t_arg *arg, t_cmd	*c);
 // expander_char_env.c
 void		expander_char_env(char **text, t_arg *arg);
 // expander_char_quote.c
+int			judge_escpae(char c, int *single_quote, int *escape, int *cnt);
 void		expander_char_quote(char **text);
 // lexer.c
 int			lexer(t_arg *arg, int token_info[][3]);
@@ -148,7 +149,10 @@ void		bnf_redirection_op(
 char		*heredoc_read(t_arg *arg, char *eof_name);
 // signal.c
 void		sigint_handler(int signum);
-void		set_signal(void);
+void		sig_handler_printreturn(int signum);
+void		set_signal(t_arg *arg);
+void		ignore_all_signal(t_arg *arg);
+void		reset_signal(t_arg *arg);
 // struct_add.c
 int			cmd_add_redir_filename(t_arg *arg, int inout, char *read, int len);
 int			cmd_add_flg(t_arg *arg, t_token_type t, int flg);

@@ -6,7 +6,7 @@
 /*   By: yonishi <yonishi@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/16 19:41:05 by yonishi           #+#    #+#             */
-/*   Updated: 2021/09/16 19:41:05 by yonishi          ###   ########.fr       */
+/*   Updated: 2021/09/19 15:52:37 by yonishi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,13 +41,14 @@ static int	exec_shellcmd_execve(t_cmd *cmd, t_arg *arg, char **env)
 	return (ret);
 }
 
-static int	exec_shellcmd_relativepath(t_cmd *cmd, t_arg *arg, char **env)
+static int	exec_shellcmd_relativepath(
+	t_cmd *cmd, t_arg *arg, char **env, int offset)
 {
 	int		ret;
 	char	*param_zero;
 
 	param_zero = cmd->param[0];
-	cmd->param[0] = ft_strjoin(arg->pwd, param_zero + 1);
+	cmd->param[0] = ft_strjoin3(arg->pwd, "/", param_zero + offset);
 	ret = exec_shellcmd_execve(cmd, arg, env);
 	secure_free(cmd->param[0]);
 	cmd->param[0] = param_zero;
@@ -93,7 +94,9 @@ int	exec_shellcmd(t_cmd *cmd, t_arg *arg)
 	if (cmd->param[0][0] == '/')
 		ret = exec_shellcmd_execve(cmd, arg, env);
 	else if (ft_strncmp(cmd->param[0], "./", 2) == 0)
-		ret = exec_shellcmd_relativepath(cmd, arg, env);
+		ret = exec_shellcmd_relativepath(cmd, arg, env, 2);
+	else if (arg->path_cnt == 0)
+		ret = exec_shellcmd_relativepath(cmd, arg, env, 0);
 	else
 	{
 		ret = exec_shellcmd_with_envpath(cmd, arg, env);

@@ -6,7 +6,7 @@
 /*   By: yonishi <yonishi@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/16 19:41:51 by yonishi           #+#    #+#             */
-/*   Updated: 2021/09/16 21:32:42 by yonishi          ###   ########.fr       */
+/*   Updated: 2021/09/19 16:52:05 by yonishi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,7 @@ int	main(int argc, char **argv, char **envp)
 	t_arg	arg;
 
 	init_arg(argc, argv, envp, &arg);
-	set_signal();
+	set_signal(&arg);
 	if (argc > 2 && ft_strncmp("-c", argv[1], 3) == 0)
 		return (inline_execution(&arg, argv[2]));
 	if (argc >= 2 && ft_strncmp("-d", argv[1], 3) == 0)
