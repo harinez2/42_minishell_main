@@ -149,6 +149,7 @@ void		bnf_redirection_op(
 char		*heredoc_read(t_arg *arg, char *eof_name);
 // signal.c
 void		sigint_handler(int signum);
+void		sig_handler_printreturn(int signum);
 void		set_signal(t_arg *arg);
 void		ignore_all_signal(t_arg *arg);
 void		reset_signal(t_arg *arg);
