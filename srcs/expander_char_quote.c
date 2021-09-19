@@ -6,7 +6,7 @@
 /*   By: rtomiki <rtomiki@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/16 20:15:48 by rtomiki           #+#    #+#             */
-/*   Updated: 2021/09/16 21:04:01 by rtomiki          ###   ########.fr       */
+/*   Updated: 2021/09/19 21:43:45 by rtomiki          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ int	judge_escpae(char c, int *single_quote, int *escape, int *cnt)
 {
 	if (c == '\'')
 		(*single_quote) ^= 1;
-	if ((c == '\"' && (*escape) == 0) || c == '\''
+	if ((c == '\"' && (*single_quote) == 0 && (*escape) == 0) || c == '\''
 		|| ((c == '\\' && (*single_quote) == 0 && (*escape) == 0)))
 	{
 		if (c == '\\')
