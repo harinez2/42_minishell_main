@@ -6,7 +6,7 @@
 /*   By: yonishi <yonishi@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/16 19:41:05 by yonishi           #+#    #+#             */
-/*   Updated: 2021/09/16 19:41:05 by yonishi          ###   ########.fr       */
+/*   Updated: 2021/09/19 15:45:32 by yonishi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,7 +92,8 @@ int	exec_shellcmd(t_cmd *cmd, t_arg *arg)
 	env = generate_environ(arg);
 	if (cmd->param[0][0] == '/')
 		ret = exec_shellcmd_execve(cmd, arg, env);
-	else if (ft_strncmp(cmd->param[0], "./", 2) == 0)
+	else if (ft_strncmp(cmd->param[0], "./", 2) == 0
+		|| arg->path_cnt == 0)
 		ret = exec_shellcmd_relativepath(cmd, arg, env);
 	else
 	{
