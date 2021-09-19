@@ -6,7 +6,7 @@
 /*   By: yonishi <yonishi@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/16 19:40:04 by yonishi           #+#    #+#             */
-/*   Updated: 2021/09/16 19:40:11 by yonishi          ###   ########.fr       */
+/*   Updated: 2021/09/19 15:32:02 by yonishi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,8 +85,8 @@ void	init_arg(int argc, char **argv, char **envp, t_arg *arg)
 		print_perror_exit(errno, "getcwd", NULL, arg);
 	arg->pwd = ft_strdup(currentpath);
 	init_envlst(arg);
+	push_back_envlst(&arg->envlst, ft_strdup("OLDPWD"), NULL, arg);
 	update_shlvl(arg);
-	arg->initial_home = NULL;
 	e = get_node_from_envlst(arg->envlst, "HOME");
 	if (!e)
 		print_custom_error_exit(ERR_HOME_NOT_SET, NULL, NULL, arg);
