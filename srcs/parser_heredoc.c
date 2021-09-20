@@ -6,7 +6,7 @@
 /*   By: yonishi <yonishi@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/16 19:42:01 by yonishi           #+#    #+#             */
-/*   Updated: 2021/09/16 19:42:01 by yonishi          ###   ########.fr       */
+/*   Updated: 2021/09/20 17:09:00 by yonishi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,8 @@ static int	heredoc_readline(int fd, char *eof_name)
 	while (1)
 	{
 		read = readline("> ");
+		if (read == NULL)
+			break ;
 		if (ft_strncmp(read, eof_name, ft_strlen(eof_name)) == 0)
 			break ;
 		write(fd, read, ft_strlen(read));
