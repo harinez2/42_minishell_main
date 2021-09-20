@@ -6,7 +6,7 @@
 /*   By: yonishi <yonishi@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/16 19:41:56 by yonishi           #+#    #+#             */
-/*   Updated: 2021/09/16 19:41:57 by yonishi          ###   ########.fr       */
+/*   Updated: 2021/09/20 17:44:44 by yonishi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,10 +46,13 @@ static void	bnf_redirection_heredoc(
 	t_arg *arg, int token_info[][3], int *i, int leftflg)
 {
 	char	*filename;
+	char	*eof_name;
 
 	if (arg->dbg)
 		printf("   =<<=\n");
-	filename = heredoc_read(arg, arg->read + token_info[*i][1]);
+	eof_name = ft_substr(arg->read, token_info[*i][1],
+			token_info[*i][2] - token_info[*i][1]);
+	filename = heredoc_read(arg, eof_name);
 	if (leftflg)
 		cmd_create_node_with_redir(arg, 0, filename,
 			HEREDOC_FILENAME_LEN);
@@ -58,6 +61,7 @@ static void	bnf_redirection_heredoc(
 			HEREDOC_FILENAME_LEN);
 	cmd_add_flg(arg, TKN_HEREDOC, 1);
 	secure_free(filename);
+	secure_free(eof_name);
 }
 
 static void	bnf_redirection_append(
